@@ -3,6 +3,6 @@
 
 module.exports = {
     db: {
-        uri: '', //place the URI of your mongo database here.
+        uri: 'mongodb+srv://StudyEdgeScheduler:StudyEdge3a@studyedgedb-qa4jm.mongodb.net/test?retryWrites=true&w=majority', //place the URI of your mongo database here.
     }
 };
