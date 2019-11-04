@@ -27,7 +27,7 @@ let bookingSchema = new Schema({
         type: String,
         required: true
     },
-    sessionTitle: String
+    Notes: String
 });
 
 let booking = mongoose.model('BookedSession', bookingSchema);
