@@ -50,3 +50,7 @@ let Session = require('../models/bookSession.js'),
           }
         })
       };
+
+      exports.hello =(req,res){
+          console.log("sup")
+      }

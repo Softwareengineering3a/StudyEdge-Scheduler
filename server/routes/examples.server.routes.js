@@ -1,8 +1,8 @@
-const examples = require('../controllers/examples.server.controller.js'),
+const Sessions = require('../controllers/Sessions.js'),
     express = require('express'), 
     router = express.Router()
 
 router.route('/')
-  .get(examples.hello);
+  .get(Sessions.read)
   
 module.exports = router;
