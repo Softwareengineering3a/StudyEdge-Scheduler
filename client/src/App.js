@@ -7,7 +7,7 @@ import Header from "./components/Header/Header"
 
 const App = () => {
   return (
-    <div>
+    <main>
       <Header />
       <Switch>
         <Route exact path="/Home" component={Home} />
@@ -16,7 +16,7 @@ const App = () => {
         </Route>
         <Route component={NotFound}/>
       </Switch>
-    </div>
+    </main>
   );
 }
 

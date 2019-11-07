@@ -20,3 +20,37 @@
 .App-link {
     color: #09d3ac;
 }
+
+/* ##### Column setup ##### */
+
+.column1 {
+	float: left;
+	width: 65%;
+    padding: 10px;
+    background-color: #2aa9d3;
+}
+.column2 {
+	float: right;
+	width: 30%;
+	padding: 10px;
+	background-color: #c6c6c6;
+}
+
+.column3 {
+	float: right;
+	width: 50%;
+	padding: 20px;
+	background-color: lightgray;
+}
+
+/* ##### Rows ##### */
+.row {
+	margin: 1rem;
+}
+
+.row:after {
+	padding: 1 0rem;
+	content: '';
+	display: table;
+	clear: both;
+}
