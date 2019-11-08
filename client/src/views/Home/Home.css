@@ -2,36 +2,52 @@ body {
     margin: 0;
 }
 
-.App {
+.center {
+    float: center;
     text-align: center;
+    align-content: center;
+    align-self: auto;
+    vertical-align: auto;
 }
 
+h1 {
+    font-size: 2.75rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.01562em;
+}
+
+p {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
 
 /* ##### Column setup ##### */
 
 .column1 {
 	float: left;
-	width: 65%;
+    width: 65%;
+    min-height: 84vh;
     padding: 10px;
     background-color: #2aa9d3;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .column2 {
 	float: right;
-	width: 30%;
+    width: 32%;
+    min-height: 84vh;
 	padding: 10px;
 	background-color: #c6c6c6;
 }
 
-.column3 {
-	float: right;
-	width: 50%;
-	padding: 20px;
-	background-color: lightgray;
-}
-
 /* ##### Rows ##### */
 .row {
-	margin: 1rem;
+    /* margin: 1rem; */
+    margin: 0;
 }
 
 .row:after {
