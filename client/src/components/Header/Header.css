@@ -1,5 +1,4 @@
 .App-header {
-    margin: 0;
     background-color: #282c34;
     min-height: 1vh;
     display: flex;
@@ -8,4 +7,12 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+}
+
+h1 {
+    font-size: 3rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.01562em;
 }

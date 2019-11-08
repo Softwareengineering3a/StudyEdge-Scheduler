@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect  } from 'react-router-dom';
+import 'typeface-roboto';
 import Home from "./views/Home/Home"
 import NotFound from "./views/NotFound"
 import Header from "./components/Header/Header"
@@ -7,7 +8,7 @@ import Header from "./components/Header/Header"
 
 const App = () => {
   return (
-    <main>
+    <div>
       <Header />
       <Switch>
         <Route exact path="/Home" component={Home} />
@@ -16,7 +17,7 @@ const App = () => {
         </Route>
         <Route component={NotFound}/>
       </Switch>
-    </main>
+    </div>
   );
 }
 
