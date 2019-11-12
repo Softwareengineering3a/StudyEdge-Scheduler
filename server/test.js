@@ -10,9 +10,9 @@ var myReservation,  id;
 myReservation =  {
     date : "11/7/2019",
     time : 1300,
-    class : "Software Engineering",
-    tutor : "Jack Rasmussen",
-    location : "NEB1337"
+    class : "Computer Organization",
+    tutor : "Miranda Overstreet",
+    location : "CSE352"
 }
 
 describe('Reservation Schema Unit Tests', function() {
