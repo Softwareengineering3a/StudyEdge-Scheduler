@@ -41,39 +41,32 @@ class Home extends Component {
 
         return (
             <main>
-                <Grid  
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-                spacing={0}
-                
-                >
-                    <Grid item >  
-                        <Card >
-                            <CardContent>
-                                <div>
-                                    <SelectACourse></SelectACourse>
-                                    <Fab className = "CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} >
-                                        <AddIcon/>
-                                    </Fab>
-                                </div>
-                                    <StaticDatePicker></StaticDatePicker>
-                                
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid>
-                        <Card>
-                            <div>  
-                                {this.state.showCreateSession ?
-                                        <CreateASession /> :
-                                        null
-                                        }
-                            </div>
-                        </Card>
-                    </Grid>
-                </Grid>
+                    <Card>
+                        <Grid container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        spacing={0}
+                        >  
+                            <Grid item >
+                                <CardContent >
+                                        <SelectACourse></SelectACourse>
+                                        <Fab className = "CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} >
+                                            <AddIcon/>
+                                        </Fab>
+                                        <StaticDatePicker></StaticDatePicker>
+                                </CardContent> 
+                            </Grid>           
+                            <Grid item >             
+                                <CardContent>
+                                    {this.state.showCreateSession ?
+                                            <CreateASession /> :
+                                            null
+                                            }
+                                </CardContent>
+                            </Grid> 
+                        </Grid>                     
+                    </Card>
             </main>
         );
     }
