@@ -1,0 +1,18 @@
+{
+    "entries": [
+        {
+            "date" : "11/7/2019",
+            "time" : 1300,
+            "class" : "Software Engineering",
+            "tutor" : "Jack Rasmussen",
+            "location" : "NEB1337"
+        }, 
+        {
+            "date" : "11/7/2019",
+            "time" : 1700,
+            "class" : "Database Systems",
+            "tutor" : "Mustafa Mohamed",
+            "location" : "NEB1338"
+        }
+    ]
+}
