@@ -42,8 +42,8 @@ class Home extends Component {
     render(){
         const theme = createMuiTheme({
             palette: {
-              primary: { main: '#039be5' }, // Purple and green play nicely together.
-              secondary: { main: '#43a047' }, // This is just green.A700 as hex.
+              primary: { main: '#039be5' }, 
+              secondary: { main: '#43a047' }, 
             },
           });
         return (
