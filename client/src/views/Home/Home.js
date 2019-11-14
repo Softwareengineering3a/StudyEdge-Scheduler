@@ -9,6 +9,8 @@ import StaticDatePicker from './StaticDatePicker';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import '../../components/SelectACourse/SelectACourse.css';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 
 
 class Home extends Component {
@@ -38,10 +40,20 @@ class Home extends Component {
     }
 
     render(){
-
+        const theme = createMuiTheme({
+            palette: {
+              primary: { main: '#039be5' }, // Purple and green play nicely together.
+              secondary: { main: '#43a047' }, // This is just green.A700 as hex.
+            },
+          });
         return (
             <main>
-                    <Card>
+            <ThemeProvider theme={theme}>
+                <Grid container   
+                justify="center"
+                alignItems="center"
+                >
+                    <Card style = {{display: 'inline-block'}}>
                         <Grid container
                         direction="row"
                         justify="center"
@@ -50,10 +62,13 @@ class Home extends Component {
                         >  
                             <Grid item >
                                 <CardContent >
-                                        <SelectACourse></SelectACourse>
+                                    <Grid style={{ position: 'absolute'}}>
+                                        <SelectACourse style={{ zIndex: 1 }}></SelectACourse>
+                                    </Grid>
                                         <Fab className = "CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} >
                                             <AddIcon/>
                                         </Fab>
+
                                         <StaticDatePicker></StaticDatePicker>
                                 </CardContent> 
                             </Grid>           
@@ -67,6 +82,8 @@ class Home extends Component {
                             </Grid> 
                         </Grid>                     
                     </Card>
+                </Grid>   
+                </ThemeProvider>
             </main>
         );
     }

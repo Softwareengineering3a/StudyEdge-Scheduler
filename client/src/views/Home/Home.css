@@ -22,41 +22,10 @@ p {
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
-/* ##### Column setup ##### */
-
-.column1 {
-	float: left;
-    width: 65%;
-    min-height: 84vh;
-    padding: 10px;
-    background-color: #2aa9d3;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.column2 {
-	float: right;
-    width: 32%;
-    min-height: 84vh;
-	padding: 10px;
-	background-color: #c6c6c6;
-}
-
-/* ##### Rows ##### */
-.row {
-    /* margin: 1rem; */
-    margin: 0;
-}
-
-.row:after {
-	padding: 1 0rem;
-	content: '';
-	display: table;
-	clear: both;
-}
-
 .CreateButton {
     left:450px;
  }
+
+ .Menu {
+    position: absolute;
+}

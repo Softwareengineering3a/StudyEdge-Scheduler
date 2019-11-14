@@ -13,6 +13,7 @@ const StaticDatePicker = () => {
         openTo="date"
         value={date}
         onChange={changeDate}
+        disablePast
       />
     </MuiPickersUtilsProvider>
   );
