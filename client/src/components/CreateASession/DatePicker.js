@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
 function DatePicker(props) {
-  const [selectedDate, handleDateChange] = useState(new Date("2018-01-01T00:00:00.000Z"));
+  const [selectedDate, handleDateChange] = useState(new Date());
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>

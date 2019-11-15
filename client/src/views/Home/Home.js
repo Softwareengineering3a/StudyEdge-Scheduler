@@ -22,6 +22,7 @@ class Home extends Component {
         this.state = {
             date: new Date(),
             showCreateSession: false,
+            admin: true,
         };
         this.displayCreateSession = this.displayCreateSession.bind(this);
     }
@@ -38,6 +39,7 @@ class Home extends Component {
             showCreateSession: true,
         });
     }
+    
 
     render(){
         const theme = createMuiTheme({

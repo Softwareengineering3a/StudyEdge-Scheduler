@@ -16,9 +16,9 @@ class CreateASession extends Component {
                 container
                 direction="column"
                 alignItems="center"
-                spacing={0}
+                spacing={4}
                 >
-                    <Typography variant="h5" className = "center">
+                    <Typography variant="h4" className = "center">
                         Create a Session 
                     </Typography>
                 <form autoComplete="off">      
@@ -27,7 +27,7 @@ class CreateASession extends Component {
                                 container
                                 direction="row"
                                 alignItems="center"
-                                spacing={0}
+                                spacing={4}
                             >
                                 <Grid item>
                                     <Typography variant = "subtitle1">Session Title</Typography>
@@ -35,7 +35,7 @@ class CreateASession extends Component {
                                     required
                                     id="standard-required"
                                     label="Required"
-                                    defaultValue="Hello World"
+
                                     />
                                 </Grid>
 
@@ -43,7 +43,7 @@ class CreateASession extends Component {
                             <Grid
                                 container
                                 direction="row"
-                                spacing={0}
+                                spacing={4}
                             >
                                 <Grid item>
                                     <Typography variant = "subtitle1">Course</Typography>
@@ -51,7 +51,6 @@ class CreateASession extends Component {
                                     required
                                     id="standard-required"
                                     label="Required"
-                                    defaultValue="Hello World"
                                     />
                                 </Grid>
                                 <Grid item>
@@ -60,16 +59,15 @@ class CreateASession extends Component {
                                     required
                                     id="standard-required"
                                     label="Required"
-                                    defaultValue="Hello World"
                                         />
                                 </Grid>
                             </Grid>
                             <Grid container
                                 direction="row"
-                                spacing={0}
+                                spacing={4}
                                 >
                                 <Grid item>
-                                    <Typography variant = "subtitle1">Date</Typography>
+                                    <Typography variant = "subtitle1">Date & Time </Typography>
                                     <DatePicker></DatePicker>
                                 </Grid>
                                 <Grid item>
@@ -78,18 +76,17 @@ class CreateASession extends Component {
                                     required
                                     id="standard-required"
                                     label="Required"
-                                    defaultValue="Hello World"
                                 />
                                 </Grid>
                             </Grid>
                         <Grid item>
                             <Typography variant = "subtitle1">Notes</Typography>
                             <TextField
-                                defaultValue="Hello World"
+                                
                             />
                         </Grid>
                         <Grid item className = "center">
-                            <Button variant="contained" color="secondary">Confirm</Button>
+                            <Button type="submit" variant="contained" color="secondary">Confirm</Button>
                         </Grid>
                     </Grid>
                 </form>
