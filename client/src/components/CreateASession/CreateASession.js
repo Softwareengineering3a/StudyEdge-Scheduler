@@ -18,7 +18,7 @@ class CreateASession extends Component {
                 alignItems="center"
                 spacing={4}
                 >
-                    <Typography variant="h4" className = "center">
+                    <Typography variant="h5" className = "center">
                         Create a Session 
                     </Typography>
                 <form autoComplete="off">      
