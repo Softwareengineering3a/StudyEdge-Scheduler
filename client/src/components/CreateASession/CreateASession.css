@@ -1,31 +1,17 @@
-body {
-    margin: 0;
-}
-
 .center {
     float: center;
     text-align: center;
     align-content: center;
     align-self: auto;
     vertical-align: auto;
+    margin-top: 20;
 }
 
-h1 {
-    font-size: 2.75rem;
+h2 {
+    font-size: 1.75rem;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 300;
     line-height: 1;
     letter-spacing: -0.01562em;
-}
-
-p {
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-}
-
-.CreateButton {
-    left:450px;
- }
-
- .Menu {
-    position: absolute;
+    color: gray;
 }
