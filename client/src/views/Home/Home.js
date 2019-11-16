@@ -67,8 +67,8 @@ class Home extends Component {
                         >  
                             <Grid item >
                                 <CardContent >
-                                    <Grid style={{ position: 'absolute'}}>
-                                        <SelectACourse style={{ zIndex: 1 }}></SelectACourse>
+                                    <Grid style={{ position: 'absolute', zIndex: 1}}>
+                                        <SelectACourse></SelectACourse>
                                     </Grid>
                                         <Fab className = "CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} >
                                             <AddIcon/>
