@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'), 
-    Session = require('../ReservationSchema');
+    Session = require('../models/SessionSchema');
 
 exports.create = function(req, res) {
     console.log(req.body);
