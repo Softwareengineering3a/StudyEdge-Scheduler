@@ -83,7 +83,7 @@ class CreateASession extends Component {
                                     type="text"
                                     name="title"
                                     onChange={this.handleInputChange}
-					                value={this.state.title}
+					                value={this.state.title} 
                                     />
                                 </Grid>
 
