@@ -6,6 +6,8 @@ const path = require('path'),
     exampleRouter = require('../routes/examples.server.routes'),
     sessionRouter = require('../routes/sessionRouter');
 
+var cors = require('cors');
+
 module.exports.init = () => {
     /* 
         connect to database
@@ -17,8 +19,13 @@ module.exports.init = () => {
     mongoose.set('useCreateIndex', true);
     mongoose.set('useFindAndModify', false);
 
+
+
     // initialize app
     const app = express();
+
+    //CORS
+    app.use(cors());
 
     // enable request logging for development debugging
     app.use(morgan('dev'));

@@ -11,11 +11,10 @@ function DatePicker(props) {
             variant="inline"
             value={selectedDate}
             onChange={handleDateChange}
-            onError={console.log}
+            onError={console.log} 
             disablePast
-            format="MM/dd/yyy hh:mm a"
+            format="MM/dd/yyyy hh:mm a"
             label="Required"
-            
           />
     </MuiPickersUtilsProvider>
       );
