@@ -25,6 +25,7 @@ export default function SplitButton() {
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setOpen(false);
+    console.info(`You clicked ${options[index]}`);
   };
 
   const handleToggle = () => {

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Home.css';
 import SelectACourse from '../../components/SelectACourse/SelectACourse';
 import CreateASession from '../../components/CreateASession/CreateASession';
+import AvailableSessions from '../../components/AvailableSessions/AvailableSessions';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
@@ -23,8 +24,10 @@ class Home extends Component {
             date: new Date(),
             showCreateSession: false,
             admin: true,
+            controlledDate: null,
         };
         this.displayCreateSession = this.displayCreateSession.bind(this);
+        this.getDay = this.getDay;
     }
 
     dateUpdate(date){
@@ -39,9 +42,9 @@ class Home extends Component {
             showCreateSession: true,
         });
     }
-    
 
     render(){
+        
         const theme = createMuiTheme({
             palette: {
               primary: { main: '#039be5' }, 
@@ -64,8 +67,8 @@ class Home extends Component {
                         >  
                             <Grid item >
                                 <CardContent >
-                                    <Grid style={{ position: 'absolute'}}>
-                                        <SelectACourse style={{ zIndex: 1 }}></SelectACourse>
+                                    <Grid style={{ position: 'absolute', zIndex: 1}}>
+                                        <SelectACourse></SelectACourse>
                                     </Grid>
                                         <Fab className = "CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} >
                                             <AddIcon/>
@@ -80,6 +83,7 @@ class Home extends Component {
                                             <CreateASession /> :
                                             null
                                             }
+                                    <AvailableSessions></AvailableSessions>
                                 </CardContent>
                             </Grid> 
                         </Grid>                     
