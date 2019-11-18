@@ -103,7 +103,7 @@ class CreateASession extends Component {
                                     <TextField
                                         required
                                         id="standard-required"
-                                        label="Required"
+                                        label="Session Title"
                                         type="text"
                                         name="title"
                                         onChange={this.handleInputChange}

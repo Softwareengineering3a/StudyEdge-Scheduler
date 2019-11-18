@@ -14,7 +14,7 @@ class AvailableSessions extends Component {
         this.displayCreateSession = this.displayCreateSession.bind(this);
     }
     
-    displayCreateSession = (id) => {
+    displayCreateSession = (id) => () => {
         this.setState({
             showCreateSession: true,
             modelId: id
@@ -58,7 +58,7 @@ class AvailableSessions extends Component {
                 spacing={0}
                 key={index}
                 >
-                <Button variant="outlined" color="primary" key={index} onClick = {this.displayCreateSession}>
+                <Button variant="outlined" color="primary" key={index} onClick = {this.displayCreateSession(session.id)}>
                     <Grid item>
                     <Grid>{session.course}</Grid>
                     <Grid>{session.title}</Grid>
@@ -78,7 +78,7 @@ class AvailableSessions extends Component {
                 spacing={0}>
             <Grid item>
             {this.state.showCreateSession ?
-            <DetailedSessionView myReservation = {myReservation} /> :
+            <DetailedSessionView myReservation = {myReservation} id={this.state.modelId} /> :
                 <Grid item>
                  <Typography variant="h5" className = "center">
                     Available Sessions 
