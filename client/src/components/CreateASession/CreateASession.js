@@ -85,11 +85,11 @@ class CreateASession extends Component {
                     container
                     direction="column"
                     alignItems="center"
-                    spacing={4}
+                    spacing={0}
                 >
                     <Typography variant="h5" className="center">
                         Create a Session
-                </Typography>
+                    </Typography>
                     <form autoComplete="off">
                         <Grid item>
                             <Grid

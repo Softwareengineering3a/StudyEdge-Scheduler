@@ -38,14 +38,6 @@ class Home extends Component {
             controlledDate: null,
         };
         this.displayCreateSession = this.displayCreateSession.bind(this);
-        this.getDay = this.getDay;
-    }
-
-    dateUpdate(date) {
-        this.setState({ date: date })
-        if (date) {
-            console.log(date);
-        }
     }
 
     displayCreateSession = () => {
@@ -84,7 +76,6 @@ class Home extends Component {
                                         <Fab className="CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} onDoubleClick="disable" >
                                             <AddIcon />
                                         </Fab>
-
                                         <StaticDatePicker onClick ={this.listSessions} />
                                     </CardContent>
                                 </Grid>
@@ -92,9 +83,8 @@ class Home extends Component {
                                     <CardContent>
                                         {this.state.showCreateSession ?
                                             <CreateASession /> :
-                                            null
+                                            <AvailableSessions />
                                         }
-                                        <AvailableSessions></AvailableSessions>
                                     </CardContent>
                                 </Grid>
                             </Grid>
