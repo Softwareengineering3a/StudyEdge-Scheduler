@@ -1,42 +1,66 @@
-import React,{Component} from 'react';
+import React, { useState, Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import './CreateASession.css';
 import { Typography } from '@material-ui/core';
-import DatePicker from './DatePicker';
+import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 import axios from 'axios';
 
+export function DatePicker(props) {
+    const [selectedDate, handleDateChange] = useState(new Date());
+
+    return (
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDateTimePicker
+                variant="inline"
+                value={selectedDate}
+                onChange={handleDateChange}
+                onError={console.log}
+                disablePast
+                format="MM/dd/yyyy hh:mm a"
+                label="Required"
+            />
+        </MuiPickersUtilsProvider>
+    );
+}
 
 class CreateASession extends Component {
-
     constructor() {
         super();
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDate = this.handleDate.bind(this);
         this.state = {
             title: '',
             course: '',
             location: '',
-            date: new Date(),
+            date: new Date().toLocaleString(),
             slots: 0,
             notes: ''
         }
 
+
     }
-    
-    handleInputChange(event){
+
+
+    handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
         this.setState({
             [name]: value
-          });
-        console.log(name,value);
+        });
+        console.log(name, value);
     }
 
-    handleSubmit(e){
+    handleDate(date) {
+        this.setState({date: date})
+    }
+
+    handleSubmit(e) {
         axios.post('http://localhost:5000/sessions', {
             "title": this.state.title,
             "class": this.state.course,
@@ -45,29 +69,30 @@ class CreateASession extends Component {
             "slots": this.state.slots,
             "notes": this.state.notes
         })
-        .then(function (response){
-            console.log(response)
-        })
-        .catch(function (error){
-            console.log(error)
-        });
-        e.preventDefault();
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+        //e.preventDefault();
     }
 
-    render(){
+    render() {
         return (
             <main>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid
-                container
-                direction="column"
-                alignItems="center"
-                spacing={4}
+                    container
+                    direction="column"
+                    alignItems="center"
+                    spacing={4}
                 >
-                <Typography variant="h5" className = "center">
-                    Create a Session 
+                    <Typography variant="h5" className="center">
+                        Create a Session
                 </Typography>
-                <form autoComplete="off">      
-                    <Grid item>   
+                    <form autoComplete="off">
+                        <Grid item>
                             <Grid
                                 container
                                 direction="row"
@@ -75,15 +100,15 @@ class CreateASession extends Component {
                                 spacing={4}
                             >
                                 <Grid item>
-                                    <Typography variant = "subtitle1">Session Title</Typography>
+                                    <Typography variant="subtitle1">Session Title</Typography>
                                     <TextField
-                                    required
-                                    id="standard-required"
-                                    label="Required"
-                                    type="text"
-                                    name="title"
-                                    onChange={this.handleInputChange}
-					                value={this.state.title} 
+                                        required
+                                        id="standard-required"
+                                        label="Required"
+                                        type="text"
+                                        name="title"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.title}
                                     />
                                 </Grid>
 
@@ -94,71 +119,75 @@ class CreateASession extends Component {
                                 spacing={4}
                             >
                                 <Grid item>
-                                    <Typography variant = "subtitle1">Course</Typography>
+                                    <Typography variant="subtitle1">Course</Typography>
                                     <TextField
-                                    required
-                                    id="standard-required"
-                                    label="Required"
-                                    type="text"
-                                    name="course"
-                                    onChange={this.handleInputChange}
-					                value={this.state.course}
+                                        required
+                                        id="standard-required"
+                                        label="Required"
+                                        type="text"
+                                        name="course"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.course}
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant = "subtitle1">Location</Typography>
+                                    <Typography variant="subtitle1">Location</Typography>
                                     <TextField
-                                    required
-                                    id="standard-required"
-                                    label="Required"
-                                    type="text"
-                                    name="location"
-                                    onChange={this.handleInputChange}
-					                value={this.state.location}
+                                        required
+                                        id="standard-required"
+                                        label="Required"
+                                        type="text"
+                                        name="location"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.location}
                                     />
                                 </Grid>
                             </Grid>
                             <Grid container
                                 direction="row"
                                 spacing={4}
-                                >
+                            >
                                 <Grid item>
-                                    <Typography variant = "subtitle1">Date & Time</Typography>
-                                    <DatePicker 
-                                        type="Date"
-                                        name="date"
-                                        /* selected={this.state.date}
-                                        onChange={this.dateChanged} */
+                                    <Typography variant="subtitle1">Date & Time</Typography>
+                                    <KeyboardDateTimePicker 
+                                    value={this.state.date}
+                                    onChange={this.handleDate}
+                                    onError={console.log}
+                                    disablePast
+                                    minDate ={new Date()}
+                                    format="MM/dd/yyyy hh:mm a"
+                                    label="Required"
                                     />
                                 </Grid>
                                 <Grid item>
-                                <Typography variant = "subtitle1">Slots</Typography>
-                                <TextField
-                                    required
-                                    id="standard-required"
-                                    label="Required"
-                                    type="number"
-                                    name="slots"
-                                    onChange={this.handleInputChange}
-					                value={this.state.slots}
-                                />
+                                    <Typography variant="subtitle1">Slots</Typography>
+                                    <TextField
+                                        required
+                                        id="standard-required"
+                                        label="Required"
+                                        type="number"
+                                        name="slots"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.slots}
+                                    />
                                 </Grid>
                             </Grid>
-                        <Grid item>
-                            <Typography variant = "subtitle1">Notes</Typography>
-                            <TextField
+                            <Grid item>
+                                <Typography variant="subtitle1">Notes</Typography>
+                                <TextField
                                     type="text"
                                     name="notes"
                                     onChange={this.handleInputChange}
                                     value={this.state.notes}
-                            />
+                                />
+                            </Grid>
+                            <Grid item className="center">
+                                <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Confirm</Button>
+                            </Grid>
                         </Grid>
-                        <Grid item className = "center">
-                            <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Confirm</Button>
-                        </Grid>
-                    </Grid>
-                </form>
+                    </form>
                 </Grid>
+                </MuiPickersUtilsProvider>
             </main>
         )
     }

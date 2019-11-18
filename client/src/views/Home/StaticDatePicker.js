@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns"; 
+import DateFnsUtils from "@date-io/date-fns";
 
 const StaticDatePicker = () => {
   const [date, changeDate] = useState(new Date());
   return (
-<MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DatePicker
         autoOk
         orientation="landscape"

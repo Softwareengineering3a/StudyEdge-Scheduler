@@ -70,7 +70,7 @@ class Home extends Component {
                                     <Grid style={{ position: 'absolute', zIndex: 1}}>
                                         <SelectACourse></SelectACourse>
                                     </Grid>
-                                        <Fab className = "CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} >
+                                        <Fab className = "CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} onDoubleClick="disable" >
                                             <AddIcon/>
                                         </Fab>
 
