@@ -75,7 +75,6 @@ class CreateASession extends Component {
             .catch(function (error) {
                 console.log(error)
             });
-        //e.preventDefault();
     }
 
     render() {
