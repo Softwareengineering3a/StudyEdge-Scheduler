@@ -9,27 +9,28 @@ class AvailableSessions extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showCreateSession: false,
+            showDetailedSession: false,
         };
-        this.displayCreateSession = this.displayCreateSession.bind(this);
+        this.displayDetailedSession = this.displayDetailedSession.bind(this);
     }
     
-    displayCreateSession = (id) => () => {
+    displayDetailedSession = (id) => () => {
         this.setState({
-            showCreateSession: true,
-            modelId: id
+            showDetailedSession: true,
+            sessionId: id
         });
     }
 
     render(){
 
-        const myReservation = [{
+        const mySessions = [{
             id: 1,
             date : "11/6/2019",
             time : 1300,
             course : "CHM2045",
             title : "Exam 3 Review",
             location : "CSE352",
+            notes: "ay",
             slots: 10
         },
         {   id: 2,
@@ -38,19 +39,21 @@ class AvailableSessions extends Component {
             course : "MAC2313",
             title : "Exam 2 Review",
             location : "CSE352",
+            notes: "ayyy",
             slots: 15
         },
         {
             id: 3,
             date : "11/7/2019",
             time : 1300,
-            course : "MAC2313",
+            course : "MAC2312",
             title : "Exam 2 Review",
-            location : "CSE352",
+            location : "Marston",
+            notes: "ayyyyyyy",
             slots: 15
         }
         ]
-        const listSessions = myReservation.map((session, index) =>
+        const listSessions = mySessions.map((session, index) =>
             <Grid container  
                 direction="column"
                 alignItems="center"
@@ -58,13 +61,13 @@ class AvailableSessions extends Component {
                 spacing={0}
                 key={index}
                 >
-                <Button variant="outlined" color="primary" key={index} onClick = {this.displayCreateSession(session.id)}>
+                <Button variant="outlined" color="primary" key={index} onClick = {this.displayDetailedSession(session.id)}>
                     <Grid item>
                     <Grid>{session.course}</Grid>
                     <Grid>{session.title}</Grid>
                     <Grid>{session.location}</Grid>
                     <Grid>{session.time}</Grid>
-                    <Grid>{session.slots}</Grid>
+                    <Grid container justify = "flex-end">{session.slots}</Grid>
                     </Grid>
                 </Button>
             </Grid>
@@ -75,18 +78,18 @@ class AvailableSessions extends Component {
                 direction="column"
                 alignItems="center"
                 justify = "center"
-                spacing={0}>
-            <Grid item>
-            {this.state.showCreateSession ?
-            <DetailedSessionView myReservation = {myReservation} id={this.state.modelId} /> :
+                spacing={4}>
                 <Grid item>
-                 <Typography variant="h5" className = "center">
-                    Available Sessions 
-                </Typography>
-                {listSessions}
-                </Grid>}
+                    {this.state.showDetailedSession ?
+                    <DetailedSessionView mySessions = {mySessions} id={this.state.sessionId} /> :
+                    <Grid item>
+                        <Typography variant="h5" className = "center">
+                        Available Sessions 
+                        </Typography>
+                        {listSessions}
+                    </Grid>}
+                </Grid>
             </Grid>
-        </Grid>
         );
     }
 }

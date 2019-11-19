@@ -122,7 +122,7 @@ class CreateASession extends Component {
                                     <TextField
                                         required
                                         id="standard-required"
-                                        label="Required"
+                                        label="Course"
                                         type="text"
                                         name="course"
                                         onChange={this.handleInputChange}
@@ -134,7 +134,7 @@ class CreateASession extends Component {
                                     <TextField
                                         required
                                         id="standard-required"
-                                        label="Required"
+                                        label="Location"
                                         type="text"
                                         name="location"
                                         onChange={this.handleInputChange}
@@ -155,7 +155,7 @@ class CreateASession extends Component {
                                     disablePast
                                     minDate ={new Date()}
                                     format="MM/dd/yyyy hh:mm a"
-                                    label="Required"
+                                    label="Date and Time"
                                     />
                                 </Grid>
                                 <Grid item>
@@ -163,7 +163,7 @@ class CreateASession extends Component {
                                     <TextField
                                         required
                                         id="standard-required"
-                                        label="Required"
+                                        label="Slots"
                                         type="number"
                                         name="slots"
                                         onChange={this.handleInputChange}
@@ -171,17 +171,23 @@ class CreateASession extends Component {
                                     />
                                 </Grid>
                             </Grid>
+                            <Grid  container
+                                direction="column"
+                                alignItems="center"
+                                spacing={4}>
                             <Grid item>
                                 <Typography variant="subtitle1">Notes</Typography>
                                 <TextField
                                     type="text"
                                     name="notes"
+                                    label = "notes"
                                     onChange={this.handleInputChange}
                                     value={this.state.notes}
                                 />
-                            </Grid>
-                            <Grid item className="center">
+                            </Grid >
+                            <Grid item >
                                 <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Confirm</Button>
+                            </Grid>
                             </Grid>
                         </Grid>
                     </form>
