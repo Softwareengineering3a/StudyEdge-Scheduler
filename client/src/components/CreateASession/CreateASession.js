@@ -180,7 +180,7 @@ class CreateASession extends Component {
                                 <TextField
                                     type="text"
                                     name="notes"
-                                    label = "notes"
+                                    label = "Notes"
                                     onChange={this.handleInputChange}
                                     value={this.state.notes}
                                 />

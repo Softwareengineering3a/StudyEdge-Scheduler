@@ -4,6 +4,14 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import DetailedSessionView from '../DetailedSessionView/DetailedSessionView';
 
+const style = {
+    button: {
+      margin: 'auto',
+      width: 200,
+      
+    },
+  };
+
 
 class AvailableSessions extends Component {
     constructor(props) {
@@ -26,30 +34,30 @@ class AvailableSessions extends Component {
         const mySessions = [{
             id: 1,
             date : "11/6/2019",
-            time : 1300,
+            time : "3:30 PM",
             course : "CHM2045",
             title : "Exam 3 Review",
             location : "CSE352",
-            notes: "ay",
+            notes: "Meet in Marston Library, Bring pens and pencils.",
             slots: 10
         },
         {   id: 2,
             date : "11/7/2019",
-            time : 1320,
+            time : "4:00 PM",
             course : "MAC2313",
             title : "Exam 2 Review",
             location : "CSE352",
-            notes: "ayyy",
+            notes: "Blah blah blah blah blah",
             slots: 15
         },
         {
             id: 3,
             date : "11/7/2019",
-            time : 1300,
+            time : "5:00 PM",
             course : "MAC2312",
             title : "Exam 2 Review",
-            location : "Marston",
-            notes: "ayyyyyyy",
+            location : "Marston Library",
+            notes: "Meet in Basement",
             slots: 15
         }
         ]
@@ -58,38 +66,42 @@ class AvailableSessions extends Component {
                 direction="column"
                 alignItems="center"
                 justify = "center"
-                spacing={0}
+                spacing={4}
                 key={index}
-                >
-                <Button variant="outlined" color="primary" key={index} onClick = {this.displayDetailedSession(session.id)}>
+            >
                     <Grid item>
-                    <Grid>{session.course}</Grid>
-                    <Grid>{session.title}</Grid>
-                    <Grid>{session.location}</Grid>
-                    <Grid>{session.time}</Grid>
-                    <Grid container justify = "flex-end">{session.slots}</Grid>
+                        <Button variant="outlined" color="primary" key={index} style = {style.button} onClick = {this.displayDetailedSession(session.id)}>
+                            <Grid item>
+                                <Grid>{session.course}</Grid>
+                                <Grid>{session.title}</Grid>
+                                <Grid>{session.location}</Grid>
+                                <Grid>{session.time}</Grid>
+                                <Grid container justify = "flex-end">{session.slots}</Grid>
+                            </Grid>
+                        </Button>
                     </Grid>
-                </Button>
             </Grid>
         );
         return (
-            <Grid
-                container
-                direction="column"
-                alignItems="center"
-                justify = "center"
-                spacing={4}>
-                <Grid item>
-                    {this.state.showDetailedSession ?
-                    <DetailedSessionView mySessions = {mySessions} id={this.state.sessionId} /> :
-                    <Grid item>
-                        <Typography variant="h5" className = "center">
-                        Available Sessions 
-                        </Typography>
-                        {listSessions}
-                    </Grid>}
-                </Grid>
-            </Grid>
+                   <Grid>
+                        {this.state.showDetailedSession ?
+                        <DetailedSessionView mySessions = {mySessions} id={this.state.sessionId} /> :
+                        <Grid container
+                            direction="column"
+                            alignItems="center"
+                            justify = "center"
+                            spacing={2}
+                        >
+                            <Grid item>
+                            <Typography variant="h5" className = "center">
+                            Available Sessions 
+                            </Typography>
+                            </Grid>
+                            <Grid item>
+                            {listSessions}
+                            </Grid>
+                        </Grid>}
+                     </Grid>
         );
     }
 }

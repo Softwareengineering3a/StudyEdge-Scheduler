@@ -14,6 +14,12 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import axios from 'axios';
 
+const style = {
+    card: {
+      display: 'inline-block',
+    }
+  };
+
 
 class Home extends Component {
     state= {
@@ -61,7 +67,7 @@ class Home extends Component {
                         justify="center"
                         alignItems="center"
                     >
-                        <Card style={{ display: 'inline-block' }}>
+                        <Card style={style.card}>
                             <Grid container
                                 direction="row"
                                 justify="center"
