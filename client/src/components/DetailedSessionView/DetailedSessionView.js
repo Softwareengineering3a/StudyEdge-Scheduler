@@ -85,7 +85,7 @@ class DetailedSessionView extends Component {
                             <Grid container justify = "flex-end"  key={index}> 
                                 <Typography variant =  "body1">{filteredSession.slotsFilled}/{filteredSession.slots}</Typography>
                             </Grid>
-                        </Grid>
+                        </Grid> 
                     </Grid>  
                 </Grid>      
                         )}
