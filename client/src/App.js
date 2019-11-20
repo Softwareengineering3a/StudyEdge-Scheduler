@@ -6,6 +6,7 @@ import NotFound from "./views/NotFound"
 import Header from "./components/Header/Header"
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import testID from "./views/TestID/testID"
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
         <Route exact path="/">
           <Redirect to="/Home" />
         </Route>
+        <Route exact path="/test/:id" component={testID} />
         <Route component={NotFound}/>
       </Switch>
     </div>
