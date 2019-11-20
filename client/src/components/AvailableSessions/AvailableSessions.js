@@ -39,7 +39,8 @@ class AvailableSessions extends Component {
             title : "Exam 3 Review",
             location : "CSE352",
             notes: "Meet in Marston Library, Bring pens and pencils.",
-            slots: 10
+            slots: 10,
+            slotsFilled: 8
         },
         {   id: 2,
             date : "11/7/2019",
@@ -48,7 +49,8 @@ class AvailableSessions extends Component {
             title : "Exam 2 Review",
             location : "CSE352",
             notes: "Blah blah blah blah blah",
-            slots: 15
+            slots: 15,
+            slotsFilled: 10
         },
         {
             id: 3,
@@ -58,7 +60,8 @@ class AvailableSessions extends Component {
             title : "Exam 2 Review",
             location : "Marston Library",
             notes: "Meet in Basement",
-            slots: 15
+            slots: 15,
+            slotsFilled: 9
         }
         ]
         const listSessions = mySessions.map((session, index) =>
@@ -76,7 +79,7 @@ class AvailableSessions extends Component {
                                 <Grid>{session.title}</Grid>
                                 <Grid>{session.location}</Grid>
                                 <Grid>{session.time}</Grid>
-                                <Grid container justify = "flex-end">{session.slots}</Grid>
+                                <Grid container justify = "flex-end">{session.slotsFilled}/{session.slots}</Grid>
                             </Grid>
                         </Button>
                     </Grid>
