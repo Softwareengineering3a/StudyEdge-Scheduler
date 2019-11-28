@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 class testID extends Component {
     render(){
         return(
             <main>
-                <p>Hello</p>
-                <div>
-                    {this.props.match.params.id}
-                </div>
+                <Redirect to={{
+                    pathname: '/student',
+                    state: { id: this.props.match.params.id }
+                }}
+                />
             </main>
-            
         );
     }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './Home.css';
+import { Route, Switch, Redirect  } from 'react-router-dom';
+import './student.css';
 import SelectACourse from '../../components/SelectACourse/SelectACourse';
 import CreateASession from '../../components/CreateASession/CreateASession';
 import AvailableSessions from '../../components/AvailableSessions/AvailableSessions';
@@ -7,12 +8,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import StaticDatePicker from './StaticDatePicker';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import '../../components/SelectACourse/SelectACourse.css';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import axios from 'axios';
 
 const style = {
     card: {
@@ -20,48 +18,48 @@ const style = {
     }
   };
 
+//user: this.props.location.state.id,
 
 class Home extends Component {
-    state= {
-        sessionsA: null
-    }
-    listSessions = (e) => {
-        axios.get('http://localhost:5000/sessions')
-            .then((res) => { 
-                const sesh = res.data;
-                console.log(sesh);
-                this.setSate({sessionsA: sesh});
-            })
-    }
-
 
     constructor(props) {
         super(props);
-        this.state = {
-            date: new Date(),
-            showCreateSession: false,
-            admin: true,
-            controlledDate: null,
-        };
-        this.displayCreateSession = this.displayCreateSession.bind(this);
-    }
-
-    displayCreateSession = () => {
-        this.setState({
-            showCreateSession: true,
-        });
+        try {
+            this.state = {
+                date: new Date(),
+                showCreateSession: false,
+                admin: true,
+                controlledDate: null,
+                user: this.props.location.state.id,
+            };
+        } catch (error) {
+            this.state={
+                user:""
+            }
+        }
     }
 
     render() {
-
         const theme = createMuiTheme({
             palette: {
                 primary: { main: '#039be5' },
                 secondary: { main: '#43a047' },
             },
         });
+
+        if(this.state.user == ""){
+            return(
+                <Redirect to={{
+                    pathname: '/loginfail',
+                }}
+                />
+            )
+        }        
+
         return (
             <main>
+                {/* NEXT LINE FOR TESTING PURPOSES  */}
+                <div className="center"><h2>Student: {this.state.user}</h2></div>
                 <ThemeProvider theme={theme}>
                     <Grid container
                         justify="center"
@@ -76,19 +74,16 @@ class Home extends Component {
                             >
                                 <Grid item >
                                     <CardContent >
-                                        <Grid style={{ position: 'absolute', zIndex: 1 }}>
+                                        <Grid style={{ position: 'relative', zIndex: 1 }}>
                                             <SelectACourse></SelectACourse>
                                         </Grid>
-                                        <Fab className="CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} onDoubleClick="disable" >
-                                            <AddIcon />
-                                        </Fab>
                                         <StaticDatePicker onClick ={this.listSessions} />
                                     </CardContent>
                                 </Grid>
                                 <Grid item >
                                     <CardContent>
                                         {this.state.showCreateSession ?
-                                            <CreateASession /> :
+                                            <CreateASession user={this.state.user}/> :
                                             <AvailableSessions />
                                         }
                                     </CardContent>
