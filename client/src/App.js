@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect  } from 'react-router-dom';
 import 'typeface-roboto';
 import admin from "./views/Admin/admin";
+import adminlogin from "./views/Admin/adminlogin";
 import NotFound from "./views/NotFound";
 import Header from "./components/Header/Header";
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -23,14 +24,14 @@ const App = () => {
     <div>
       <Header />
       <Switch>
-        <Route exact path="/admin" component={admin} />
+        <Route exact path="/login/admin" component={adminlogin} />
         <Route exact path="/login/:id" component={testID}/>
         <Route exact path="/student" component={student}/>
         <Route exact path="/loginfail" component={loginfail}/>
         <Route component={NotFound}/>
       </Switch>
     </div>
-    </ThemeProvider>
+  </ThemeProvider>
   );
 }
 

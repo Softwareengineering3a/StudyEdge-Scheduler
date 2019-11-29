@@ -6,6 +6,7 @@ const Header = () => {
     return (
         <div>
             <AppBar></AppBar>
+            <br></br>
         </div>
     )
 }
