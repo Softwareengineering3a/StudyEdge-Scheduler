@@ -36,7 +36,7 @@ class CreateASession extends Component {
             title: '',
             course: '',
             location: '',
-            date: new Date().toLocaleString(),
+            date: new Date(),
             slots: 0,
             notes: ''
         }
@@ -56,8 +56,9 @@ class CreateASession extends Component {
         console.log(name, value);
     }
 
-    handleDate(date) {
-        this.setState({date: date})
+    handleDate(ndate) {
+        console.log(ndate)
+        this.setState({date: ndate})
     }
 
     handleSubmit(e) {
