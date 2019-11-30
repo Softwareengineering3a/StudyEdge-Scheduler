@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import jwt_decode from 'jwt-decode';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,6 +39,69 @@ export default function MenuAppBar() {
     setAnchorEl(null);
   };
 
+  const handleReload = () => {
+    localStorage.removeItem('jwtToken');
+    window.location.reload();
+  };
+
+  try {
+      var token = localStorage.getItem('jwtToken');
+      var decoded = jwt_decode(token);
+  } catch (error) {
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" className={classes.title}>
+              Study Edge Scheduler
+            </Typography>
+            {auth && (
+              <div>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </div>
+            )}
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
+
+
+  if(decoded.username != "admin"){
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" className={classes.title}>
+              Study Edge Scheduler
+            </Typography>
+            {auth && (
+              <div>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </div>
+            )}
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -56,7 +120,7 @@ export default function MenuAppBar() {
               >
                 <AccountCircle />
               </IconButton>
-{/*               <Menu
+              <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -71,9 +135,8 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu> */}
+                <MenuItem onClick={handleReload}>Sign Out</MenuItem>
+              </Menu>
             </div>
           )}
         </Toolbar>
