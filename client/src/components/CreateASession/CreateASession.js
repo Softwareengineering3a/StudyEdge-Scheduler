@@ -63,7 +63,7 @@ class CreateASession extends Component {
     handleSubmit(e) {
         axios.post('http://localhost:5000/sessions', {
             "title": this.state.title,
-            "class": this.state.course,
+            "class": this.state.course.toUpperCase(),
             "location": this.state.location,
             "date": this.state.date,
             "slots": this.state.slots,
@@ -75,6 +75,8 @@ class CreateASession extends Component {
             .catch(function (error) {
                 console.log(error)
             });
+        
+        //e.preventDefault();
     }
 
     render() {

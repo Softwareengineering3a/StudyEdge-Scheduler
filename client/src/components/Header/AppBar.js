@@ -56,7 +56,7 @@ export default function MenuAppBar() {
               >
                 <AccountCircle />
               </IconButton>
-              <Menu
+{/*               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -73,7 +73,7 @@ export default function MenuAppBar() {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
+              </Menu> */}
             </div>
           )}
         </Toolbar>

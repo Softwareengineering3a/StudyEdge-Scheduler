@@ -3,10 +3,11 @@ const path = require('path'),
     mongoose = require('mongoose'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
-    exampleRouter = require('../routes/examples.server.routes'),
-    sessionRouter = require('../routes/sessionRouter');
+    sessionRouter = require('../routes/sessionRouter'),
+    passport = require('passport');
 
 var cors = require('cors');
+var auth = require('../routes/auth');
 
 module.exports.init = () => {
     /* 
@@ -14,12 +15,11 @@ module.exports.init = () => {
         - reference README for db uri
     */
     mongoose.connect(process.env.DB_URI || require('./config').db.uri, {
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        useUnifiedTopology: true
     });
     mongoose.set('useCreateIndex', true);
     mongoose.set('useFindAndModify', false);
-
-
 
     // initialize app
     const app = express();
@@ -34,9 +34,12 @@ module.exports.init = () => {
     app.use(bodyParser.json());
 
     // add a router
-    app.use('/api/example', exampleRouter);
-
     app.use('/sessions', sessionRouter);
+
+
+    //================= Passport and User Auth ===================
+    app.use('/auth', auth);
+
 
     if (process.env.NODE_ENV === 'production') {
         // Serve any static files

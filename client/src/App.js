@@ -25,6 +25,7 @@ const App = () => {
       <Header />
       <Switch>
         <Route exact path="/login/admin" component={adminlogin} />
+        <Route exact path="/admin" component={admin} />
         <Route exact path="/login/:id" component={testID}/>
         <Route exact path="/student" component={student}/>
         <Route exact path="/loginfail" component={loginfail}/>

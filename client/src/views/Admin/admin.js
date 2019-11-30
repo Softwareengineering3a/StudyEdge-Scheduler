@@ -13,12 +13,14 @@ import '../../components/SelectACourse/SelectACourse.css';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
+import { Redirect } from 'react-router-dom';
 
 const style = {
     card: {
       display: 'inline-block',
     }
-  };
+};
 
 
 class Home extends Component {
@@ -48,6 +50,29 @@ class Home extends Component {
                 secondary: { main: '#43a047' },
             },
         });
+
+        try {
+            var token = localStorage.getItem('jwtToken');
+            var decoded = jwt_decode(token);
+        } catch (error) {
+            return(
+                <Redirect to={{
+                    pathname: '/login/admin',
+                }}
+                />
+            );
+        }
+
+
+        if(decoded.username != "admin"){
+            return(
+                <Redirect to={{
+                    pathname: '/login/admin',
+                }}
+                />
+            );
+        }
+
         return (
             <main>
                 {/* NEXT LINE FOR TESTING PURPOSES  */}
