@@ -19,7 +19,7 @@ class AvailableSessions extends Component {
             var date = new Date(dateStr);
             var date1 = dateCleaner(date)
             var date2 = dateCleaner(this.props.date)
-            return date1 === date2 && reservation.class === this.props.class
+            return date1 === date2 && (reservation.class === this.props.class || this.props.class === "")
             
         })
         .map((session) =>
