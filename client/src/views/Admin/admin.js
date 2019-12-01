@@ -32,22 +32,68 @@ class Home extends Component {
             showCreateSession: false,
             admin: true,
             controlledDate: null,
+            sessions: [],
+            class: ""
         };
-        this.displayCreateSession = this.displayCreateSession.bind(this);
+        this.displayCreateSession = this.displayCreateSession.bind(this);  
+    }
+
+    dateUpdate = (ndate) => {
+        this.setState({
+            date: ndate
+        })
+    }  
+
+    classUpdate = (nclass) => {
+        this.setState({
+            class: nclass
+        })
+        console.log(nclass)
+    } 
+    
+    updateSessions = (sess) => {
+        this.setState({
+            sessions: sess
+        })
     }
 
     displayCreateSession = () => {
         this.setState({
-            showCreateSession: true,
+            showCreateSession: true
+        });
+    }
+    disableCreateSession = () => {
+        this.setState({
+            showCreateSession: false
         });
     }
 
-    render() {
+    disableDetailedSession = () => {
+        this.setState({
+            showDetailedSession: false
+        });
+    }
+    handleLoad = () => {
+        
+        axios.get('http://localhost:5000/sessions')
+        .then((response) => {
+            this.updateSessions(response.data)
+        })
+        .catch((error)=>{
+            console.log(error)
+        });
+        
+    }
+    componentDidMount() { window.addEventListener('load', this.handleLoad)}
 
+    componentWillUnmount() { window.removeEventListener('load', this.handleLoad) }
+
+    render(){
+        
         const theme = createMuiTheme({
             palette: {
-                primary: { main: '#039be5' },
-                secondary: { main: '#43a047' },
+              primary: { main: '#039be5' }, 
+              secondary: { main: '#43a047' }, 
             },
         });
 
@@ -81,36 +127,43 @@ class Home extends Component {
                     <Grid container
                         justify="center"
                         alignItems="center"
-                    >
-                        <Card style={style.card}>
-                            <Grid container
-                                direction="row"
-                                justify="center"
-                                alignItems="center"
-                                spacing={0}
-                            >
-                                <Grid item >
-                                    <CardContent >
-                                        <Grid style={{ position: 'absolute', zIndex: 1 }}>
-                                            <SelectACourse></SelectACourse>
-                                        </Grid>
-                                        <Fab className="CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} onDoubleClick="disable" >
-                                            <AddIcon />
+                        spacing={0}
+                        >  
+                            <Grid item >
+                                <CardContent >
+                                    <Grid style={{ position: 'absolute', zIndex: 1}}>
+                                        <SelectACourse
+                                            sessions = {this.state.sessions}
+                                            classUpdate = {this.classUpdate.bind(this)}
+                                        ></SelectACourse>
+                                    </Grid>
+                                        <Fab className = "CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} >
+                                            <AddIcon/>
                                         </Fab>
-                                        <StaticDatePicker onClick ={this.listSessions} />
-                                    </CardContent>
-                                </Grid>
-                                <Grid item >
-                                    <CardContent>
-                                        {this.state.showCreateSession ?
-                                            <CreateASession user={this.state.user}/> :
-                                            <AvailableSessions />
-                                        }
-                                    </CardContent>
-                                </Grid>
-                            </Grid>
-                        </Card>
-                    </Grid>
+
+                                        <StaticDatePicker
+                                            date = {this.state.date}
+                                            dateUpdate= {this.dateUpdate.bind(this)}
+                                            updateSessions = {this.updateSessions.bind(this)}
+                                        ></StaticDatePicker>
+                                </CardContent> 
+                            </Grid>           
+                            <Grid item >             
+                                <CardContent>
+                                    {this.state.showCreateSession ?
+                                            <CreateASession
+                                            disableCreateSession = {this.disableCreateSession} 
+                                            /> :
+                                            <AvailableSessions
+                                            date = {this.state.date}
+                                            sessions = {this.state.sessions}
+                                            class = {this.state.class}
+                                            disableDetailedSession = {this.disableDetailedSession}>
+                                            </AvailableSessions>
+                                            }
+                                </CardContent>
+                            </Grid>                   
+                    </Grid>               
                 </ThemeProvider>
             </main>
         );
