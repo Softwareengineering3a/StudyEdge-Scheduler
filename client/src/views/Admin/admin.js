@@ -129,6 +129,7 @@ class Home extends Component {
                     <Grid container   
                     justify="center"
                     alignItems="center" 
+                    style = {{height: 850}}
                     >
                         <Grid item>
                             <Card style = {style.card}>

@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
 import axios from 'axios';
-
+import Card from '@material-ui/core/Card';
 
 class adminlogin extends Component {
     constructor() {
@@ -48,26 +48,50 @@ class adminlogin extends Component {
     render(){
         return(
             <main>
-                <div className="center">
-                    <Typography variant="h5" className = "center">
-                        Login: 
-                    </Typography>
+                <Grid container
+                    justify="center"
+                    alignItems = "center"
+                    direction = "column"
+                    style = {{height: 500}}
+                    >
+                <Grid item>
+                <Card style = {{display: 'inline-block', height: 300, width: 500}}>
                     <Grid item>
+                        <Typography variant="h5" className = "center">
+                            Welcome to Study Edge Scheduler
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                    <Typography variant="subtitle1" className = "center">
+                        Please Enter Your Password
+                    </Typography>
+                    </Grid>
+                    <Grid item 
+                        container
+                        justify="center"
+                        alignItems = "center"
+                        direction = "column"
+                        spacing = {4}
+                     >
+                        <Grid item>
                         <TextField
                             required
                             id="standard-required"
                             label="Password"
                             type="password"
                             name="password"
+                            variant = "outlined"
                             onChange={this.handleChange}
                             value={this.state.location}
                         />
                     </Grid>
-                    <Grid item >
+                    <Grid item>
                         <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Enter</Button>
+                        </Grid>
                     </Grid>
-
-                </div>
+                </Card>
+                    </Grid>
+                </Grid>
             </main>
         );
     }

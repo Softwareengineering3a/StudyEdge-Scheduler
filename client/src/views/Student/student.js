@@ -18,7 +18,7 @@ const style = {
     card: {
         display: 'inline-block',
         height: 750,
-        width: 1000
+        width: 1000,
     },
 };
 
@@ -121,6 +121,7 @@ class Home extends Component {
                     <Grid container   
                     justify="center"
                     alignItems="center" 
+                    style = {{height: 850}}
                     >
                         <Grid item>
                             <Card style = {style.card}>
