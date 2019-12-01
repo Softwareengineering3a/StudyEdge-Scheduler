@@ -7,6 +7,10 @@ import { Typography } from '@material-ui/core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import axios from 'axios';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import IconButton from '@material-ui/core/IconButton';
+
+
 
 export function DatePicker(props) {
     const [selectedDate, handleDateChange] = useState(new Date());
@@ -26,7 +30,16 @@ export function DatePicker(props) {
     );
 }
 
+
+const style = {
+    text: {
+      width: 435,
+    },
+  };
+
+
 class CreateASession extends Component {
+    
     constructor() {
         super();
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -38,7 +51,8 @@ class CreateASession extends Component {
             location: '',
             date: new Date(),
             slots: 0,
-            notes: ''
+            notes: '',
+            tutor: '',
         }
 
 
@@ -68,7 +82,8 @@ class CreateASession extends Component {
             "location": this.state.location,
             "date": this.state.date,
             "slots": this.state.slots,
-            "notes": this.state.notes
+            "notes": this.state.notes,
+            "tutor": this.state.tutor
         })
             .then(function (response) {
                 console.log(response)
@@ -77,8 +92,9 @@ class CreateASession extends Component {
                 console.log(error)
             });
     }
-
+ 
     render() {
+      
         return (
             <main>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -88,9 +104,24 @@ class CreateASession extends Component {
                     alignItems="center"
                     spacing={0}
                 >
-                    <Typography variant="h5" className="center">
-                        Create a Session
-                    </Typography>
+                    <Grid item>
+                        <Grid container
+                        direction = "row"
+                        alignItems="center"
+                        >
+                            <Grid item>
+                                <IconButton onClick={this.props.disableCreateSession} >
+                                    <ArrowBackIosIcon/>
+                                </IconButton>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="h5" className="center">
+                                    Create a Session
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid>
                     <form autoComplete="off">
                         <Grid item>
                             <Grid
@@ -100,11 +131,11 @@ class CreateASession extends Component {
                                 spacing={4}
                             >
                                 <Grid item>
-                                    <Typography variant="subtitle1">Session Title</Typography>
+                                    <Typography variant="subtitle1">Session Title *</Typography>
                                     <TextField
                                         required
+                                        variant="outlined"
                                         id="standard-required"
-                                        label="Session Title"
                                         type="text"
                                         name="title"
                                         onChange={this.handleInputChange}
@@ -119,11 +150,11 @@ class CreateASession extends Component {
                                 spacing={4}
                             >
                                 <Grid item>
-                                    <Typography variant="subtitle1">Course</Typography>
+                                    <Typography variant="subtitle1">Course *</Typography>
                                     <TextField
                                         required
+                                        variant="outlined"
                                         id="standard-required"
-                                        label="Course"
                                         type="text"
                                         name="course"
                                         onChange={this.handleInputChange}
@@ -131,11 +162,11 @@ class CreateASession extends Component {
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="subtitle1">Location</Typography>
+                                    <Typography variant="subtitle1">Location *</Typography>
                                     <TextField
                                         required
+                                        variant="outlined"
                                         id="standard-required"
-                                        label="Location"
                                         type="text"
                                         name="location"
                                         onChange={this.handleInputChange}
@@ -148,23 +179,23 @@ class CreateASession extends Component {
                                 spacing={4}
                             >
                                 <Grid item>
-                                    <Typography variant="subtitle1">Date & Time</Typography>
-                                    <KeyboardDateTimePicker 
-                                    value={this.state.date}
-                                    onChange={this.handleDate}
-                                    onError={console.log}
-                                    disablePast
-                                    minDate ={new Date()}
-                                    format="MM/dd/yyyy hh:mm a"
-                                    label="Date and Time"
-                                    />
+                                <Typography variant="subtitle1">Study Expert *</Typography>
+                                <TextField
+                                    required
+                                    variant="outlined"
+                                    id="standard-required"
+                                    type="text"
+                                    name="tutor"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.tutor}
+                                />
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="subtitle1">Slots</Typography>
+                                    <Typography variant="subtitle1">Slots *</Typography>
                                     <TextField
                                         required
+                                        variant="outlined"
                                         id="standard-required"
-                                        label="Slots"
                                         type="number"
                                         name="slots"
                                         onChange={this.handleInputChange}
@@ -174,24 +205,44 @@ class CreateASession extends Component {
                             </Grid>
                             <Grid  container
                                 direction="column"
-                                alignItems="center"
                                 spacing={4}>
                             <Grid item>
-                                <Typography variant="subtitle1">Notes</Typography>
-                                <TextField
-                                    type="text"
-                                    name="notes"
-                                    label = "Notes"
-                                    onChange={this.handleInputChange}
-                                    value={this.state.notes}
-                                />
+                            <Typography variant="subtitle1">Date & Time *</Typography>
+                                    <KeyboardDateTimePicker 
+                                    inputVariant="outlined"
+                                    value={this.state.date}
+                                    onChange={this.handleDate}
+                                    onError={console.log}
+                                    disablePast
+                                    minDate ={new Date()}
+                                    format="MM/dd/yyyy hh:mm a"
+                                    style = {style.text}
+                                    />
                             </Grid >
-                            <Grid item >
-                                <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Confirm</Button>
+                            <Grid item>
+                                <Grid>
+                                    <Typography variant="subtitle1">Notes</Typography>
+                                    <TextField
+                                        variant="outlined"
+                                        type="text"
+                                        name="notes"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.notes}
+                                    />
+                                </Grid >
                             </Grid>
-                            </Grid>
+                            <Grid item>
+                                    <Grid container
+                                    alignItems = "center"
+                                    justify = "center"
+                                    >
+                                    <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Confirm</Button>
+                                    </Grid>
+                                </Grid>
+                        </Grid>
                         </Grid>
                     </form>
+                    </Grid>
                 </Grid>
                 </MuiPickersUtilsProvider>
             </main>
