@@ -14,7 +14,7 @@ const style = {
       backgroundColor: '#757575',
       color: 'white',
       margin: 'auto',
-      width: 300,
+    //   width: 300,
     },
   };
 
