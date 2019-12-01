@@ -55,22 +55,35 @@ class AvailableSessions extends Component {
             direction="column"
             alignItems="center"
             justify = "center"
-            spacing={0}>
-            <Button variant="outlined" color="primary" onClick = {this.displayDetailedSession(session)}>
+            spacing={5}
+            style={{
+            margin: 0,
+            width: '100%',
+            }}>
+
+           <Grid item
+           style = {{width: '100%',height:"100%"}}>
+            <Button variant="outlined" color="primary" onClick = {this.displayDetailedSession(session)}  style={{maxHeight: 600, width: 400}}>
                 <Grid item>
-                <Grid>{session.class}</Grid>
-                <Grid>{session.title}</Grid>
-                <Grid>{session.location}</Grid>
-                <Grid>Study Expert: {session.tutor}</Grid>
-                <Grid>{DateTime.fromISO(session.date).toFormat('ff')}</Grid>
-                <Grid>{session.students.length}/{session.slots}</Grid>
+                    <Grid item>
+                        <Grid>{session.class}</Grid>
+                        <Grid>{session.title}</Grid>
+                        <Grid>{session.location}</Grid>
+                        <Grid>Study Expert: {session.tutor}</Grid>
+                        <Grid>{DateTime.fromISO(session.date).toFormat('ff')}</Grid>
+                    </Grid>
+                    <Grid container justify = "flex-end"  style={{width: '100%'}}>
+                        <Grid>{session.students.length}/{session.slots}</Grid>
+                    </Grid>
                 </Grid>
             </Button>
             </Grid>
-        );
+            </Grid>
+        )
         if(tempReservations.length > 0){
             return (
-                <Grid>
+                <Grid
+                style={{height:"100%"}}>
                 {this.state.showDetailedSession ?
                 <DetailedSessionView 
                     session={this.state.sessionId} 
@@ -82,13 +95,17 @@ class AvailableSessions extends Component {
                     direction="column"
                     alignItems="center"
                     justify = "center"
-                    spacing={4}>
+                    spacing={2}
+                    style={{height:"100%"}}
+                    >
                     <Grid item>
-                    <Typography variant="h5" className = "center">
-                        Available Sessions 
+                    <Typography variant="h4">
+                        Available Sessions
                     </Typography>
                     </Grid>
-                    <Grid item> 
+                    <Grid item
+                    style={{maxHeight: 615, overflow: 'auto'}}
+                    > 
                         {myReservations}
                     </Grid>
                 </Grid> }
@@ -105,8 +122,8 @@ class AvailableSessions extends Component {
                         justify = "center"
                         spacing={4}>
                         <Grid item>
-                        <Typography variant="h6" className = "center">
-                            There are no available sessions
+                        <Typography variant="h4" className = "center">
+                        No Sessions Available
                         </Typography>
                         </Grid>
                     </Grid> 

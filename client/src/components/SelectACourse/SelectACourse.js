@@ -21,7 +21,7 @@ export default function SplitButton(props) {
   const options = classes.filter(distinct);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(null);
 
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
@@ -50,10 +50,10 @@ export default function SplitButton(props) {
     <Grid container direction="column">
       <Grid item xs={12}>
         <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
-          <Button onClick={handleClick}>Select a Course </Button>
+          <Button size = "large" onClick={handleClick}>Select a Course </Button>
           <Button
             color="primary"
-            size="small"
+            size="large"
             aria-controls={open ? 'split-button-menu' : undefined}
             aria-expanded={open ? 'true' : undefined}
             aria-label="select merge strategy"
@@ -71,7 +71,7 @@ export default function SplitButton(props) {
                 transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
               }}
             >
-              <Paper>
+              <Paper style = {{width: 250}}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList id="split-button-menu">
                     {options.map((option, index) => (
@@ -79,6 +79,7 @@ export default function SplitButton(props) {
                         key={option}
                         selected={index === selectedIndex}
                         onClick={event => handleMenuItemClick(event, index)}
+                        
                       >
                         {option}
                       </MenuItem>

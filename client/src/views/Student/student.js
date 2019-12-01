@@ -7,23 +7,20 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import StaticDatePicker from './StaticDatePicker';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import '../../components/SelectACourse/SelectACourse.css';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
 import { Redirect } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 
 const style = {
     card: {
-      display: 'inline-block',
-    }
-  };
-
-//user: this.props.location.state.id,
+        display: 'inline-block',
+        height: 750,
+        width: 1000
+    },
+};
 
 class Home extends Component {
 
@@ -105,7 +102,7 @@ class Home extends Component {
             },
         });
 
-        if(this.state.user == ""){
+        if(this.state.user === ""){
             return(
                 <Redirect to={{
                     pathname: '/loginfail',
@@ -118,53 +115,81 @@ class Home extends Component {
             <main>
                 {/* NEXT LINE FOR TESTING PURPOSES  */}
                 <Typography variant="h5" className = "center">
-                    Student: {this.state.user} 
+                    Hi, {this.state.user} ! 
                 </Typography>
                 <ThemeProvider theme={theme}>
                     <Grid container   
                     justify="center"
-                    alignItems="center"
+                    alignItems="center" 
                     >
-                        <Card style = {{display: 'inline-block'}}>
-                            <Grid container
-                            direction="row"
-                            justify="center"
-                            alignItems="center"
-                            spacing={0}
-                            >  
-                                <Grid item >
-                                    <CardContent >
-                                        <Grid style={{ position: 'relative', zIndex: 1}}>
-                                            <SelectACourse
-                                                sessions = {this.state.sessions}
-                                                classUpdate = {this.classUpdate.bind(this)}
-                                            ></SelectACourse>
+                        <Grid item>
+                            <Card style = {style.card}>
+                                <Grid >
+                                    <Grid container
+                                        direction = "row"
+                                        justify = "center"
+                                        alignItems = "center"
+                                    >
+                                        <Grid
+                                            item
+                                            container
+                                            direction = "row"
+                                                spacing = {10}
+                                        >
+                                            <Grid item style={{ position: 'relative', zIndex: 1}}>
+                                                <Grid item container justify = "flex-start">
+                                                    <SelectACourse
+                                                        sessions = {this.state.sessions}                                                            classUpdate = {this.classUpdate.bind(this)}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                            {/* <Grid item>
+                                                {this.state.showCreateSession ?
+                                                <Typography>Create A Session</Typography>
+                                                : <Typography>AvailableSessions</Typography>
+                                                }
+                                            </Grid> */}
                                         </Grid>
+                                    <Grid
+                                        item
+                                        container
+                                        direction = "row"
+                                        spacing = {9}
+                                        justify = "center"
+                                        alignItems = "center"
 
-                                        <StaticDatePicker
-                                            date = {this.state.date}
-                                            dateUpdate= {this.dateUpdate.bind(this)}
-                                            updateSessions = {this.updateSessions.bind(this)}
-                                        ></StaticDatePicker>
-                                    </CardContent> 
-                                </Grid>           
-                                <Grid item >             
-                                    <CardContent>
-                                        {this.state.showCreateSession ?
-                                            <CreateASession
-                                            disableCreateSession = {this.disableCreateSession} 
-                                            /> :
-                                            <AvailableSessions
+                                    >
+                                        <Grid item
+                                            style={{height:200}}
+                                            justify = "center"
+                                            alignItems = "center">
+                                            <StaticDatePicker
                                                 date = {this.state.date}
-                                                sessions = {this.state.sessions}
-                                                class = {this.state.class}
-                                                disableDetailedSession = {this.disableDetailedSession}
-                                                user = {this.state.user}/>
-                                        }
-                                    </CardContent>
-                                </Grid> 
-                            </Grid>                     
-                        </Card>
+                                                dateUpdate= {this.dateUpdate.bind(this)}
+                                                updateSessions = {this.updateSessions.bind(this)}
+                                                />
+                                        </Grid>        
+                                            <Grid item
+                                            style={{height:600}} >             
+                                                <CardContent>
+                                                    {this.state.showCreateSession ?
+                                                        <CreateASession
+                                                        disableCreateSession = {this.disableCreateSession} 
+                                                        /> :
+                                                        <AvailableSessions
+                                                        date = {this.state.date}
+                                                        sessions = {this.state.sessions}
+                                                        class = {this.state.class}
+                                                        disableDetailedSession = {this.disableDetailedSession}>
+                                                        </AvailableSessions>
+                                                    }
+                                                </CardContent>
+                                            </Grid>   
+                                        </Grid>
+                                    </Grid>  
+                                </Grid>                  
+                            </Card>
+                        </Grid>
                     </Grid>   
                 </ThemeProvider>
             </main>

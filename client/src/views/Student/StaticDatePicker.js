@@ -23,7 +23,7 @@ const StaticDatePicker = (props) => {
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DatePicker
         autoOk
-        orientation="landscape"
+        orientation = "landscape"
         variant="static"
         openTo="date"
         value={date}

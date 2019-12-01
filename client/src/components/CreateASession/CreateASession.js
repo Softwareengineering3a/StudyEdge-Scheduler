@@ -104,12 +104,14 @@ class CreateASession extends Component {
                     container
                     direction="column"
                     alignItems="center"
-                    spacing={0}
+                    spacing={8}
+              
                 >
                     <Grid item>
                         <Grid container
                         direction = "row"
                         alignItems="center"
+                        justify = "center"
                         >
                             <Grid item>
                                 <IconButton onClick={this.props.disableCreateSession} >
@@ -117,8 +119,8 @@ class CreateASession extends Component {
                                 </IconButton>
                             </Grid>
                             <Grid item>
-                                <Typography variant="h5" className="center">
-                                    Create a Session
+                                <Typography variant="h4">
+                                    Create A Session
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -238,7 +240,7 @@ class CreateASession extends Component {
                                     alignItems = "center"
                                     justify = "center"
                                     >
-                                    <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Confirm</Button>
+                                    <Button type="submit" variant="contained" color="secondary" size = "large" onClick={this.handleSubmit}>Confirm</Button>
                                     </Grid>
                                 </Grid>
                         </Grid>

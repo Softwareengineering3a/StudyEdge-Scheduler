@@ -72,7 +72,7 @@ class ConfirmReservation extends Component {
                     container
                     direction="column"
                     alignItems="center"
-                    spacing={0}
+                    spacing={8}
                 >
                     <Grid item>
                         <Grid container
@@ -85,8 +85,8 @@ class ConfirmReservation extends Component {
                                 </IconButton>
                             </Grid>
                             <Grid item>
-                                <Typography variant="h5" className="center">
-                                    Enter Details
+                                <Typography variant="h4" className="center">
+                                    Enter Your Details
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -167,9 +167,10 @@ class ConfirmReservation extends Component {
                             </Grid>
                             <Grid  container
                                 direction="column"
-                                spacing={4}
-                                alignItems = "center">
-                                <Grid item >
+                                spacing={5}
+                                alignItems = "center"
+                                style = {{height:250}}>
+                                <Grid item>
                                     <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Reserve</Button>
                                 </Grid>
                             </Grid>

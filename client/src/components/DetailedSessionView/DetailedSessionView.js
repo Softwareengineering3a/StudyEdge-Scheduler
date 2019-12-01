@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Typography } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
@@ -10,14 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ConfirmReservation from '../ConfirmReservation/ConfirmReservation';
 import jwt_decode from 'jwt-decode';
 
-const style = {
-    bg: {
-      backgroundColor: '#757575',
-      color: 'white',
-      margin: 'auto',
-    //   width: 300,
-    },
-  };
 
 class DetailedSessionView extends Component {
     constructor(props) {
@@ -31,7 +22,8 @@ class DetailedSessionView extends Component {
         };
         this.displayReservation = this.displayReservation.bind(this);
         this.disableReservation = this.disableReservation.bind(this);
-        this.checkAdmin = this.checkAdmin.bind(this);
+        // Returns undefined 
+        // this.checkAdmin = this.checkAdmin.bind(this);
     }
 
     displayReservation = () => {
@@ -45,8 +37,9 @@ class DetailedSessionView extends Component {
         });
     }
 
+    
     render() {
-          
+
         let mySessions = this.props.session;
 
         //ADMIN CHECK
@@ -55,7 +48,7 @@ class DetailedSessionView extends Component {
             try {
                 var token = localStorage.getItem('jwtToken');
                 var decoded = jwt_decode(token);
-                if(decoded.username == "admin"){
+                if(decoded.username === "admin"){
                     this.setState({
                         isAdmin: true,
                     });
@@ -75,9 +68,10 @@ class DetailedSessionView extends Component {
                     direction="column"
                     alignItems="center"
                     justify = "center"
-                    spacing={2}
+                    spacing={4}
                     >
-                        <Grid item>
+                        <Grid item
+                       >
                             <Grid container
                                 direction = "row"
                                 alignItems="center"
@@ -88,13 +82,16 @@ class DetailedSessionView extends Component {
                                     </IconButton>
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="h5" >
+                                    <Typography variant="h4" >
                                         Session Details
                                     </Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Card  style = {style.bg}>
+                        <Grid item>
+                        <Button variant="outlined" color = "primary"
+                        >
+                        <Grid item style = {{width: 350}}>
                             <Grid >
                                 <Grid container  
                                     direction="column"
@@ -144,34 +141,43 @@ class DetailedSessionView extends Component {
                                     </Grid> 
                                 </Grid>  
                             </Grid>      
-                        </Card>  
+                        </Grid>
+                        </Button>
+                        </Grid>
                         {this.state.isAdmin ? 
-                            <div>
-                                <Grid item>
-                                    <Grid container
-                                        direction="row"
-                                        spacing={4}
-                                    > 
-                                        <Grid item>
-                                            <Button variant="contained"color="secondary">
-                                                Edit
-                                            </Button>
-                                        </Grid> 
+                            <Grid item
+                            style = {{height: 350}}>
+                                <Grid  container
+                                    direction="column"
+                                    spacing={2}
+                                    alignItems = "center"
+                                >                           
+                                    <Grid item> 
+                                        <Button variant="contained"color="secondary">
+                                            Edit
+                                        </Button>
                                     </Grid> 
+                                    <Grid item>
+                                        <Button variant="contained" color = "primary"  endIcon={<Icon>send</Icon>}>
+                                            Notify 
+                                        </Button>
+                                    </Grid> 
+                                </Grid> 
+                            </Grid> : 
+                            <Grid item>
+                                <Grid container  
+                                    direction="column"
+                                    alignItems="center"
+                                    justify = "center"
+                                    spacing={0}
+                                >
+                                    <Grid item>
+                                        <Button variant="contained" color = "secondary" size = "large" onClick={this.displayReservation}>
+                                            Reserve
+                                        </Button>
+                                    </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <Button variant="contained" color = "primary"  endIcon={<Icon>send</Icon>}>
-                                        Notify 
-                                    </Button>
-                                </Grid>
-                            </div> : 
-                            <div>
-                                <Grid item>
-                                    <Button variant="contained" color = "secondary" onClick={this.displayReservation}>
-                                        Reserve
-                                    </Button>
-                                </Grid>
-                            </div>
+                            </Grid>
 
                         }      
                     </Grid>

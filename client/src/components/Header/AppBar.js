@@ -75,7 +75,7 @@ export default function MenuAppBar() {
   }
 
 
-  if(decoded.username != "admin"){
+  if(decoded.username !== "admin"){
     return (
       <div className={classes.root}>
         <AppBar position="static">
