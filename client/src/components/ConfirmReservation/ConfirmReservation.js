@@ -5,6 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
+import axios from 'axios';
+import { throws } from 'assert';
+import {Redirect} from 'react-router-dom';
 
 
 const style = {
@@ -15,10 +18,60 @@ const style = {
 
 
 class ConfirmReservation extends Component {
-    
+
+    constructor() {
+        super();
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            firstname: '',
+            lastname: '',
+            email: '',
+            phonenumber: '',
+            sessions: '',
+        }
+
+
+    }
+
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+        console.log(name, value);
+    }
+
+    handleSubmit(e) {
+        var url = 'http://localhost:5000/sessions/' + this.props.sessionRes._id;
+        console.log(url);
+
+        axios.put(url, {
+            "title": this.props.sessionRes.title,
+            "class": this.props.sessionRes.class,
+            "location": this.props.sessionRes.location,
+            "date": this.props.sessionRes.date,
+            "slots": this.props.sessionRes.slots,
+            "notes": this.props.sessionRes.notes,
+            "tutor": this.props.sessionRes.tutor,
+            "students": [this.state.firstname, this.state.lastname, this.state.email, this.state.phonenumber],
+        })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+    }
+
+
  
     render() {
-      
+
         return (
             <main>
                 <Grid
@@ -56,10 +109,13 @@ class ConfirmReservation extends Component {
                                 <Grid item>
                                     <Typography variant="subtitle1">First Name *</Typography>
                                     <TextField
-                                         required
-                                         variant = "outlined"
-                                         id="outlined-required"
-                                         type = "text"
+                                        required
+                                        variant = "outlined"
+                                        id="outlined-required"
+                                        type = "text"
+                                        name="firstname"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.firstname}
                                     />
                                 </Grid>
                                 <Grid item>
@@ -69,7 +125,9 @@ class ConfirmReservation extends Component {
                                         variant = "outlined"
                                         id="standard-required"
                                         type="text"
-                                        name="title"
+                                        name="lastname"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.lastname}
                                     />
                                 </Grid>
 
@@ -87,8 +145,10 @@ class ConfirmReservation extends Component {
                                         variant = "outlined"
                                         id="standard-required"
                                         type="text"
-                                        name="course"
+                                        name="email"
                                         style = {style.text}
+                                        onChange={this.handleInputChange}
+                                        value={this.state.email}
                                     />
                                 </Grid>
                                 
@@ -104,8 +164,10 @@ class ConfirmReservation extends Component {
                                     variant = "outlined"
                                     id="standard-required"
                                     type="text"
-                                    name="notes"
+                                    name="phonenumber"
                                     style = {style.text}
+                                    onChange={this.handleInputChange}
+                                    value={this.state.phonenumber}
                                 />
                                 </Grid>
                             </Grid>
@@ -114,7 +176,7 @@ class ConfirmReservation extends Component {
                                 spacing={4}
                                 alignItems = "center">
                                 <Grid item >
-                                    <Button type="submit" variant="contained" color="secondary">Reserve</Button>
+                                    <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Reserve</Button>
                                 </Grid>
                             </Grid>
                         </Grid>

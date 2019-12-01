@@ -23,6 +23,7 @@ class DetailedSessionView extends Component {
         super(props);
         this.state = {
             showRes: false,
+            session: this.props.session,
         };
         this.displayReservation = this.displayReservation.bind(this);
         this.disableReservation = this.disableReservation.bind(this);
@@ -45,7 +46,7 @@ class DetailedSessionView extends Component {
         return(
             <Grid>
                 {this.state.showRes ?
-                <ConfirmReservation sessionRes = {this.mySessions} disableReservation = {this.disableReservation}/> : 
+                <ConfirmReservation sessionRes = {this.state.session} disableReservation = {this.disableReservation}/> : 
                 <Grid  container  
                 direction="column"
                 alignItems="center"

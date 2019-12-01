@@ -83,7 +83,7 @@ class CreateASession extends Component {
             "date": this.state.date,
             "slots": this.state.slots,
             "notes": this.state.notes,
-            "tutor": this.state.notes
+            "tutor": this.state.tutor,
         })
             .then(function (response) {
                 console.log(response)
@@ -185,7 +185,7 @@ class CreateASession extends Component {
                                     variant="outlined"
                                     id="standard-required"
                                     type="text"
-                                    name="notes"
+                                    name="tutor"
                                     onChange={this.handleInputChange}
                                     value={this.state.tutor}
                                 />
