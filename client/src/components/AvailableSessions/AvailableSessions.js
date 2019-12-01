@@ -70,24 +70,27 @@ class AvailableSessions extends Component {
         if(tempReservations.length > 0){
             return (
                 <Grid>
-                    {this.state.showDetailedSession ?
-                    <DetailedSessionView session={this.state.sessionId}/> :
-                    <Grid
-                        container
-                        direction="column"
-                        alignItems="center"
-                        justify = "center"
-                        spacing={4}>
-                        <Grid item>
-                        <Typography variant="h5" className = "center">
-                            Available Sessions 
-                        </Typography>
-                        </Grid>
-                        <Grid item> 
-                            {myReservations}
-                        </Grid>
-                    </Grid> }
-                </Grid>
+                {this.state.showDetailedSession ?
+                <DetailedSessionView 
+                    session={this.state.sessionId} 
+                    disableDetailedSession={this.disableDetailedSession}
+                    /> :
+                <Grid
+                    container
+                    direction="column"
+                    alignItems="center"
+                    justify = "center"
+                    spacing={4}>
+                    <Grid item>
+                    <Typography variant="h5" className = "center">
+                        Available Sessions 
+                    </Typography>
+                    </Grid>
+                    <Grid item> 
+                        {myReservations}
+                    </Grid>
+                </Grid> }
+            </Grid>
             );
         }
         else{
