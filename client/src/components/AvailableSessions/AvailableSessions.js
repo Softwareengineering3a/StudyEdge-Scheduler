@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card'
 import DetailedSessionView from '../DetailedSessionView/DetailedSessionView';
 import { DateTime } from "luxon";
 
@@ -18,14 +17,23 @@ class AvailableSessions extends Component {
         super(props);
         this.state = {
             showDetailedSession: false,
+            showRes: false
         };
         this.displayDetailedSession = this.displayDetailedSession.bind(this);
+        this.disableDetailedSession = this.disableDetailedSession.bind(this);
     }
     
     displayDetailedSession = (session) => () => {
         this.setState({
             showDetailedSession: true,
             sessionId: session
+        });
+    }
+
+    disableDetailedSession = () => {
+        this.setState({
+            showDetailedSession: false
+        
         });
     }
 
@@ -51,6 +59,7 @@ class AvailableSessions extends Component {
                 <Grid>{session.class}</Grid>
                 <Grid>{session.title}</Grid>
                 <Grid>{session.location}</Grid>
+                <Grid>Study Expert: {session.tutor}</Grid>
                 <Grid>{DateTime.fromISO(session.date).toFormat('ff')}</Grid>
                 <Grid>{session.students.length}/{session.slots}</Grid>
                 </Grid>
@@ -61,7 +70,10 @@ class AvailableSessions extends Component {
         return (
             <Grid>
                 {this.state.showDetailedSession ?
-                <DetailedSessionView session={this.state.sessionId}/> :
+                <DetailedSessionView 
+                    session={this.state.sessionId} 
+                    disableDetailedSession={this.disableDetailedSession}
+                    /> :
                 <Grid
                     container
                     direction="column"

@@ -26,8 +26,7 @@ class Home extends Component {
             sessions: [],
             class: ""
         };
-        this.displayCreateSession = this.displayCreateSession.bind(this);
-        this.getDay = this.getDay;       
+        this.displayCreateSession = this.displayCreateSession.bind(this);  
     }
 
     dateUpdate = (ndate) => {
@@ -51,7 +50,18 @@ class Home extends Component {
 
     displayCreateSession = () => {
         this.setState({
-            showCreateSession: true,
+            showCreateSession: true
+        });
+    }
+    disableCreateSession = () => {
+        this.setState({
+            showCreateSession: false
+        });
+    }
+
+    disableDetailedSession = () => {
+        this.setState({
+            showDetailedSession: false
         });
     }
     handleLoad = () => {
@@ -113,14 +123,16 @@ class Home extends Component {
                             <Grid item >             
                                 <CardContent>
                                     {this.state.showCreateSession ?
-                                            <CreateASession /> :
-                                            null
+                                            <CreateASession
+                                            disableCreateSession = {this.disableCreateSession} 
+                                            /> :
+                                            <AvailableSessions
+                                            date = {this.state.date}
+                                            sessions = {this.state.sessions}
+                                            class = {this.state.class}
+                                            disableDetailedSession = {this.disableDetailedSession}>
+                                            </AvailableSessions>
                                             }
-                                    <AvailableSessions
-                                        date = {this.state.date}
-                                        sessions = {this.state.sessions}
-                                        class = {this.state.class}
-                                    ></AvailableSessions>
                                 </CardContent>
                             </Grid> 
                         </Grid>                     
