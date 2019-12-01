@@ -1,9 +1,12 @@
 import React from 'react';
+import { Typography } from '@material-ui/core';
 
 const loginfail = () => {
         return (
                 <div className="center">
-                        <h2>Student Login Fail</h2>
+                        <Typography variant="h5" className = "center">
+                                Student Login Fail
+                        </Typography>
                 </div>
         );
 }

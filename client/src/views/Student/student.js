@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect  } from 'react-router-dom';
 import './student.css';
 import SelectACourse from '../../components/SelectACourse/SelectACourse';
 import CreateASession from '../../components/CreateASession/CreateASession';
@@ -8,9 +7,15 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import StaticDatePicker from './StaticDatePicker';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import '../../components/SelectACourse/SelectACourse.css';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
+import { Redirect } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
 const style = {
     card: {
@@ -28,16 +33,69 @@ class Home extends Component {
             this.state = {
                 date: new Date(),
                 showCreateSession: false,
-                admin: true,
-                controlledDate: null,
                 user: this.props.location.state.id,
+                controlledDate: null,
+                sessions: [],
+                class: ""
             };
         } catch (error) {
-            this.state={
-                user:""
-            }
+            this.state = {
+                user: '',
+            };
         }
+
+        this.displayCreateSession = this.displayCreateSession.bind(this);  
     }
+
+    dateUpdate = (ndate) => {
+        this.setState({
+            date: ndate
+        })
+    }  
+
+    classUpdate = (nclass) => {
+        this.setState({
+            class: nclass
+        })
+        console.log(nclass)
+    } 
+    
+    updateSessions = (sess) => {
+        this.setState({
+            sessions: sess
+        })
+    }
+
+    displayCreateSession = () => {
+        this.setState({
+            showCreateSession: true
+        });
+    }
+    disableCreateSession = () => {
+        this.setState({
+            showCreateSession: false
+        });
+    }
+
+    disableDetailedSession = () => {
+        this.setState({
+            showDetailedSession: false
+        });
+    }
+    handleLoad = () => {
+        
+        axios.get('http://localhost:5000/sessions')
+        .then((response) => {
+            this.updateSessions(response.data)
+        })
+        .catch((error)=>{
+            console.log(error)
+        });
+        
+    }
+    componentDidMount() { window.addEventListener('load', this.handleLoad)}
+
+    componentWillUnmount() { window.removeEventListener('load', this.handleLoad) }
 
     render() {
         const theme = createMuiTheme({
@@ -59,38 +117,55 @@ class Home extends Component {
         return (
             <main>
                 {/* NEXT LINE FOR TESTING PURPOSES  */}
-                <div className="center"><h2>Student: {this.state.user}</h2></div>
+                <Typography variant="h5" className = "center">
+                    Student: {this.state.user} 
+                </Typography>
                 <ThemeProvider theme={theme}>
-                    <Grid container
-                        justify="center"
-                        alignItems="center"
+                    <Grid container   
+                    justify="center"
+                    alignItems="center"
                     >
-                        <Card style={style.card}>
+                        <Card style = {{display: 'inline-block'}}>
                             <Grid container
-                                direction="row"
-                                justify="center"
-                                alignItems="center"
-                                spacing={0}
-                            >
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                            spacing={0}
+                            >  
                                 <Grid item >
                                     <CardContent >
-                                        <Grid style={{ position: 'relative', zIndex: 1 }}>
-                                            <SelectACourse></SelectACourse>
+                                        <Grid style={{ position: 'relative', zIndex: 1}}>
+                                            <SelectACourse
+                                                sessions = {this.state.sessions}
+                                                classUpdate = {this.classUpdate.bind(this)}
+                                            ></SelectACourse>
                                         </Grid>
-                                        <StaticDatePicker onClick ={this.listSessions} />
-                                    </CardContent>
-                                </Grid>
-                                <Grid item >
+
+                                        <StaticDatePicker
+                                            date = {this.state.date}
+                                            dateUpdate= {this.dateUpdate.bind(this)}
+                                            updateSessions = {this.updateSessions.bind(this)}
+                                        ></StaticDatePicker>
+                                    </CardContent> 
+                                </Grid>           
+                                <Grid item >             
                                     <CardContent>
                                         {this.state.showCreateSession ?
-                                            <CreateASession user={this.state.user}/> :
-                                            <AvailableSessions />
+                                            <CreateASession
+                                            disableCreateSession = {this.disableCreateSession} 
+                                            /> :
+                                            <AvailableSessions
+                                                date = {this.state.date}
+                                                sessions = {this.state.sessions}
+                                                class = {this.state.class}
+                                                disableDetailedSession = {this.disableDetailedSession}
+                                                user = {this.state.user}/>
                                         }
                                     </CardContent>
-                                </Grid>
-                            </Grid>
+                                </Grid> 
+                            </Grid>                     
                         </Card>
-                    </Grid>
+                    </Grid>   
                 </ThemeProvider>
             </main>
         );

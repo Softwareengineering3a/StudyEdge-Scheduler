@@ -9,18 +9,16 @@ import axios from 'axios';
 import { throws } from 'assert';
 import {Redirect} from 'react-router-dom';
 
-
 const style = {
     text: {
       width: 435,
     },
   };
 
-
 class ConfirmReservation extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
@@ -29,11 +27,9 @@ class ConfirmReservation extends Component {
             email: '',
             phonenumber: '',
             sessions: '',
+            user: this.props.user,
         }
-
-
     }
-
 
     handleInputChange(event) {
         const target = event.target;
@@ -58,7 +54,7 @@ class ConfirmReservation extends Component {
             "slots": this.props.sessionRes.slots,
             "notes": this.props.sessionRes.notes,
             "tutor": this.props.sessionRes.tutor,
-            "students": [this.state.firstname, this.state.lastname, this.state.email, this.state.phonenumber],
+            "students": [this.state.user, this.state.firstname, this.state.lastname, this.state.email, this.state.phonenumber],
         })
             .then(function (response) {
                 console.log(response)
@@ -68,8 +64,6 @@ class ConfirmReservation extends Component {
             });
     }
 
-
- 
     render() {
 
         return (

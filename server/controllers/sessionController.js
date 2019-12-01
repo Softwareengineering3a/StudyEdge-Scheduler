@@ -38,7 +38,6 @@ exports.update = (req, res) => {
             });
         }
         else{
-            console.log(req.body.students);
             session.students.push(req.body.students);
             session.title = req.body.title;
             session.date =req.body.date; 

@@ -15,6 +15,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { Redirect } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
 const style = {
     card: {
@@ -30,7 +31,6 @@ class Home extends Component {
         this.state = {
             date: new Date(),
             showCreateSession: false,
-            admin: true,
             controlledDate: null,
             sessions: [],
             class: ""
@@ -81,9 +81,9 @@ class Home extends Component {
         })
         .catch((error)=>{
             console.log(error)
-        });
-        
+        }); 
     }
+
     componentDidMount() { window.addEventListener('load', this.handleLoad)}
 
     componentWillUnmount() { window.removeEventListener('load', this.handleLoad) }
@@ -108,8 +108,6 @@ class Home extends Component {
                 />
             );
         }
-
-
         if(decoded.username != "admin"){
             return(
                 <Redirect to={{
@@ -122,21 +120,29 @@ class Home extends Component {
         return (
             <main>
                 {/* NEXT LINE FOR TESTING PURPOSES  */}
-                <div className="center"><h2>Admin</h2></div>
+                <Typography variant="h5" className = "center">
+                    Admin 
+                </Typography>                
                 <ThemeProvider theme={theme}>
-                    <Grid container
-                        justify="center"
-                        alignItems="center"
-                        spacing={0}
-                        >  
-                            <Grid item >
-                                <CardContent >
-                                    <Grid style={{ position: 'absolute', zIndex: 1}}>
-                                        <SelectACourse
-                                            sessions = {this.state.sessions}
-                                            classUpdate = {this.classUpdate.bind(this)}
-                                        ></SelectACourse>
-                                    </Grid>
+                    <Grid container   
+                    justify="center"
+                    alignItems="center"
+                    >
+                        <Card style = {{display: 'inline-block'}}>
+                            <Grid container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                            spacing={0}
+                            >  
+                                <Grid item >
+                                    <CardContent >
+                                        <Grid style={{ position: 'relative', zIndex: 1}}>
+                                            <SelectACourse
+                                                sessions = {this.state.sessions}
+                                                classUpdate = {this.classUpdate.bind(this)}
+                                            ></SelectACourse>
+                                        </Grid>
                                         <Fab className = "CreateButton" size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} >
                                             <AddIcon/>
                                         </Fab>
@@ -146,24 +152,26 @@ class Home extends Component {
                                             dateUpdate= {this.dateUpdate.bind(this)}
                                             updateSessions = {this.updateSessions.bind(this)}
                                         ></StaticDatePicker>
-                                </CardContent> 
-                            </Grid>           
-                            <Grid item >             
-                                <CardContent>
-                                    {this.state.showCreateSession ?
-                                            <CreateASession
-                                            disableCreateSession = {this.disableCreateSession} 
-                                            /> :
-                                            <AvailableSessions
-                                            date = {this.state.date}
-                                            sessions = {this.state.sessions}
-                                            class = {this.state.class}
-                                            disableDetailedSession = {this.disableDetailedSession}>
-                                            </AvailableSessions>
-                                            }
-                                </CardContent>
-                            </Grid>                   
-                    </Grid>               
+                                    </CardContent> 
+                                </Grid>           
+                                <Grid item >             
+                                    <CardContent>
+                                        {this.state.showCreateSession ?
+                                                <CreateASession
+                                                disableCreateSession = {this.disableCreateSession} 
+                                                /> :
+                                                <AvailableSessions
+                                                date = {this.state.date}
+                                                sessions = {this.state.sessions}
+                                                class = {this.state.class}
+                                                disableDetailedSession = {this.disableDetailedSession}>
+                                                </AvailableSessions>
+                                                }
+                                    </CardContent>
+                                </Grid> 
+                            </Grid>                     
+                        </Card>
+                    </Grid>   
                 </ThemeProvider>
             </main>
         );

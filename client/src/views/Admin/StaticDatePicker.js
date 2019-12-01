@@ -29,6 +29,7 @@ const StaticDatePicker = (props) => {
         value={date}
         onChange={setCount}
         disablePast
+        disableToolbar
       />
     </MuiPickersUtilsProvider>
   );

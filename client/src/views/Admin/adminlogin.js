@@ -43,14 +43,15 @@ class adminlogin extends Component {
         this.setState({
             [name]: value
         });
-        console.log(name, value);
     }
 
     render(){
         return(
             <main>
                 <div className="center">
-                    <h2>Login:</h2>
+                    <Typography variant="h5" className = "center">
+                        Login: 
+                    </Typography>
                     <Grid item>
                         <TextField
                             required

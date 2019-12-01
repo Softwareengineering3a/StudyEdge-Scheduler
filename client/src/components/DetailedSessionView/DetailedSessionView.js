@@ -8,6 +8,7 @@ import { DateTime } from "luxon";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
 import ConfirmReservation from '../ConfirmReservation/ConfirmReservation';
+import jwt_decode from 'jwt-decode';
 
 const style = {
     bg: {
@@ -24,9 +25,13 @@ class DetailedSessionView extends Component {
         this.state = {
             showRes: false,
             session: this.props.session,
+            studentUser: this.props.user,
+            isAdmin: false,
+            checkOnce: true,
         };
         this.displayReservation = this.displayReservation.bind(this);
         this.disableReservation = this.disableReservation.bind(this);
+        this.checkAdmin = this.checkAdmin.bind(this);
     }
 
     displayReservation = () => {
@@ -39,117 +44,139 @@ class DetailedSessionView extends Component {
             showRes: false,
         });
     }
+
     render() {
           
         let mySessions = this.props.session;
 
+        //ADMIN CHECK
+        if(this.state.checkOnce){
+
+            try {
+                var token = localStorage.getItem('jwtToken');
+                var decoded = jwt_decode(token);
+                if(decoded.username == "admin"){
+                    this.setState({
+                        isAdmin: true,
+                    });
+                }
+            } catch(error){
+                this.setState({
+                    checkOnce: false,
+                });
+            }
+        }
+
         return(
             <Grid>
                 {this.state.showRes ?
-                <ConfirmReservation sessionRes = {this.state.session} disableReservation = {this.disableReservation}/> : 
-                <Grid  container  
-                direction="column"
-                alignItems="center"
-                justify = "center"
-                spacing={2}
-                >
-                <Grid item>
-                <Grid container
-                    direction = "row"
+                    <ConfirmReservation sessionRes = {this.state.session} disableReservation = {this.disableReservation} user = {this.state.studentUser}/> : 
+                    <Grid  container  
+                    direction="column"
                     alignItems="center"
-                >
-                    <Grid item>
-                        <IconButton onClick={this.props.disableDetailedSession} >
-                            <ArrowBackIosIcon/>
-                        </IconButton>
-                        </Grid>
-                            <Grid item>
-                                <Typography variant="h5" >
-                                    Session Details
-                                </Typography>
+                    justify = "center"
+                    spacing={2}
+                    >
+                        <Grid item>
+                            <Grid container
+                                direction = "row"
+                                alignItems="center"
+                            >
+                                <Grid item>
+                                    <IconButton onClick={this.props.disableDetailedSession} >
+                                        <ArrowBackIosIcon/>
+                                    </IconButton>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="h5" >
+                                        Session Details
+                                    </Typography>
+                                </Grid>
                             </Grid>
                         </Grid>
+                        <Card  style = {style.bg}>
+                            <Grid >
+                                <Grid container  
+                                    direction="column"
+                                    spacing={1}
+                                >
+                                    <Grid item>
+                                        <Grid container  
+                                            direction="column"
+                                            alignItems="center"
+                                            justify = "center"
+                                            spacing={0}
+                                        >
+                                            <Grid>
+                                                <Typography variant =  "button">{mySessions.class}</Typography>
+                                            </Grid>
+                                            <Grid>
+                                                <Typography variant = "button">{mySessions.title}</Typography>
+                                            </Grid>
+                                            <Grid>
+                                                <Typography variant = "button"> Study Expert: {mySessions.tutor}</Typography>
+                                            </Grid>
+                                            <Grid>
+                                                <Typography variant =  "button">{mySessions.location}</Typography>
+                                            </Grid>
+                                            <Grid>
+                                                <Typography variant =  "button">{DateTime.fromISO(mySessions.date).toFormat('ff')}</Typography>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item>
+                                        <Grid container  
+                                            direction="column"
+                                            alignItems="center"
+                                            justify = "center"
+                                            spacing={0} 
+                                        >
+                                            <Grid>
+                                                <Typography  variant =  "button">Note: </Typography>
+                                            </Grid>
+                                            <Grid>
+                                                <Typography  variant =  "button">{mySessions.notes}</Typography>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid container justify = "flex-end"> 
+                                            <Typography variant =  "body1">{mySessions.students.length}/{mySessions.slots}</Typography>
+                                        </Grid>
+                                    </Grid> 
+                                </Grid>  
+                            </Grid>      
+                        </Card>  
+                        {this.state.isAdmin ? 
+                            <div>
+                                <Grid item>
+                                    <Grid container
+                                        direction="row"
+                                        spacing={4}
+                                    > 
+                                        <Grid item>
+                                            <Button variant="contained"color="secondary">
+                                                Edit
+                                            </Button>
+                                        </Grid> 
+                                    </Grid> 
+                                </Grid>
+                                <Grid item>
+                                    <Button variant="contained" color = "primary"  endIcon={<Icon>send</Icon>}>
+                                        Notify 
+                                    </Button>
+                                </Grid>
+                            </div> : 
+                            <div>
+                                <Grid item>
+                                    <Button variant="contained" color = "secondary" onClick={this.displayReservation}>
+                                        Reserve
+                                    </Button>
+                                </Grid>
+                            </div>
+
+                        }      
                     </Grid>
-                <Card  style = {style.bg}>
-                    <Grid >
-                        <Grid container  
-                            direction="column"
-                            spacing={1}
-                        >
-                            <Grid item>
-                                <Grid container  
-                                    direction="column"
-                                    alignItems="center"
-                                    justify = "center"
-                                    spacing={0}
-                                >
-                                    <Grid>
-                                        <Typography variant =  "button">{mySessions.class}</Typography>
-                                    </Grid>
-                                    <Grid>
-                                        <Typography variant = "button">{mySessions.title}</Typography>
-                                    
-                                    </Grid>
-                                    <Grid>
-                                        <Typography variant = "button"> Study Expert: {mySessions.tutor}</Typography>
-                                    </Grid>
-                                    <Grid>
-                                        <Typography variant =  "button">{mySessions.location}</Typography>
-                                    </Grid>
-                                    <Grid>
-                                        <Typography variant =  "button">{DateTime.fromISO(mySessions.date).toFormat('ff')}</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item>
-                                <Grid container  
-                                    direction="column"
-                                    alignItems="center"
-                                    justify = "center"
-                                    spacing={0} 
-                                >
-                                    <Grid>
-                                        <Typography  variant =  "button">Note: </Typography>
-                                    </Grid>
-                                    <Grid>
-                                        <Typography  variant =  "button">{mySessions.notes}</Typography>
-                                    </Grid>
-                                </Grid>
-                                <Grid container justify = "flex-end"> 
-                                    <Typography variant =  "body1">{mySessions.students.length}/{mySessions.slots}</Typography>
-                                </Grid>
-                            </Grid> 
-                        </Grid>  
-                    </Grid>      
-                </Card>        
-                <Grid item>
-                <Grid container
-                    direction="row"
-                    spacing={4}
-                > 
-                    <Grid item>
-                        <Button variant="contained"color="secondary">
-                            Edit
-                        </Button>
-                    </Grid> 
-                </Grid> 
-                </Grid>
-                <Grid item>
-                    <Button variant="contained" color = "primary"  endIcon={<Icon>send</Icon>}>
-                        Notify 
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button variant="contained" color = "secondary" onClick={this.displayReservation}>
-                        Reserve
-                    </Button>
-                </Grid>
+                }
             </Grid>
-            }
-            </Grid>
-           
-            
-            
         );
     }
 }

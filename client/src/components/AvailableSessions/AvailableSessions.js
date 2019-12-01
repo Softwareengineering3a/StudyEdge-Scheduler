@@ -17,7 +17,8 @@ class AvailableSessions extends Component {
         super(props);
         this.state = {
             showDetailedSession: false,
-            showRes: false
+            showRes: false,
+            user: this.props.user,
         };
         this.displayDetailedSession = this.displayDetailedSession.bind(this);
         this.disableDetailedSession = this.disableDetailedSession.bind(this);
@@ -74,7 +75,8 @@ class AvailableSessions extends Component {
                 <DetailedSessionView 
                     session={this.state.sessionId} 
                     disableDetailedSession={this.disableDetailedSession}
-                    /> :
+                    user = {this.state.user}
+                /> :
                 <Grid
                     container
                     direction="column"

@@ -36,7 +36,6 @@ module.exports.init = () => {
     // add a router
     app.use('/sessions', sessionRouter);
 
-
     //================= Passport and User Auth ===================
     app.use('/auth', auth);
 
