@@ -110,7 +110,6 @@ class Home extends Component {
                 />
             )
         }        
-
         return (
             <main>
                 {/* NEXT LINE FOR TESTING PURPOSES  */}
@@ -140,7 +139,7 @@ class Home extends Component {
                                             <Grid item style={{ position: 'relative', zIndex: 1}}>
                                                 <Grid item container justify = "flex-start">
                                                     <SelectACourse
-                                                        sessions = {this.state.sessions}                                                            classUpdate = {this.classUpdate.bind(this)}
+                                                        sessions = {this.state.sessions} classUpdate = {this.classUpdate.bind(this)}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -181,8 +180,9 @@ class Home extends Component {
                                                         date = {this.state.date}
                                                         sessions = {this.state.sessions}
                                                         class = {this.state.class}
-                                                        disableDetailedSession = {this.disableDetailedSession}>
-                                                        </AvailableSessions>
+                                                        disableDetailedSession = {this.disableDetailedSession}
+                                                        user = {this.state.user}
+                                                        />
                                                     }
                                                 </CardContent>
                                             </Grid>   

@@ -7,7 +7,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios';
 import { throws } from 'assert';
-import {Redirect} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 
 const style = {
     text: {
@@ -28,6 +28,7 @@ class ConfirmReservation extends Component {
             phonenumber: '',
             sessions: '',
             user: this.props.user,
+            redirectbool: false,
         }
     }
 
@@ -62,10 +63,24 @@ class ConfirmReservation extends Component {
             .catch(function (error) {
                 console.log(error)
             });
+
+        this.setState({
+            redirectbool: true,
+        });
+        e.preventDefault();
+        
     }
 
     render() {
-
+        
+        if(this.state.redirectbool){
+            var redirecturl = '/login/' + this.state.user;
+            return(
+                <Route>
+                    <Redirect to={redirecturl} />
+                </Route>
+            );
+        }
         return (
             <main>
                 <Grid

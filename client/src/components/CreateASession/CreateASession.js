@@ -9,8 +9,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import axios from 'axios';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
-
-
+import {Route, Redirect} from 'react-router-dom';
 
 export function DatePicker(props) {
     const [selectedDate, handleDateChange] = useState(new Date());
@@ -53,6 +52,7 @@ class CreateASession extends Component {
             slots: 0,
             notes: '',
             tutor: '',
+            redirectbool: false,
         }
 
 
@@ -91,11 +91,14 @@ class CreateASession extends Component {
             .catch(function (error) {
                 console.log(error)
             });
-        
+        this.setState({
+            redirectbool: true,
+        });
         //e.preventDefault();
     }
  
     render() {
+
       
         return (
             <main>

@@ -39,6 +39,7 @@ class AvailableSessions extends Component {
     }
 
     render(){
+        console.log(this.state.user);
         const tempReservations = this.props.sessions
         .filter(reservation=>{
             var temp = "\"" + reservation.date + "\""
