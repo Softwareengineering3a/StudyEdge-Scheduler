@@ -18,7 +18,7 @@ const StaticDatePicker = (props) => {
     return allDates.indexOf(dateCleaner(day))<0  
   }
   
-  const setCount = (newDate) => {
+  const setDay = (newDate) => {
     props.dateUpdate(newDate);
     changeDate(newDate);
     
@@ -39,7 +39,7 @@ const StaticDatePicker = (props) => {
         variant="static"
         openTo="date"
         value={date}
-        onChange={setCount}
+        onChange={setDay}
         disablePast
         disableToolbar
         shouldDisableDate = {disableDate}
