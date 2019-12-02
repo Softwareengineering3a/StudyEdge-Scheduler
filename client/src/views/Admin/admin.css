@@ -1,8 +1,8 @@
+
 .center {
     float: center;
     text-align: center;
     align-content: center;
     align-self: auto;
     vertical-align: auto;
-    margin-top: 20;
 }

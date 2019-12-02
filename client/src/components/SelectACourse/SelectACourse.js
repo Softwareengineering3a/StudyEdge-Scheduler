@@ -11,12 +11,17 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
 //Replace with Database containing course names
-const options = ['MAC2313', 'CHM2045', 'ACG2021'];
 
-export default function SplitButton() {
+
+export default function SplitButton(props) {
+  const distinct = (value, index, self) => {
+    return self.indexOf(value) === index;
+  }
+  const classes = props.sessions.map(x => x.class)
+  const options = classes.filter(distinct);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(null);
 
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
@@ -25,6 +30,8 @@ export default function SplitButton() {
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setOpen(false);
+    console.info(`You clicked ${options[index]}`);
+    props.classUpdate(options[index])
   };
 
   const handleToggle = () => {
@@ -43,10 +50,10 @@ export default function SplitButton() {
     <Grid container direction="column">
       <Grid item xs={12}>
         <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
-          <Button onClick={handleClick}>Select a Course </Button>
+          <Button size = "large" onClick={handleClick}>Select a Course </Button>
           <Button
             color="primary"
-            size="small"
+            size="large"
             aria-controls={open ? 'split-button-menu' : undefined}
             aria-expanded={open ? 'true' : undefined}
             aria-label="select merge strategy"
@@ -64,7 +71,7 @@ export default function SplitButton() {
                 transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
               }}
             >
-              <Paper>
+              <Paper style = {{width: 250}}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList id="split-button-menu">
                     {options.map((option, index) => (
@@ -72,6 +79,7 @@ export default function SplitButton() {
                         key={option}
                         selected={index === selectedIndex}
                         onClick={event => handleMenuItemClick(event, index)}
+                        
                       >
                         {option}
                       </MenuItem>
