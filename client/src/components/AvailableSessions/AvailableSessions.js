@@ -39,7 +39,6 @@ class AvailableSessions extends Component {
     }
 
     render(){
-        console.log(this.state.user);
         const tempReservations = this.props.sessions
         .filter(reservation=>{
             var temp = "\"" + reservation.date + "\""
@@ -51,7 +50,7 @@ class AvailableSessions extends Component {
             
         })
 
-        const myReservations = tempReservations.map((session) =>
+        const myReservations = tempReservations.map((session,index) =>
             <Grid container
             direction="column"
             alignItems="center"
@@ -60,11 +59,12 @@ class AvailableSessions extends Component {
             style={{
             margin: 0,
             width: '100%',
-            }}>
+            }}
+            key = {index}>
 
            <Grid item
            style = {{width: '100%',height:"100%"}}>
-            <Button variant="outlined" color="primary" onClick = {this.displayDetailedSession(session)}  style={{maxHeight: 600, width: 400}}>
+            <Button variant="outlined" color="primary" onClick = {this.displayDetailedSession(session)} style={{maxHeight: 600, width: 400}}>
                 <Grid item>
                     <Grid item>
                         <Grid>{session.class}</Grid>

@@ -112,7 +112,6 @@ class Home extends Component {
         }        
         return (
             <main>
-                {/* NEXT LINE FOR TESTING PURPOSES  */}
                 <Typography variant="h5" className = "center">
                     Hi, {this.state.user} ! 
                 </Typography>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect  } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import 'typeface-roboto';
 import admin from "./views/Admin/admin";
 import adminlogin from "./views/Admin/adminlogin";

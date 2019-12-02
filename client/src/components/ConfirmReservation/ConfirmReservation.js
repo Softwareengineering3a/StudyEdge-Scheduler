@@ -6,7 +6,6 @@ import { Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios';
-import { throws } from 'assert';
 import {Route, Redirect} from 'react-router-dom';
 
 const style = {

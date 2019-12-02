@@ -9,7 +9,6 @@ import DateFnsUtils from "@date-io/date-fns";
 import axios from 'axios';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
-import {Route, Redirect} from 'react-router-dom';
 
 export function DatePicker(props) {
     const [selectedDate, handleDateChange] = useState(new Date());
