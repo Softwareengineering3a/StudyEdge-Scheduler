@@ -2,6 +2,8 @@ import React, { useState, Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import IconButton from '@material-ui/core/IconButton';
 import './EditSessionForm.css';
 import { Typography } from '@material-ui/core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -25,6 +27,15 @@ export function DatePicker(props) {
         </MuiPickersUtilsProvider>
     );
 }
+
+
+
+const style = {
+    text: {
+        width: 435,
+    },
+};
+
 
 class EditSessionForm extends Component {
     constructor(props) {
@@ -80,7 +91,6 @@ class EditSessionForm extends Component {
     }
 
     render() {
-        const myReservations = this.props.sessions
         return (
             <main>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -88,112 +98,149 @@ class EditSessionForm extends Component {
                         container
                         direction="column"
                         alignItems="center"
-                        spacing={0}
-                    >
-                        <Typography variant="h5" className="center">
-                            Edit Session
-                    </Typography>
-                        <form autoComplete="off">
-                            <Grid item>
-                                <Grid
-                                    container
-                                    direction="row"
-                                    alignItems="center"
-                                    spacing={4}
-                                >
-                                    <Grid item>
-                                        <Typography variant="subtitle1">Session Title</Typography>
-                                        <TextField
-                                            required
-                                            id="standard-required"
-                                            label="Session Title"
-                                            type="text"
-                                            name="title"
-                                            onChange={this.handleInputChange}
-                                            value={this.state.title}
-                                        />
-                                    </Grid>
+                        spacing={8}
 
+                    >
+                        <Grid item>
+                            <Grid container
+                                direction="row"
+                                alignItems="center"
+                                justify="center"
+                            >
+                                <Grid item>
+                                    <IconButton onClick={this.props.disableCreateSession} >
+                                        <ArrowBackIosIcon />
+                                    </IconButton>
                                 </Grid>
-                                <Grid
-                                    container
-                                    direction="row"
-                                    spacing={4}
-                                >
-                                    <Grid item>
-                                        <Typography variant="subtitle1">Course</Typography>
-                                        <TextField
-                                            required
-                                            id="standard-required"
-                                            label="Course"
-                                            type="text"
-                                            name="course"
-                                            onChange={this.handleInputChange}
-                                            value={this.state.course}
-                                        />
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant="subtitle1">Location</Typography>
-                                        <TextField
-                                            required
-                                            id="standard-required"
-                                            label="Location"
-                                            type="text"
-                                            name="location"
-                                            onChange={this.handleInputChange}
-                                            value={this.state.location}
-                                        />
-                                    </Grid>
-                                </Grid>
-                                <Grid container
-                                    direction="row"
-                                    spacing={4}
-                                >
-                                    <Grid item>
-                                        <Typography variant="subtitle1">Date & Time</Typography>
-                                        <KeyboardDateTimePicker
-                                            value={this.state.date}
-                                            onChange={this.handleDate}
-                                            onError={console.log}
-                                            disablePast
-                                            minDate={new Date()}
-                                            format="MM/dd/yyyy hh:mm a"
-                                            label="Date and Time"
-                                        />
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant="subtitle1">Slots</Typography>
-                                        <TextField
-                                            required
-                                            id="standard-required"
-                                            label="Slots"
-                                            type="number"
-                                            name="slots"
-                                            onChange={this.handleInputChange}
-                                            value={this.state.slots}
-                                        />
-                                    </Grid>
-                                </Grid>
-                                <Grid container
-                                    direction="column"
-                                    alignItems="center"
-                                    spacing={4}>
-                                    <Grid item>
-                                        <Typography variant="subtitle1">Notes</Typography>
-                                        <TextField
-                                            type="text"
-                                            name="notes"
-                                            label="Notes"
-                                            onChange={this.handleInputChange}
-                                            value={this.state.notes}
-                                        />
-                                    </Grid >
-                                    <Grid item >
-                                        <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Confirm</Button>
-                                    </Grid>
+                                <Grid item>
+                                    <Typography variant="h4">
+                                        Create A Session
+                                </Typography>
                                 </Grid>
                             </Grid>
-                        </form>
+                        </Grid>
+                        <Grid>
+                            <form autoComplete="off">
+                                <Grid item>
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        alignItems="center"
+                                        spacing={4}
+                                    >
+                                        <Grid item>
+                                            <Typography variant="subtitle1">Session Title *</Typography>
+                                            <TextField
+                                                required
+                                                variant="outlined"
+                                                id="standard-required"
+                                                type="text"
+                                                name="title"
+                                                onChange={this.handleInputChange}
+                                                value={this.state.title}
+                                            />
+                                        </Grid>
+
+                                    </Grid>
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        spacing={4}
+                                    >
+                                        <Grid item>
+                                            <Typography variant="subtitle1">Course *</Typography>
+                                            <TextField
+                                                required
+                                                variant="outlined"
+                                                id="standard-required"
+                                                type="text"
+                                                name="course"
+                                                onChange={this.handleInputChange}
+                                                value={this.state.course}
+                                            />
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography variant="subtitle1">Location *</Typography>
+                                            <TextField
+                                                required
+                                                variant="outlined"
+                                                id="standard-required"
+                                                type="text"
+                                                name="location"
+                                                onChange={this.handleInputChange}
+                                                value={this.state.location}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container
+                                        direction="row"
+                                        spacing={4}
+                                    >
+                                        <Grid item>
+                                            <Typography variant="subtitle1">Study Expert *</Typography>
+                                            <TextField
+                                                required
+                                                variant="outlined"
+                                                id="standard-required"
+                                                type="text"
+                                                name="tutor"
+                                                onChange={this.handleInputChange}
+                                                value={this.state.tutor}
+                                            />
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography variant="subtitle1">Slots *</Typography>
+                                            <TextField
+                                                required
+                                                variant="outlined"
+                                                id="standard-required"
+                                                type="number"
+                                                name="slots"
+                                                onChange={this.handleInputChange}
+                                                value={this.state.slots}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container
+                                        direction="column"
+                                        spacing={4}>
+                                        <Grid item>
+                                            <Typography variant="subtitle1">Date & Time *</Typography>
+                                            <KeyboardDateTimePicker
+                                                inputVariant="outlined"
+                                                value={this.state.date}
+                                                onChange={this.handleDate}
+                                                onError={console.log}
+                                                disablePast
+                                                minDate={new Date()}
+                                                format="MM/dd/yyyy hh:mm a"
+                                                style={style.text}
+                                            />
+                                        </Grid >
+                                        <Grid item>
+                                            <Grid>
+                                                <Typography variant="subtitle1">Notes</Typography>
+                                                <TextField
+                                                    variant="outlined"
+                                                    type="text"
+                                                    name="notes"
+                                                    onChange={this.handleInputChange}
+                                                    value={this.state.notes}
+                                                />
+                                            </Grid >
+                                        </Grid>
+                                        <Grid item>
+                                            <Grid container
+                                                alignItems="center"
+                                                justify="center"
+                                            >
+                                                <Button type="submit" variant="contained" color="secondary" size="large" onClick={this.handleSubmit}>Confirm</Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </form>
+                        </Grid>
                     </Grid>
                 </MuiPickersUtilsProvider>
             </main>
