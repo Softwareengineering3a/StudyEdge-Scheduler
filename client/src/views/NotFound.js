@@ -1,9 +1,12 @@
 import React from 'react';
+import { Typography } from '@material-ui/core';
 
 const NotFound = () => {
         return (
                 <div className="center">
-                        <h2>Page Not Found</h2>
+                        <Typography variant="h5" className = "center">
+                                Page Not Found
+                        </Typography>
                 </div>
         );
 }
