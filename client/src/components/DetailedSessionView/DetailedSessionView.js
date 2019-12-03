@@ -3,18 +3,13 @@ import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import CardContent from '@material-ui/core/CardContent'
 import { DateTime } from "luxon";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import ConfirmReservation from '../ConfirmReservation/ConfirmReservation';
 import EditSesh from './EditSessionForm';
 import jwt_decode from 'jwt-decode';
-import axios from 'axios';
+
 
 
 class DetailedSessionView extends Component {
@@ -39,8 +34,8 @@ class DetailedSessionView extends Component {
         this.displayReservation = this.displayReservation.bind(this);
         this.disableReservation = this.disableReservation.bind(this);
         this.displayEditSesh = this.displayEditSesh.bind(this);
-        this.handleClickClose = this.handleClickClose.bind(this);
-        this.handleClickOpen = this.handleClickOpen.bind(this);
+        this.disableEditSesh = this.disableEditSesh.bind(this);
+      
         // Returns undefined 
         // this.checkAdmin = this.checkAdmin.bind(this);
     }
@@ -56,36 +51,17 @@ class DetailedSessionView extends Component {
         });
     }
 
-    handleClickOpen = () => {
-        this.setState({
-            setOpen: true,
-        });
-    }
-
-    handleClickClose = () => {
-        this.setState({
-            setOpen: false,
-        });
-    }
-
     displayEditSesh = (session) => {
         this.setState({
             showEditSession: true,
         });
     }
 
-    handleRemove = e => {
-        axios.delete(`http://localhost:5000/sessions/${this.props.session._id}`)
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-        window.location.reload();
-    };
-
+    disableEditSesh = () => {
+        this.setState({
+            showEditSession: false,
+        });
+    }
 
     render() {
 
@@ -112,8 +88,17 @@ class DetailedSessionView extends Component {
         return (
             <Grid>
                 {this.state.showRes ?
-                    <ConfirmReservation sessionRes={this.state.session} disableReservation={this.disableReservation} user={this.state.studentUser} /> :
-                    <Grid container
+                    <ConfirmReservation 
+                        sessionRes={this.state.session} 
+                        disableReservation={this.disableReservation} 
+                        user={this.state.studentUser} 
+                    /> 
+                    :
+                    this.state.showEditSession ?
+                        <EditSesh session={mySessions} disableEditSesh={this.disableEditSesh} /> 
+                    :
+                    <Grid 
+                        container
                         direction="column"
                         alignItems="center"
                         justify="center"
@@ -134,12 +119,6 @@ class DetailedSessionView extends Component {
                                     <Typography variant="h4" >
                                         Session Details
                                     </Typography>
-                                    <CardContent>
-                                        {this.state.showEditSession ?
-                                            <EditSesh session={mySessions} /> :
-                                            null
-                                        }
-                                    </CardContent>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -203,7 +182,7 @@ class DetailedSessionView extends Component {
                             <Grid item
                                 style={{ height: 350 }}>
                                 <Grid container
-                                    direction="column"
+                                    direction="row"
                                     spacing={2}
                                     alignItems="center"
                                 >
@@ -212,11 +191,7 @@ class DetailedSessionView extends Component {
                                             Edit
                                         </Button>
                                     </Grid>
-                                    <Grid item>
-                                        <Button variant="contained" onClick={this.handleClickOpen}>
-                                            Delete
-                                        </Button>
-                                    </Grid>
+                                    
                                     <Grid item>
                                         <Button variant="contained" color="primary" endIcon={<Icon>send</Icon>}>
                                             Notify
@@ -242,20 +217,7 @@ class DetailedSessionView extends Component {
                         }
                     </Grid>
                 }
-                <Dialog
-                    open={this.state.setOpen}
-                    onClose={this.handleClickClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">{"Are you sure you would like to delete this session?"}</DialogTitle>
-                    <DialogContent>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClickClose} color="primary">Go back</Button>
-                        <Button onClick={this.handleRemove} color="primary" autoFocus>Delete Session</Button>
-                    </DialogActions>
-                </Dialog>
+
             </Grid>
         );
     }
