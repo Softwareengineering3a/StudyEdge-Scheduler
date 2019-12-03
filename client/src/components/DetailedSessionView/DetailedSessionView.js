@@ -183,17 +183,17 @@ class DetailedSessionView extends Component {
                                 style={{ height: 350 }}>
                                 <Grid container
                                     direction="row"
-                                    spacing={2}
+                                    spacing={4}
                                     alignItems="center"
                                 >
                                     <Grid item>
-                                        <Button variant="contained" color="secondary" onClick={this.displayEditSesh}>
+                                        <Button variant="contained" size = "large" color="secondary" onClick={this.displayEditSesh}>
                                             Edit
                                         </Button>
                                     </Grid>
                                     
                                     <Grid item>
-                                        <Button variant="contained" color="primary" endIcon={<Icon>send</Icon>}>
+                                        <Button variant="contained" size = "large" color="primary" endIcon={<Icon>send</Icon>}>
                                             Notify
                                         </Button>
                                     </Grid>

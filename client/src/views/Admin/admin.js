@@ -152,12 +152,6 @@ class Home extends Component {
                                                     <AddIcon/>
                                                 </Fab>
                                             </Grid>
-                                            {/* <Grid item>
-                                                {this.state.showCreateSession ?
-                                                <Typography>Create A Session</Typography>
-                                                : <Typography>AvailableSessions</Typography>
-                                                }
-                                            </Grid> */}
                                         </Grid>
                                     <Grid
                                         item

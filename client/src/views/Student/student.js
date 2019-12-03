@@ -112,9 +112,6 @@ class Home extends Component {
         }        
         return (
             <main>
-                <Typography variant="h5" className = "center">
-                    Hi, {this.state.user} ! 
-                </Typography>
                 <ThemeProvider theme={theme}>
                     <Grid container   
                     justify="center"
@@ -142,12 +139,6 @@ class Home extends Component {
                                                     />
                                                 </Grid>
                                             </Grid>
-                                            {/* <Grid item>
-                                                {this.state.showCreateSession ?
-                                                <Typography>Create A Session</Typography>
-                                                : <Typography>AvailableSessions</Typography>
-                                                }
-                                            </Grid> */}
                                         </Grid>
                                     <Grid
                                         item
