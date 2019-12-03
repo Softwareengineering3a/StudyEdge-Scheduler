@@ -1,1 +1,1 @@
-web: bin/boot
+web: nosw ./server.js
