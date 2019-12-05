@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ConfirmReservation from '../ConfirmReservation/ConfirmReservation';
 import EditSesh from './EditSessionForm';
 import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 
 
 
@@ -30,6 +31,7 @@ class DetailedSessionView extends Component {
             slots: this.props.session.slots,
             notes: this.props.session.notes,
             tutor: this.props.session.tutor,
+            email: "duharter@yahoo.com"
         };
         this.displayReservation = this.displayReservation.bind(this);
         this.disableReservation = this.disableReservation.bind(this);
@@ -61,6 +63,17 @@ class DetailedSessionView extends Component {
         this.setState({
             showEditSession: false,
         });
+    }
+    handleNotify = () => {
+        axios.post(`http://localhost:5000/students`, {
+            email: this.state.email,
+        })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
     }
 
     render() {
@@ -193,7 +206,7 @@ class DetailedSessionView extends Component {
                                     </Grid>
                                     
                                     <Grid item>
-                                        <Button variant="contained" size = "large" color="primary" endIcon={<Icon>send</Icon>}>
+                                        <Button variant="contained" size = "large" color="primary" endIcon={<Icon>send</Icon>} onClick ={this.handleNotify}>
                                             Notify
                                         </Button>
                                     </Grid>
