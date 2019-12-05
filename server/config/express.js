@@ -4,7 +4,9 @@ const path = require('path'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     sessionRouter = require('../routes/sessionRouter'),
-    passport = require('passport');
+    passport = require('passport'),
+    eRoute = require('../controllers/emailController');
+
 
 var cors = require('cors');
 var auth = require('../routes/auth');
@@ -35,6 +37,7 @@ module.exports.init = () => {
 
     // add a router
     app.use('/sessions', sessionRouter);
+    app.use('/students', eRoute);
 
     //================= Passport and User Auth ===================
     app.use('/auth', auth);
@@ -45,7 +48,7 @@ module.exports.init = () => {
         app.use(express.static(path.join(__dirname, '../../client/build')));
 
         // Handle React routing, return all requests to React app
-        app.get('*', function(req, res) {
+        app.get('*', function (req, res) {
             res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
         });
     }

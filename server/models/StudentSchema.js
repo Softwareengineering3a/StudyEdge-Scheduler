@@ -3,10 +3,10 @@ var mongoose = require('mongoose'),
 
 var StudentSchema = new Schema({
 
-  UFID : {type : Number, required : true},
-  Name : {type : String, required : true},
+  UFID : {type : Number, required : false},
+  Name : {type : String, required : false},
   Email : {type : String, required : true},
-  PhoneNumber : {type : Number, required : true},
+  pNumber : {type : Number, required : false},
 
 });
 
