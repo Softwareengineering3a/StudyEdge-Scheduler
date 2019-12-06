@@ -9,6 +9,10 @@ import { Typography } from '@material-ui/core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import axios from 'axios';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 export function DatePicker(props) {
     const [selectedDate, handleDateChange] = useState(new Date());
@@ -43,6 +47,8 @@ class EditSessionForm extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDate = this.handleDate.bind(this);
+        this.handleClickClose = this.handleClickClose.bind(this);
+        this.handleClickOpen = this.handleClickOpen.bind(this);
         this.state = {
             title: this.props.session.title,
             course: this.props.session.class,
@@ -90,6 +96,31 @@ class EditSessionForm extends Component {
             });
     }
 
+    handleRemove = e => {
+        axios.delete(`http://localhost:5000/sessions/${this.props.session._id}`)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        window.location.reload();
+    };
+
+
+    handleClickOpen = () => {
+        this.setState({
+            setOpen: true,
+        });
+    }
+
+    handleClickClose = () => {
+        this.setState({
+            setOpen: false,
+        });
+    }
+
     render() {
         return (
             <main>
@@ -108,13 +139,13 @@ class EditSessionForm extends Component {
                                 justify="center"
                             >
                                 <Grid item>
-                                    <IconButton onClick={this.props.disableCreateSession} >
+                                    <IconButton onClick={this.props.disableEditSesh} >
                                         <ArrowBackIosIcon />
                                     </IconButton>
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="h4">
-                                        Create A Session
+                                        Edit Session
                                 </Typography>
                                 </Grid>
                             </Grid>
@@ -233,14 +264,37 @@ class EditSessionForm extends Component {
                                             <Grid container
                                                 alignItems="center"
                                                 justify="center"
+                                                direction = "row"
+                                                spacing = {5}
                                             >
+                                                <Grid item>
                                                 <Button type="submit" variant="contained" color="secondary" size="large" onClick={this.handleSubmit}>Confirm</Button>
+                                                </Grid>
+                                                <Grid item>
+                                                <Button variant="contained" size = "large" color = "primary" onClick={this.handleClickOpen}>
+                                                    Delete
+                                                </Button>
+                                    </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </form>
                         </Grid>
+                        <Dialog
+                    open={this.state.setOpen}
+                    onClose={this.handleClickClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Are you sure you would like to delete this session?"}</DialogTitle>
+                    <DialogContent>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClickClose} color="primary">Go back</Button>
+                        <Button onClick={this.handleRemove} color="primary" autoFocus>Delete Session</Button>
+                    </DialogActions>
+                </Dialog>
                     </Grid>
                 </MuiPickersUtilsProvider>
             </main>
