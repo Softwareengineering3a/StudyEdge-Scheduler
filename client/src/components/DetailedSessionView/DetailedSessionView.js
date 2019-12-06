@@ -31,7 +31,7 @@ class DetailedSessionView extends Component {
             slots: this.props.session.slots,
             notes: this.props.session.notes,
             tutor: this.props.session.tutor,
-            email: "duharter@yahoo.com"
+            email: "rduharter@gmail.com"
         };
         this.displayReservation = this.displayReservation.bind(this);
         this.disableReservation = this.disableReservation.bind(this);
