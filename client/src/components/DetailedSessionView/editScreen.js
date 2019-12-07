@@ -42,22 +42,6 @@ class editScreen extends Component {
 
 
     }
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         date: new Date(),
-    //         showCreateSession: false,
-    //         admin: true,
-    //         controlledDate: null,
-    //     };
-    //     this.displayCreateSession = this.displayCreateSession.bind(this);
-    // }
-    // displayCreateSession = () => {
-    //     this.setState({
-    //         showCreateSession: true,
-    //     });
-    // }
-
 
     handleInputChange(event) {
         const target = event.target;
@@ -75,7 +59,7 @@ class editScreen extends Component {
     }
 
     handleSubmit(e) {
-        axios.post('http://localhost:5000/sessions', {
+        axios.post('localhost:5000/sessions', {
             "title": this.state.title,
             "class": this.state.course,
             "location": this.state.location,

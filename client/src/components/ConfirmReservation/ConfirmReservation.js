@@ -43,7 +43,7 @@ class ConfirmReservation extends Component {
     }
 
     handleSubmit(e) {
-        var url = 'http://localhost:5000/sessions/' + this.props.sessionRes._id;
+        var url = 'localhost:5000/sessions/' + this.props.sessionRes._id;
         console.log(url);
 
         axios.put(url, {

@@ -65,7 +65,7 @@ class DetailedSessionView extends Component {
         });
     }
     handleNotify = () => {
-        axios.post(`http://localhost:5000/students`, {
+        axios.post(`localhost:5000/students`, {
             email: this.state.email,
         })
             .then(function (response) {

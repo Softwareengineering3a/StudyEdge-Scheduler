@@ -75,7 +75,7 @@ class CreateASession extends Component {
     }
 
     handleSubmit(e) {
-        axios.post('http://localhost:5000/sessions', {
+        axios.post('localhost:5000/sessions', {
             "title": this.state.title,
             "class": this.state.course.toUpperCase(),
             "location": this.state.location,

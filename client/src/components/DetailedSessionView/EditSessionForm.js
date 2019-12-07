@@ -79,7 +79,7 @@ class EditSessionForm extends Component {
     }
 
     handleSubmit(e) {
-        axios.put(`http://localhost:5000/sessions/${this.props.session._id}`, {
+        axios.put(`localhost:5000/sessions/${this.props.session._id}`, {
             "title": this.state.title,
             "class": this.state.course,
             "location": this.state.location,
@@ -97,7 +97,7 @@ class EditSessionForm extends Component {
     }
 
     handleRemove = e => {
-        axios.delete(`http://localhost:5000/sessions/${this.props.session._id}`)
+        axios.delete(`localhost:5000/sessions/${this.props.session._id}`)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
