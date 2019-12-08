@@ -41,6 +41,7 @@ exports.update = (req, res) => {
             if(req.body.students!=null){
                 session.students.push(req.body.students);
             }
+            session.slots = req.body.slots;
             session.title = req.body.title;
             session.date =req.body.date; 
             session.time = req.body.time; 

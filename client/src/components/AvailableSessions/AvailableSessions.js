@@ -7,6 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { DateTime } from "luxon";
+import jwt_decode from 'jwt-decode';
 
 const dateCleaner = (date) => {
     var dateString = (date.getMonth() + 1).toString() + "/";
@@ -37,6 +38,20 @@ class AvailableSessions extends Component {
             this.setState({
                 showDetailedSession: true,
                 sessionId: session
+            });
+        }
+        try {
+            var token = localStorage.getItem('jwtToken');
+            var decoded = jwt_decode(token);
+            if (decoded.username === "admin") {
+                this.setState({
+                    showDetailedSession: true,
+                    sessionId: session
+                });
+            }
+        } catch (error) {
+            this.setState({
+                checkOnce: false,
             });
         }
         session.students.map(element => {
