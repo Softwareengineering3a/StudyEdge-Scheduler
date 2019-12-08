@@ -34,7 +34,8 @@ class Home extends Component {
             showCreateSession: false,
             controlledDate: null,
             sessions: [],
-            class: ""
+            class: "",
+            first: true
         };
         this.displayCreateSession = this.displayCreateSession.bind(this);  
     }
@@ -49,12 +50,17 @@ class Home extends Component {
         this.setState({
             class: nclass
         })
-        console.log(nclass)
     } 
     
     updateSessions = (sess) => {
         this.setState({
             sessions: sess
+        })
+    }
+
+    updateFirst = () => {
+        this.setState({
+            first: false
         })
     }
 
@@ -171,6 +177,7 @@ class Home extends Component {
                                                 class = {this.state.class}
                                                 dateUpdate= {this.dateUpdate.bind(this)}
                                                 updateSessions = {this.updateSessions.bind(this)}
+                                                updateFirst = {this.updateFirst.bind(this)}
                                                 />
                                         </Grid>        
                                             <Grid item
@@ -184,6 +191,7 @@ class Home extends Component {
                                                         date = {this.state.date}
                                                         sessions = {this.state.sessions}
                                                         class = {this.state.class}
+                                                        first = {this.state.first}
                                                         disableDetailedSession = {this.disableDetailedSession}>
                                                         </AvailableSessions>
                                                     }

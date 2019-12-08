@@ -32,7 +32,8 @@ class Home extends Component {
                 user: this.props.location.state.id,
                 controlledDate: null,
                 sessions: [],
-                class: ""
+                class: "",
+                first: true
             };
         } catch (error) {
             this.state = {
@@ -53,12 +54,17 @@ class Home extends Component {
         this.setState({
             class: nclass
         })
-        console.log(nclass)
     } 
     
     updateSessions = (sess) => {
         this.setState({
             sessions: sess
+        })
+    }
+
+    updateFirst = () => {
+        this.setState({
+            first: false
         })
     }
 
@@ -158,8 +164,10 @@ class Home extends Component {
                                             <StaticDatePicker
                                                 date = {this.state.date}
                                                 sessions = {this.state.sessions}
+                                                class = {this.state.class}
                                                 dateUpdate= {this.dateUpdate.bind(this)}
                                                 updateSessions = {this.updateSessions.bind(this)}
+                                                updateFirst = {this.updateFirst.bind(this)}
                                                 />
                                         </Grid>        
                                             <Grid item
@@ -175,6 +183,7 @@ class Home extends Component {
                                                         class = {this.state.class}
                                                         disableDetailedSession = {this.disableDetailedSession}
                                                         user = {this.state.user}
+                                                        first = {this.state.first}
                                                         />
                                                     }
                                                 </CardContent>

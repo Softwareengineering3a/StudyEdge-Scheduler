@@ -43,7 +43,6 @@ class ConfirmReservation extends Component {
         this.setState({
             [name]: value
         });
-        console.log(name, value);
     }
 
     handleSubmit(e) {

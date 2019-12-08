@@ -126,7 +126,25 @@ class AvailableSessions extends Component {
             </Grid>
             </Grid>
         )
-        if(tempReservations.length > 0){
+        if(this.props.first){
+            return(
+                <Grid style = {{width: 425}}>
+                    <Grid
+                        container
+                        direction="column"
+                        alignItems="center"
+                        justify = "center"
+                        spacing={4}>
+                        <Grid item>
+                        <Typography variant="h4" className = "center">
+                        Select A Date
+                        </Typography>
+                        </Grid>
+                    </Grid> 
+                </Grid>
+            );
+        }
+        else if(tempReservations.length > 0){
             return (
                 <Grid
                 style={{height:"100%"}}>
@@ -170,6 +188,7 @@ class AvailableSessions extends Component {
             </Grid>
             );
         }
+        
         else{
             return(
                 <Grid>
