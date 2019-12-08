@@ -89,10 +89,9 @@ class CreateASession extends Component {
             .catch(function (error) {
                 console.log(error)
             });
-        this.setState({
-            setOpen:true,
-        });
-        e.preventDefault();
+        // this.setState({
+        //     setOpen:true,
+        // });
     }
     handleClickClose = () => {
         window.location.reload(false);
@@ -206,7 +205,7 @@ class CreateASession extends Component {
                                         variant="outlined"
                                         id="standard-required"
                                         type="number"
-                                        inputProps={{ min: "0", step: "1" }}
+                                        inputProps={{ min: "0"}}
                                         name="slots"
                                         onChange={this.handleInputChange}
                                         value={this.state.slots}

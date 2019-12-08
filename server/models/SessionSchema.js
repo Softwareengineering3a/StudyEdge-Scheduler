@@ -10,7 +10,7 @@ var SessionSchema = new Schema({
   slots : {type : Number, required : true},
   notes : {type: String, required : false},
   title : {type: String, required : true},
-  students : [Schema.Types.Mixed],
+  students : [Schema.Types.Mixed]
 
 });
 

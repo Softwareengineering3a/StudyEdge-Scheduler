@@ -12,9 +12,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 const style = {
     text: {
-      width: 435,
+        width: 435,
     },
-  };
+};
 
 class ConfirmReservation extends Component {
 
@@ -22,6 +22,7 @@ class ConfirmReservation extends Component {
         super(props);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClickClose = this.handleClickClose.bind(this);
         this.state = {
             firstname: '',
             lastname: '',
@@ -29,7 +30,8 @@ class ConfirmReservation extends Component {
             phonenumber: '',
             sessions: '',
             notes: '',
-            user: this.props.user
+            user: this.props.user,
+            redirectbool: false
         }
     }
 
@@ -47,7 +49,6 @@ class ConfirmReservation extends Component {
     handleSubmit(e) {
         var url = '/sessions/' + this.props.sessionRes._id;
         console.log(url);
-
         axios.put(url, {
             "title": this.props.sessionRes.title,
             "class": this.props.sessionRes.class,
@@ -65,11 +66,10 @@ class ConfirmReservation extends Component {
                 console.log(error)
             });
 
-        this.setState({
-            setOpen: true,
-        });
+        // this.setState({
+        //     setOpen: true,
+        // });
         e.preventDefault();
-        
     }
     handleClickClose = () => {
         window.location.reload(false);
@@ -77,10 +77,10 @@ class ConfirmReservation extends Component {
             setOpen: false,
         });
     }
- 
+
 
     render() {
-        
+
         return (
             <main>
                 <Grid
@@ -91,12 +91,12 @@ class ConfirmReservation extends Component {
                 >
                     <Grid item>
                         <Grid container
-                        direction = "row"
-                        alignItems="center"
+                            direction="row"
+                            alignItems="center"
                         >
                             <Grid item>
                                 <IconButton onClick={this.props.disableReservation} >
-                                    <ArrowBackIosIcon/>
+                                    <ArrowBackIosIcon />
                                 </IconButton>
                             </Grid>
                             <Grid item>
@@ -107,118 +107,118 @@ class ConfirmReservation extends Component {
                         </Grid>
                     </Grid>
                     <Grid item>
-                    <form autoComplete="off">
-                        <Grid item>
-                            <Grid
-                                container
-                                direction="row"
-                                alignItems="center"
-                                spacing={4}
-                            >
-                                <Grid item>
-                                    <Typography variant="subtitle1">First Name *</Typography>
-                                    <TextField
-                                        required
-                                        variant = "outlined"
-                                        id="outlined-required"
-                                        type = "text"
-                                        name="firstname"
-                                        onChange={this.handleInputChange}
-                                        value={this.state.firstname}
-                                    />
-                                </Grid>
-                                <Grid item>
-                                    <Typography variant="subtitle1">Last Name *</Typography>
-                                    <TextField
-                                        required
-                                        variant = "outlined"
-                                        id="standard-required"
-                                        type="text"
-                                        name="lastname"
-                                        onChange={this.handleInputChange}
-                                        value={this.state.lastname}
-                                    />
-                                </Grid>
+                        <form autoComplete="off">
+                            <Grid item>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    alignItems="center"
+                                    spacing={4}
+                                >
+                                    <Grid item>
+                                        <Typography variant="subtitle1">First Name *</Typography>
+                                        <TextField
+                                            required
+                                            variant="outlined"
+                                            id="standard-required"
+                                            type="text"
+                                            name="firstname"
+                                            onChange={this.handleInputChange}
+                                            value={this.state.firstname}
+                                        />
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant="subtitle1">Last Name *</Typography>
+                                        <TextField
+                                            required
+                                            variant="outlined"
+                                            id="standard-required"
+                                            type="text"
+                                            name="lastname"
+                                            onChange={this.handleInputChange}
+                                            value={this.state.lastname}
+                                        />
+                                    </Grid>
 
 
-                            </Grid>
-                            <Grid
-                                container
-                                direction="row"
-                                spacing={4}
-                            >
-                                <Grid item>
-                                    <Typography variant="subtitle1">Preferred Email *</Typography>
-                                    <TextField
-                                        required
-                                        variant = "outlined"
-                                        id="standard-required"
-                                        type="text"
-                                        name="email"
-                                        style = {style.text}
-                                        onChange={this.handleInputChange}
-                                        value={this.state.email}
-                                    />
                                 </Grid>
-                                
-                            </Grid>
-                            <Grid container
-                                direction="row"
-                                spacing={4}
-                            >
-                                <Grid item>
-                                <Typography variant="subtitle1">Phone Number *</Typography>
-                                <TextField
-                                    required
-                                    variant = "outlined"
-                                    id="standard-required"
-                                    type="text"
-                                    name="phonenumber"
-                                    style = {style.text}
-                                    onChange={this.handleInputChange}
-                                    value={this.state.phonenumber}
-                                />
+                                <Grid
+                                    container
+                                    direction="row"
+                                    spacing={4}
+                                >
+                                    <Grid item>
+                                        <Typography variant="subtitle1">Preferred Email *</Typography>
+                                        <TextField
+                                            required
+                                            variant="outlined"
+                                            id="standard-required"
+                                            type="text"
+                                            name="email"
+                                            style={style.text}
+                                            onChange={this.handleInputChange}
+                                            value={this.state.email}
+                                        />
+                                    </Grid>
+
+                                </Grid>
+                                <Grid container
+                                    direction="row"
+                                    spacing={4}
+                                >
+                                    <Grid item>
+                                        <Typography variant="subtitle1">Phone Number *</Typography>
+                                        <TextField
+                                            required
+                                            variant="outlined"
+                                            id="standard-required"
+                                            type="text"
+                                            name="phonenumber"
+                                            style={style.text}
+                                            onChange={this.handleInputChange}
+                                            value={this.state.phonenumber}
+                                        />
+                                    </Grid>
+                                </Grid>
+                                <Grid container
+                                    direction="row"
+                                    spacing={4}
+                                >
+                                    <Grid item>
+                                        <Typography variant="subtitle1">Notes </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            id="standard-required"
+                                            type="text"
+                                            name="notes"
+                                            style={style.text}
+                                            onChange={this.handleInputChange}
+                                            value={this.state.notes}
+                                        />
+                                    </Grid>
+                                </Grid>
+                                <Grid container
+                                    direction="column"
+                                    spacing={5}
+                                    alignItems="center"
+                                    style={{ height: 250 }}>
+                                    <Grid item>
+                                        <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Reserve</Button>
+                                    </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid container
-                                direction="row"
-                                spacing={4}
-                            >
-                                <Grid item>
-                                <Typography variant="subtitle1">Notes </Typography>
-                                <TextField
-                                    variant = "outlined"
-                                    id="standard-required"
-                                    type="text"
-                                    name="notes"
-                                    style = {style.text}
-                                    onChange={this.handleInputChange}
-                                    value={this.state.notes}
-                                />
-                                </Grid>
-                            </Grid>
-                            <Grid  container
-                                direction="column"
-                                spacing={5}
-                                alignItems = "center"
-                                style = {{height:250}}>
-                                <Grid item>
-                                    <Button type="submit" variant="contained" color="secondary" onClick={this.handleSubmit}>Reserve</Button>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </form>
-                    <Dialog
-                        open={this.state.setOpen}
-                        onClose={this.handleClickClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle id="alert-dialog-title">{"Reservation Confirmed"}</DialogTitle>
-                        <DialogActions>
-                            <Button onClick={this.handleClickClose} color="primary">Ok</Button>
-                        </DialogActions>
-                    </Dialog>
+                        </form>
+                        <Dialog
+                            open={this.state.setOpen}
+                            onClose={this.handleClickClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                            <DialogTitle id="alert-dialog-title">{"Reservation Confirmed"}</DialogTitle>
+                            <DialogActions>
+                                <Button onClick={this.handleClickClose} color="primary">Ok</Button>
+                            </DialogActions>
+                        </Dialog>
                     </Grid>
                 </Grid>
             </main>

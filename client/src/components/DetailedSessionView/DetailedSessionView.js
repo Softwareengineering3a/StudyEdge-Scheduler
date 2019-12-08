@@ -10,12 +10,15 @@ import ConfirmReservation from '../ConfirmReservation/ConfirmReservation';
 import EditSesh from './EditSessionForm';
 import ViewStudents from '../ViewStudents/ViewStudents';
 import Box from '@material-ui/core/Box';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
 class DetailedSessionView extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             showRes: false,
             session: this.props.session,
@@ -77,11 +80,20 @@ class DetailedSessionView extends Component {
                 email: element[3],
                 session: this.state.session,
             }).then(function (response) {
-                    console.log(response)
-                })
+                console.log(response)
+            })
                 .catch(function (error) {
                     console.log(error)
                 });
+        });
+        this.setState({
+            setOpen: true,
+        });
+    }
+
+    handleClickClose = () => {
+        this.setState({
+            setOpen: false,
         });
     }
 
@@ -105,8 +117,8 @@ class DetailedSessionView extends Component {
             }
         }
 
-        if(this.state.viewstudents){
-            return(
+        if (this.state.viewstudents) {
+            return (
                 <ViewStudents
                     disableStudents={this.disableStudents}
                     session={this.state.session}
@@ -117,145 +129,157 @@ class DetailedSessionView extends Component {
         return (
             <Grid>
                 {this.state.showRes ?
-                    <ConfirmReservation 
-                        sessionRes={this.state.session} 
-                        disableReservation={this.disableReservation} 
-                        user={this.state.studentUser} 
-                    /> 
+                    <ConfirmReservation
+                        sessionRes={this.state.session}
+                        disableReservation={this.disableReservation}
+                        user={this.state.studentUser}
+                    />
                     :
                     this.state.showEditSession ?
-                        <EditSesh session={mySessions} disableEditSesh={this.disableEditSesh} /> 
-                    :
-                    <Grid 
-                        container
-                        direction="column"
-                        alignItems="center"
-                        justify="center"
-                        spacing={4}
-                    >
-                        <Grid item
+                        <EditSesh session={mySessions} disableEditSesh={this.disableEditSesh} />
+                        :
+                        <Grid
+                            container
+                            direction="column"
+                            alignItems="center"
+                            justify="center"
+                            spacing={4}
                         >
-                            <Grid container
-                                direction="row"
-                                alignItems="center"
+                            <Grid item
                             >
-                                <Grid item>
-                                    <IconButton onClick={this.props.disableDetailedSession} >
-                                        <ArrowBackIosIcon />
-                                    </IconButton>
-                                </Grid>
-                                <Grid item>
-                                    <Typography variant="h4" >
-                                        Session Details
+                                <Grid container
+                                    direction="row"
+                                    alignItems="center"
+                                >
+                                    <Grid item>
+                                        <IconButton onClick={this.props.disableDetailedSession} >
+                                            <ArrowBackIosIcon />
+                                        </IconButton>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant="h4" >
+                                            Session Details
                                     </Typography>
+                                    </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid item>
-                            <Box
-                            border={1}
-                            color="primary"
-                            borderColor="primary.main"
-                            borderRadius={4}
-                            >
-                                <Grid item style={{ width: 400 }}>
-                                    <Grid >
-                                        <Grid container
-                                            direction="column"
-                                            spacing={1}
-                                        >
-                                            <Grid item>
-                                                <Grid container
-                                                    direction="column"
-                                                    alignItems="center"
-                                                    justify="center"
-                                                    spacing={0}
-                                                >
-                                                    <Grid>
-                                                        <Typography color = "primary" variant="button">{mySessions.class}</Typography>
-                                                    </Grid>
-                                                    <Grid>
-                                                        <Typography color = "primary" variant="button">{mySessions.title}</Typography>
-                                                    </Grid>
-                                                    <Grid>
-                                                        <Typography color = "primary" variant="button"> Study Expert: {mySessions.tutor}</Typography>
-                                                    </Grid>
-                                                    <Grid>
-                                                        <Typography color = "primary" variant="button">{mySessions.location}</Typography>
-                                                    </Grid>
-                                                    <Grid>
-                                                        <Typography color = "primary" variant="button">{DateTime.fromISO(mySessions.date).toFormat('ff')}</Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item>
-                                                <Grid container
-                                                    direction="column"
-                                                    alignItems="center"
-                                                    justify="center"
-                                                    spacing={0}
-                                                >
-                                                    <Grid>
-                                                        <Typography color = "primary" variant="button">Note: </Typography>
-                                                    </Grid>
-                                                    <Grid>
-                                                        <Typography color = "primary" variant="button">{mySessions.notes}</Typography>
+                            <Grid item>
+                                <Box
+                                    border={1}
+                                    color="primary"
+                                    borderColor="primary.main"
+                                    borderRadius={4}
+                                >
+                                    <Grid item style={{ width: 400 }}>
+                                        <Grid >
+                                            <Grid container
+                                                direction="column"
+                                                spacing={1}
+                                            >
+                                                <Grid item>
+                                                    <Grid container
+                                                        direction="column"
+                                                        alignItems="center"
+                                                        justify="center"
+                                                        spacing={0}
+                                                    >
+                                                        <Grid>
+                                                            <Typography color="primary" variant="button">{mySessions.class}</Typography>
+                                                        </Grid>
+                                                        <Grid>
+                                                            <Typography color="primary" variant="button">{mySessions.title}</Typography>
+                                                        </Grid>
+                                                        <Grid>
+                                                            <Typography color="primary" variant="button"> Study Expert: {mySessions.tutor}</Typography>
+                                                        </Grid>
+                                                        <Grid>
+                                                            <Typography color="primary" variant="button">{mySessions.location}</Typography>
+                                                        </Grid>
+                                                        <Grid>
+                                                            <Typography color="primary" variant="button">{DateTime.fromISO(mySessions.date).toFormat('ff')}</Typography>
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
-                                                <Grid container justify="flex-end">
-                                                    <Typography color = "primary" variant="button">Slots: {mySessions.students.length}/{mySessions.slots}</Typography>
+                                                <Grid item>
+                                                    <Grid container
+                                                        direction="column"
+                                                        alignItems="center"
+                                                        justify="center"
+                                                        spacing={0}
+                                                    >
+                                                        <Grid>
+                                                            <Typography color="primary" variant="button">Note: </Typography>
+                                                        </Grid>
+                                                        <Grid>
+                                                            <Typography color="primary" variant="button">{mySessions.notes}</Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid container justify="flex-end">
+                                                        <Typography color="primary" variant="button">Slots: {mySessions.students.length}/{mySessions.slots}</Typography>
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                </Grid>
-                            </Box>
-                        </Grid>
-                        {this.state.isAdmin ?
-                            <Grid item
-                                style={{ height: 350 }}>
-                                <Grid container
-                                    direction="row"
-                                    spacing={4}
-                                    alignItems="center"
-                                >
-                                    <Grid item>
-                                        <Button variant="contained" size = "large" color="secondary" onClick={this.displayEditSesh}>
-                                            Edit
-                                        </Button>
-                                    </Grid>
-                                    
-                                    <Grid item>
-                                        <Button variant="contained" size = "large" color="primary" endIcon={<Icon>send</Icon>} onClick ={this.handleNotify}>
-                                            Notify
-                                        </Button>
-                                    </Grid>
-                                    
-                                    <Grid item>
-                                        <Button variant="contained" size = "large" color="secondary" onClick ={this.enableStudents}>
-                                            View Students
-                                        </Button>
-                                    </Grid>                               
-                                </Grid>
-                            </Grid> :
-                            <Grid item>
-                                <Grid container
-                                    direction="column"
-                                    alignItems="center"
-                                    justify="center"
-                                    spacing={0}
-                                >
-                                    <Grid item>
-                                        <Button variant="contained" color="secondary" size="large" onClick={this.displayReservation}>
-                                            Reserve
-                                        </Button>
-                                    </Grid>
-                                </Grid>
+                                </Box>
                             </Grid>
+                            {this.state.isAdmin ?
+                                <Grid item
+                                    style={{ height: 350 }}>
+                                    <Grid container
+                                        direction="row"
+                                        spacing={4}
+                                        alignItems="center"
+                                    >
+                                        <Grid item>
+                                            <Button variant="contained" size="large" color="secondary" onClick={this.displayEditSesh}>
+                                                Edit
+                                        </Button>
+                                        </Grid>
 
-                        }
-                    </Grid>
+                                        <Grid item>
+                                            <Button variant="contained" size="large" color="primary" endIcon={<Icon>send</Icon>} onClick={this.handleNotify}>
+                                                Notify
+                                        </Button>
+                                        </Grid>
+
+                                        <Grid item>
+                                            <Button variant="contained" size="large" color="secondary" onClick={this.enableStudents}>
+                                                View Students
+                                        </Button>
+                                        </Grid>
+                                    </Grid>
+                                </Grid> :
+                                <Grid item>
+                                    <Grid container
+                                        direction="column"
+                                        alignItems="center"
+                                        justify="center"
+                                        spacing={0}
+                                    >
+                                        <Grid item>
+                                            <Button variant="contained" color="secondary" size="large" onClick={this.displayReservation}>
+                                                Reserve
+                                        </Button>
+                                        </Grid>
+
+                                    </Grid>
+                                </Grid>
+
+                            }
+                        </Grid>
                 }
+                <Dialog
+                    open={this.state.setOpen}
+                    onClose={this.handleClickClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Students Notified"}</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={this.handleClickClose} color="primary">Ok</Button>
+                    </DialogActions>
+                </Dialog>
 
             </Grid>
         );
