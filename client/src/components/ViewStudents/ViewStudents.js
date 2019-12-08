@@ -36,6 +36,7 @@ class ViewStudents extends Component {
                     <Grid>UF Email Address: {element[0]}</Grid>
                     <Grid>Preferred Email: {element[3]}</Grid>
                     <Grid>Phone Number: {element[4]}</Grid>
+                    <Grid>Notes: {element[5]}</Grid>
                 </Grid>
             </Grid>
         </Button>
