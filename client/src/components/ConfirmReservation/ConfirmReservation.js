@@ -6,6 +6,9 @@ import { Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const style = {
     text: {
@@ -25,8 +28,8 @@ class ConfirmReservation extends Component {
             email: '',
             phonenumber: '',
             sessions: '',
-            user: this.props.user,
-            redirectbool: false,
+            notes: '',
+            user: this.props.user
         }
     }
 
@@ -53,7 +56,7 @@ class ConfirmReservation extends Component {
             "slots": this.props.sessionRes.slots,
             "notes": this.props.sessionRes.notes,
             "tutor": this.props.sessionRes.tutor,
-            "students": [this.state.user, this.state.firstname, this.state.lastname, this.state.email, this.state.phonenumber],
+            "students": [this.state.user, this.state.firstname, this.state.lastname, this.state.email, this.state.phonenumber, this.state.notes],
         })
             .then(function (response) {
                 console.log(response)
@@ -63,37 +66,21 @@ class ConfirmReservation extends Component {
             });
 
         this.setState({
-            redirectbool: true,
+            setOpen: true,
         });
         e.preventDefault();
         
     }
+    handleClickClose = () => {
+        window.location.reload(false);
+        this.setState({
+            setOpen: false,
+        });
+    }
+ 
 
     render() {
         
-        if(this.state.redirectbool){
-            return(
-                <main>
-                    <Grid
-                        direction="column"
-                        alignItems="center"
-                        justify = "center"
-                        spacing={5}
-                        style={{
-                        margin: 0,
-                        width: '100%',
-                        }}
-                    >
-                        <Grid item
-                            style={{height: 450, width: 400, backgroundColor: '#747373', color: 'white'}}
-                        >
-                            <Typography variant="subtitle1">Reservation is booked</Typography>
-                        </Grid>
-                        <Button type="submit" variant="contained" color="secondary" onClick={event =>window.location.href=`login/${this.state.user}`}>Click to continue</Button>
-                    </Grid>
-                </main>
-            );
-        }
         return (
             <main>
                 <Grid
@@ -161,7 +148,7 @@ class ConfirmReservation extends Component {
                                 spacing={4}
                             >
                                 <Grid item>
-                                    <Typography variant="subtitle1">Email *</Typography>
+                                    <Typography variant="subtitle1">Preferred Email *</Typography>
                                     <TextField
                                         required
                                         variant = "outlined"
@@ -193,6 +180,23 @@ class ConfirmReservation extends Component {
                                 />
                                 </Grid>
                             </Grid>
+                            <Grid container
+                                direction="row"
+                                spacing={4}
+                            >
+                                <Grid item>
+                                <Typography variant="subtitle1">Notes </Typography>
+                                <TextField
+                                    variant = "outlined"
+                                    id="standard-required"
+                                    type="text"
+                                    name="phonenumber"
+                                    style = {style.text}
+                                    onChange={this.handleInputChange}
+                                    value={this.state.notes}
+                                />
+                                </Grid>
+                            </Grid>
                             <Grid  container
                                 direction="column"
                                 spacing={5}
@@ -204,6 +208,17 @@ class ConfirmReservation extends Component {
                             </Grid>
                         </Grid>
                     </form>
+                    <Dialog
+                        open={this.state.setOpen}
+                        onClose={this.handleClickClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"Reservation Confirmed"}</DialogTitle>
+                        <DialogActions>
+                            <Button onClick={this.handleClickClose} color="primary">Ok</Button>
+                        </DialogActions>
+                    </Dialog>
                     </Grid>
                 </Grid>
             </main>

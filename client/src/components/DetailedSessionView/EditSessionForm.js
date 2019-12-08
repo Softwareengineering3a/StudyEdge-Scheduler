@@ -262,20 +262,20 @@ class EditSessionForm extends Component {
                                                 spacing = {5}
                                             >
                                                 <Grid item>
-                                                <Button type="submit" variant="contained" color="secondary" size="large" onClick={this.handleSubmit}>Confirm</Button>
+                                                    <Button type="submit" variant="contained" color="secondary" size="large" onClick={this.handleSubmit}>Confirm</Button>
                                                 </Grid>
                                                 <Grid item>
-                                                <Button variant="contained" size = "large" color = "primary" onClick={this.handleClickOpen}>
-                                                    Delete
-                                                </Button>
-                                    </Grid>
+                                                    <Button variant="contained" size = "large" color = "primary" onClick={this.handleClickOpen}>
+                                                        Delete
+                                                    </Button>
+                                                </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </form>
                         </Grid>
-                        <Dialog
+                <Dialog
                     open={this.state.setOpen}
                     onClose={this.handleClickClose}
                     aria-labelledby="alert-dialog-title"
@@ -289,7 +289,7 @@ class EditSessionForm extends Component {
                         <Button onClick={this.handleRemove} color="primary" autoFocus>Delete Session</Button>
                     </DialogActions>
                 </Dialog>
-                    </Grid>
+                </Grid>
                 </MuiPickersUtilsProvider>
             </main>
         )

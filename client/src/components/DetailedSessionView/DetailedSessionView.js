@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ConfirmReservation from '../ConfirmReservation/ConfirmReservation';
 import EditSesh from './EditSessionForm';
 import ViewStudents from '../ViewStudents/ViewStudents';
+import Box from '@material-ui/core/Box';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
@@ -151,9 +152,13 @@ class DetailedSessionView extends Component {
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Button variant="outlined" color="primary"
+                            <Box
+                            border={1}
+                            color="primary"
+                            borderColor="primary.main"
+                            borderRadius={4}
                             >
-                                <Grid item style={{ width: 350 }}>
+                                <Grid item style={{ width: 400 }}>
                                     <Grid >
                                         <Grid container
                                             direction="column"
@@ -167,19 +172,19 @@ class DetailedSessionView extends Component {
                                                     spacing={0}
                                                 >
                                                     <Grid>
-                                                        <Typography variant="button">{mySessions.class}</Typography>
+                                                        <Typography color = "primary" variant="button">{mySessions.class}</Typography>
                                                     </Grid>
                                                     <Grid>
-                                                        <Typography variant="button">{mySessions.title}</Typography>
+                                                        <Typography color = "primary" variant="button">{mySessions.title}</Typography>
                                                     </Grid>
                                                     <Grid>
-                                                        <Typography variant="button"> Study Expert: {mySessions.tutor}</Typography>
+                                                        <Typography color = "primary" variant="button"> Study Expert: {mySessions.tutor}</Typography>
                                                     </Grid>
                                                     <Grid>
-                                                        <Typography variant="button">{mySessions.location}</Typography>
+                                                        <Typography color = "primary" variant="button">{mySessions.location}</Typography>
                                                     </Grid>
                                                     <Grid>
-                                                        <Typography variant="button">{DateTime.fromISO(mySessions.date).toFormat('ff')}</Typography>
+                                                        <Typography color = "primary" variant="button">{DateTime.fromISO(mySessions.date).toFormat('ff')}</Typography>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -191,20 +196,20 @@ class DetailedSessionView extends Component {
                                                     spacing={0}
                                                 >
                                                     <Grid>
-                                                        <Typography variant="button">Note: </Typography>
+                                                        <Typography color = "primary" variant="button">Note: </Typography>
                                                     </Grid>
                                                     <Grid>
-                                                        <Typography variant="button">{mySessions.notes}</Typography>
+                                                        <Typography color = "primary" variant="button">{mySessions.notes}</Typography>
                                                     </Grid>
                                                 </Grid>
-                                                <Grid container justify="center">
-                                                    <Typography variant="button">Slots Booked: {mySessions.students.length}/{mySessions.slots}</Typography>
+                                                <Grid container justify="flex-end">
+                                                    <Typography color = "primary" variant="button">Slots: {mySessions.students.length}/{mySessions.slots}</Typography>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                            </Button>
+                            </Box>
                         </Grid>
                         {this.state.isAdmin ?
                             <Grid item
