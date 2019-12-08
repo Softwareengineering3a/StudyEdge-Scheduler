@@ -5,7 +5,7 @@ import axios from "axios"
 
 const StaticDatePicker = (props) => {
   const [date, changeDate] = useState(new Date());
-
+  const [counter, changeCounter] = useState(0)
   const dateCleaner = (date) => {
     var dateString = (date.getMonth() + 1).toString() + "/";
     dateString += (date.getDate()).toString() + "/";
@@ -29,6 +29,12 @@ const StaticDatePicker = (props) => {
     .catch(function (error){
         console.log(error)
     });
+    console.log(counter)
+    if(counter > 0){
+      props.updateFirst()
+    }
+    
+    changeCounter(counter + 1);
   };
   
   return (

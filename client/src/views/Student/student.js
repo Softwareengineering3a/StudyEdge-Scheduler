@@ -32,7 +32,8 @@ class Home extends Component {
                 user: this.props.location.state.id,
                 controlledDate: null,
                 sessions: [],
-                class: ""
+                class: "",
+                first: true
             };
         } catch (error) {
             this.state = {
@@ -59,6 +60,12 @@ class Home extends Component {
     updateSessions = (sess) => {
         this.setState({
             sessions: sess
+        })
+    }
+
+    updateFirst = () => {
+        this.setState({
+            first: false
         })
     }
 
@@ -160,6 +167,7 @@ class Home extends Component {
                                                 sessions = {this.state.sessions}
                                                 dateUpdate= {this.dateUpdate.bind(this)}
                                                 updateSessions = {this.updateSessions.bind(this)}
+                                                updateFirst = {this.updateFirst.bind(this)}
                                                 />
                                         </Grid>        
                                             <Grid item
@@ -175,6 +183,7 @@ class Home extends Component {
                                                         class = {this.state.class}
                                                         disableDetailedSession = {this.disableDetailedSession}
                                                         user = {this.state.user}
+                                                        first = {this.state.first}
                                                         />
                                                     }
                                                 </CardContent>
