@@ -1,6 +1,8 @@
+var { DateTime } = require('luxon')
+
 nodemailer = require('nodemailer'),
-  mongoose = require('mongoose'),
-  config = require('../config/config.js');
+mongoose = require('mongoose'),
+config = require('../config/config.js');
 
 mongoose.connect(config.db.uri, { useNewUrlParser: true });
 
@@ -17,20 +19,25 @@ let transport = nodemailer.createTransport({
 
 
 eRoute.post('/', (req, res, next) => {
-  var email = req.body.email
+  var email = req.body.email;
+  var session = req.body.session;
+  var txt = `Your Study expert sent your a reminder about your Study Edge reservation that is coming up on ${DateTime.fromISO(session.date).toFormat('ff')} for ${session.class}.`
 
   const message = {
     from: 'studyedgescheduler@gmail.com',
     to: email,
     subject: 'You have an upcoming study session!', // Subject line
-    text: 'Your Study expert sent your a reminder about your Studyedge reservation that is coming up soon' // Plain text body
+    //text: 'Your Study expert sent your a reminder about your Study Edge reservation that is coming up' // Plain text body
+    text: txt
   };
 
   transport.sendMail(message, function (err, info) {
     if (err) {
-      console.log(err)
+      console.log(err);
+      res.status(400).send(err);
     } else {
       console.log('Email sent' + info);
+      res.status(200);
     }
   });
 

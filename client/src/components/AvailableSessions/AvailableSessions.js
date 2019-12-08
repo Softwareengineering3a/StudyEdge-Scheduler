@@ -3,6 +3,9 @@ import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import DetailedSessionView from '../DetailedSessionView/DetailedSessionView';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
 import { DateTime } from "luxon";
 
 const dateCleaner = (date) => {
@@ -19,26 +22,52 @@ class AvailableSessions extends Component {
             showDetailedSession: false,
             showRes: false,
             user: this.props.user,
+            redirectbool: false,
+            userExist: false,
+            setOpen: false
         };
         this.displayDetailedSession = this.displayDetailedSession.bind(this);
         this.disableDetailedSession = this.disableDetailedSession.bind(this);
+        this.handleClickClose = this.handleClickClose.bind(this);
+
     }
     
     displayDetailedSession = (session) => () => {
-        this.setState({
-            showDetailedSession: true,
-            sessionId: session
-        });
-    }
+        if(session.slots !== session.students.length){
+            this.setState({
+                showDetailedSession: true,
+                sessionId: session
+            });
+        }
+        session.students.map(element => {
+            if(element[0] === this.state.user){
+                this.setState({
+                    userExist: true,
+                    showDetailedSession: false,
+                    setOpen: true,
+                   
+                });
+            }
+        });  
+     
+}
 
     disableDetailedSession = () => {
         this.setState({
             showDetailedSession: false
-        
         });
     }
 
+    handleClickClose = () => {
+        if(this.state.userExist){
+        this.setState({
+            setOpen: false,
+        });
+    }
+    }
+
     render(){
+      
         const tempReservations = this.props.sessions
         .filter(reservation=>{
             var temp = "\"" + reservation.date + "\""
@@ -63,7 +92,7 @@ class AvailableSessions extends Component {
 
            <Grid item
            style = {{width: '100%',height:"100%"}}>
-            <Button variant="outlined" color="primary" onClick = {this.displayDetailedSession(session)} style={{maxHeight: 600, width: 400}}>
+            <Button variant="outlined" color="primary" onClick = {this.displayDetailedSession(session)} style={{maxHeight: 600, width: 400, maxWidth: 400}}>
                 <Grid item>
                     <Grid item>
                         <Grid>{session.class}</Grid>
@@ -72,8 +101,10 @@ class AvailableSessions extends Component {
                         <Grid>Study Expert: {session.tutor}</Grid>
                         <Grid>{DateTime.fromISO(session.date).toFormat('ff')}</Grid>
                     </Grid>
-                    <Grid container justify = "flex-end"  style={{width: '100%'}}>
-                        <Grid>{session.students.length}/{session.slots}</Grid>
+                    <Grid container
+                        justify = "flex-end"
+                    style={{width: 375}}>
+                        <Grid>Slots: {session.students.length}/{session.slots}</Grid>
                     </Grid>
                 </Grid>
             </Button>
@@ -89,7 +120,8 @@ class AvailableSessions extends Component {
                     session={this.state.sessionId} 
                     disableDetailedSession={this.disableDetailedSession}
                     user = {this.state.user}
-                /> :
+                />
+                 :
                 <Grid
                     container
                     direction="column"
@@ -106,6 +138,17 @@ class AvailableSessions extends Component {
                     <Grid item
                     style={{maxHeight: 615, overflow: 'auto'}}
                     > 
+                     <Dialog
+                        open={this.state.setOpen}
+                        onClose={this.handleClickClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"You have already reserved a slot for this session."}</DialogTitle>
+                        <DialogActions>
+                            <Button onClick={this.handleClickClose} color="primary">Ok</Button>
+                        </DialogActions>
+                    </Dialog>
                         {myReservations}
                     </Grid>
                 </Grid> }

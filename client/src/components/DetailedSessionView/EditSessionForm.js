@@ -32,14 +32,11 @@ export function DatePicker(props) {
     );
 }
 
-
-
 const style = {
     text: {
         width: 435,
     },
 };
-
 
 class EditSessionForm extends Component {
     constructor(props) {
@@ -58,8 +55,6 @@ class EditSessionForm extends Component {
             notes: this.props.session.notes,
             tutor: this.props.session.tutor
         }
-
-
     }
 
     handleInputChange(event) {
@@ -79,7 +74,7 @@ class EditSessionForm extends Component {
     }
 
     handleSubmit(e) {
-        axios.put(`http://localhost:5000/sessions/${this.props.session._id}`, {
+        axios.put(`/sessions/${this.props.session._id}`, {
             "title": this.state.title,
             "class": this.state.course,
             "location": this.state.location,
@@ -97,7 +92,7 @@ class EditSessionForm extends Component {
     }
 
     handleRemove = e => {
-        axios.delete(`http://localhost:5000/sessions/${this.props.session._id}`)
+        axios.delete(`/sessions/${this.props.session._id}`)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -107,7 +102,6 @@ class EditSessionForm extends Component {
             });
         window.location.reload();
     };
-
 
     handleClickOpen = () => {
         this.setState({
@@ -146,7 +140,7 @@ class EditSessionForm extends Component {
                                 <Grid item>
                                     <Typography variant="h4">
                                         Edit Session
-                                </Typography>
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -268,20 +262,20 @@ class EditSessionForm extends Component {
                                                 spacing = {5}
                                             >
                                                 <Grid item>
-                                                <Button type="submit" variant="contained" color="secondary" size="large" onClick={this.handleSubmit}>Confirm</Button>
+                                                    <Button type="submit" variant="contained" color="secondary" size="large" onClick={this.handleSubmit}>Confirm</Button>
                                                 </Grid>
                                                 <Grid item>
-                                                <Button variant="contained" size = "large" color = "primary" onClick={this.handleClickOpen}>
-                                                    Delete
-                                                </Button>
-                                    </Grid>
+                                                    <Button variant="contained" size = "large" color = "primary" onClick={this.handleClickOpen}>
+                                                        Delete
+                                                    </Button>
+                                                </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </form>
                         </Grid>
-                        <Dialog
+                <Dialog
                     open={this.state.setOpen}
                     onClose={this.handleClickClose}
                     aria-labelledby="alert-dialog-title"
@@ -295,7 +289,7 @@ class EditSessionForm extends Component {
                         <Button onClick={this.handleRemove} color="primary" autoFocus>Delete Session</Button>
                     </DialogActions>
                 </Dialog>
-                    </Grid>
+                </Grid>
                 </MuiPickersUtilsProvider>
             </main>
         )

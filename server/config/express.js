@@ -4,9 +4,7 @@ const path = require('path'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     sessionRouter = require('../routes/sessionRouter'),
-    passport = require('passport'),
     eRoute = require('../controllers/emailController');
-
 
 var cors = require('cors');
 var auth = require('../routes/auth');
@@ -18,7 +16,7 @@ module.exports.init = () => {
     */
     mongoose.connect(process.env.DB_URI || require('./config').db.uri, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
     });
     mongoose.set('useCreateIndex', true);
     mongoose.set('useFindAndModify', false);
@@ -39,10 +37,10 @@ module.exports.init = () => {
     app.use('/sessions', sessionRouter);
     app.use('/students', eRoute);
 
-    //================= Passport and User Auth ===================
+    //Passport
     app.use('/auth', auth);
 
-
+    //Used for Heroku Deployment
     if (process.env.NODE_ENV === 'production') {
         // Serve any static files
         app.use(express.static(path.join(__dirname, '../../client/build')));

@@ -8,10 +8,10 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
 import ConfirmReservation from '../ConfirmReservation/ConfirmReservation';
 import EditSesh from './EditSessionForm';
+import ViewStudents from '../ViewStudents/ViewStudents';
+import Box from '@material-ui/core/Box';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
-
-
 
 class DetailedSessionView extends Component {
     constructor(props) {
@@ -24,6 +24,7 @@ class DetailedSessionView extends Component {
             checkOnce: true,
             showEditSession: false,
             setOpen: false,
+            viewstudents: false,
             title: this.props.session.title,
             course: this.props.session.course,
             location: this.props.session.location,
@@ -31,15 +32,13 @@ class DetailedSessionView extends Component {
             slots: this.props.session.slots,
             notes: this.props.session.notes,
             tutor: this.props.session.tutor,
-            email: "duharter@yahoo.com"
         };
         this.displayReservation = this.displayReservation.bind(this);
         this.disableReservation = this.disableReservation.bind(this);
         this.displayEditSesh = this.displayEditSesh.bind(this);
         this.disableEditSesh = this.disableEditSesh.bind(this);
-      
-        // Returns undefined 
-        // this.checkAdmin = this.checkAdmin.bind(this);
+        this.enableStudents = this.enableStudents.bind(this);
+        this.disableStudents = this.disableStudents.bind(this);
     }
 
     displayReservation = () => {
@@ -52,37 +51,45 @@ class DetailedSessionView extends Component {
             showRes: false,
         });
     }
-
     displayEditSesh = (session) => {
         this.setState({
             showEditSession: true,
         });
     }
-
     disableEditSesh = () => {
         this.setState({
             showEditSession: false,
         });
     }
+    enableStudents = () => {
+        this.setState({
+            viewstudents: true,
+        });
+    }
+    disableStudents = () => {
+        this.setState({
+            viewstudents: false,
+        });
+    }
     handleNotify = () => {
-        axios.post(`http://localhost:5000/students`, {
-            email: this.state.email,
-        })
-            .then(function (response) {
-                console.log(response)
-            })
-            .catch(function (error) {
-                console.log(error)
-            });
+        this.state.session.students.map(element => {
+            axios.post(`/students`, {
+                email: element[3],
+                session: this.state.session,
+            }).then(function (response) {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                });
+        });
     }
 
     render() {
-
         let mySessions = this.props.session;
 
         //ADMIN CHECK
         if (this.state.checkOnce) {
-
             try {
                 var token = localStorage.getItem('jwtToken');
                 var decoded = jwt_decode(token);
@@ -96,6 +103,15 @@ class DetailedSessionView extends Component {
                     checkOnce: false,
                 });
             }
+        }
+
+        if(this.state.viewstudents){
+            return(
+                <ViewStudents
+                    disableStudents={this.disableStudents}
+                    session={this.state.session}
+                />
+            );
         }
 
         return (
@@ -136,9 +152,13 @@ class DetailedSessionView extends Component {
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Button variant="outlined" color="primary"
+                            <Box
+                            border={1}
+                            color="primary"
+                            borderColor="primary.main"
+                            borderRadius={4}
                             >
-                                <Grid item style={{ width: 350 }}>
+                                <Grid item style={{ width: 400 }}>
                                     <Grid >
                                         <Grid container
                                             direction="column"
@@ -152,19 +172,19 @@ class DetailedSessionView extends Component {
                                                     spacing={0}
                                                 >
                                                     <Grid>
-                                                        <Typography variant="button">{mySessions.class}</Typography>
+                                                        <Typography color = "primary" variant="button">{mySessions.class}</Typography>
                                                     </Grid>
                                                     <Grid>
-                                                        <Typography variant="button">{mySessions.title}</Typography>
+                                                        <Typography color = "primary" variant="button">{mySessions.title}</Typography>
                                                     </Grid>
                                                     <Grid>
-                                                        <Typography variant="button"> Study Expert: {mySessions.tutor}</Typography>
+                                                        <Typography color = "primary" variant="button"> Study Expert: {mySessions.tutor}</Typography>
                                                     </Grid>
                                                     <Grid>
-                                                        <Typography variant="button">{mySessions.location}</Typography>
+                                                        <Typography color = "primary" variant="button">{mySessions.location}</Typography>
                                                     </Grid>
                                                     <Grid>
-                                                        <Typography variant="button">{DateTime.fromISO(mySessions.date).toFormat('ff')}</Typography>
+                                                        <Typography color = "primary" variant="button">{DateTime.fromISO(mySessions.date).toFormat('ff')}</Typography>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -176,20 +196,20 @@ class DetailedSessionView extends Component {
                                                     spacing={0}
                                                 >
                                                     <Grid>
-                                                        <Typography variant="button">Note: </Typography>
+                                                        <Typography color = "primary" variant="button">Note: </Typography>
                                                     </Grid>
                                                     <Grid>
-                                                        <Typography variant="button">{mySessions.notes}</Typography>
+                                                        <Typography color = "primary" variant="button">{mySessions.notes}</Typography>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid container justify="flex-end">
-                                                    <Typography variant="body1">{mySessions.students.length}/{mySessions.slots}</Typography>
+                                                    <Typography color = "primary" variant="button">Slots: {mySessions.students.length}/{mySessions.slots}</Typography>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                            </Button>
+                            </Box>
                         </Grid>
                         {this.state.isAdmin ?
                             <Grid item
@@ -210,6 +230,12 @@ class DetailedSessionView extends Component {
                                             Notify
                                         </Button>
                                     </Grid>
+                                    
+                                    <Grid item>
+                                        <Button variant="contained" size = "large" color="secondary" onClick ={this.enableStudents}>
+                                            View Students
+                                        </Button>
+                                    </Grid>                               
                                 </Grid>
                             </Grid> :
                             <Grid item>

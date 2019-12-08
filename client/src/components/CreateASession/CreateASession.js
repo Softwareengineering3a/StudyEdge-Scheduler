@@ -9,6 +9,9 @@ import DateFnsUtils from "@date-io/date-fns";
 import axios from 'axios';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 export function DatePicker(props) {
     const [selectedDate, handleDateChange] = useState(new Date());
@@ -28,13 +31,11 @@ export function DatePicker(props) {
     );
 }
 
-
 const style = {
     text: {
       width: 435,
     },
   };
-
 
 class CreateASession extends Component {
     
@@ -43,6 +44,7 @@ class CreateASession extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDate = this.handleDate.bind(this);
+        this.handleClickClose = this.handleClickClose.bind(this);
         this.state = {
             title: '',
             course: '',
@@ -53,10 +55,7 @@ class CreateASession extends Component {
             tutor: '',
             redirectbool: false,
         }
-
-
     }
-
 
     handleInputChange(event) {
         const target = event.target;
@@ -75,7 +74,7 @@ class CreateASession extends Component {
     }
 
     handleSubmit(e) {
-        axios.post('http://localhost:5000/sessions', {
+        axios.post('/sessions', {
             "title": this.state.title,
             "class": this.state.course.toUpperCase(),
             "location": this.state.location,
@@ -91,14 +90,18 @@ class CreateASession extends Component {
                 console.log(error)
             });
         this.setState({
-            redirectbool: true,
+            setOpen:true,
         });
-        //e.preventDefault();
+        e.preventDefault();
+    }
+    handleClickClose = () => {
+        window.location.reload(false);
+        this.setState({
+            setOpen: false,
+        });
     }
  
-    render() {
-
-      
+    render() {   
         return (
             <main>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -249,6 +252,17 @@ class CreateASession extends Component {
                         </Grid>
                     </form>
                     </Grid>
+                    <Dialog
+                        open={this.state.setOpen}
+                        onClose={this.handleClickClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"Session Created"}</DialogTitle>
+                        <DialogActions>
+                            <Button onClick={this.handleClickClose} color="primary">Ok</Button>
+                        </DialogActions>
+                    </Dialog>
                 </Grid>
                 </MuiPickersUtilsProvider>
             </main>

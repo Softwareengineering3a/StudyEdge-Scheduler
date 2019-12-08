@@ -38,7 +38,9 @@ exports.update = (req, res) => {
             });
         }
         else{
-            session.students.push(req.body.students);
+            if(req.body.students!=null){
+                session.students.push(req.body.students);
+            }
             session.title = req.body.title;
             session.date =req.body.date; 
             session.time = req.body.time; 

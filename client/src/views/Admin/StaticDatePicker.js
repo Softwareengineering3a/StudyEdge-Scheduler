@@ -31,7 +31,7 @@ const StaticDatePicker = (props) => {
     props.dateUpdate(newDate);
     changeDate(newDate);
     
-    axios.get('http://localhost:5000/sessions')
+    axios.get('/sessions')
     .then(function (response){
         props.updateSessions(response.data)
     })
