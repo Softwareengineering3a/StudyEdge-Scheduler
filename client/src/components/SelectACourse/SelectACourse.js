@@ -37,10 +37,7 @@ export default function SplitButton(props) {
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setOpen(false);
-    console.info(`You clicked ${options[index]}`);
     props.classUpdate(options[index])
-    buttonValue = options[index]
-    console.log(buttonValue)
   };
 
   const handleToggle = () => {
