@@ -17,8 +17,15 @@ export default function SplitButton(props) {
   const distinct = (value, index, self) => {
     return self.indexOf(value) === index;
   }
-  const classes = props.sessions.map(x => x.class)
-  const options = classes.filter(distinct);
+  const classes = props.sessions
+  .filter(reservation => {
+    var temp = "\"" + reservation.date + "\""
+    var dateStr = JSON.parse(temp);  
+    var date1 = new Date(dateStr);
+    var date2 = new Date()
+    return date1 >= date2
+  });
+  const options = classes.map(x => x.class).filter(distinct).sort()
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(null);

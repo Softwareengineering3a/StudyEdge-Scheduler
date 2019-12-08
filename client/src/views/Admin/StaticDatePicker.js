@@ -14,8 +14,17 @@ const StaticDatePicker = (props) => {
   }
 
   const disableDate = (day)=>{
-    var allDates = props.sessions.map(sess => dateCleaner(new Date(JSON.parse("\"" + sess.date + "\""))));
-    return allDates.indexOf(dateCleaner(day))<0  
+    var classes = props.sessions
+    .filter(reservation => {
+      if(props.class === ""){
+        return true
+      }
+      else{
+        return reservation.class === props.class
+      }
+    })
+    var Dates = classes.filter(sess=>{return new Date(JSON.parse("\"" + sess.date + "\"")) >= new Date()});
+    return Dates.map(sess => dateCleaner(new Date(JSON.parse("\"" + sess.date + "\"")))).indexOf(dateCleaner(day))<0 
   }
   
   const setDay = (newDate) => {
