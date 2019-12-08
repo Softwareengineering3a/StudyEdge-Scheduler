@@ -136,7 +136,6 @@ class DetailedSessionView extends Component {
                     />
                     :
                     this.state.showEditSession ?
-<<<<<<< HEAD
                         <EditSesh session={mySessions} disableEditSesh={this.disableEditSesh} />
                         :
                         <Grid
@@ -145,19 +144,7 @@ class DetailedSessionView extends Component {
                             alignItems="center"
                             justify="center"
                             spacing={4}
-=======
-                        <EditSesh session={mySessions} disableEditSesh={this.disableEditSesh} /> 
-                    :
-                    <Grid 
-                        container
-                        direction="column"
-                        alignItems="center"
-                        justify="center"
-                        spacing={4}
-                        style = {{width: 470}}
-                    >
-                        <Grid item
->>>>>>> 20ec5c17db7aa9635ac871e1574a2f06308da379
+                            style = {{width: 470}}
                         >
                             <Grid item
                             >
