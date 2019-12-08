@@ -41,12 +41,10 @@ class ConfirmReservation extends Component {
         this.setState({
             [name]: value
         });
-        console.log(name, value);
     }
 
     handleSubmit(e) {
         var url = '/sessions/' + this.props.sessionRes._id;
-        console.log(url);
 
         axios.put(url, {
             "title": this.props.sessionRes.title,

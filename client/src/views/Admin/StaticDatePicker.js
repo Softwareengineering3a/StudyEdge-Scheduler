@@ -39,7 +39,6 @@ const StaticDatePicker = (props) => {
     .catch(function (error){
         console.log(error)
     });
-    console.log(counter)
     if(counter > 0){
       props.updateFirst()
     }

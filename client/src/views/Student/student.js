@@ -54,7 +54,6 @@ class Home extends Component {
         this.setState({
             class: nclass
         })
-        console.log(nclass)
     } 
     
     updateSessions = (sess) => {
