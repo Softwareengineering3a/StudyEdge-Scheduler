@@ -7,6 +7,7 @@ var StudentSchema = new Schema({
   Name : {type : String, required : false},
   Email : {type : String, required : true},
   pNumber : {type : Number, required : false},
+  Notes : {type : String, required : false}
 
 });
 

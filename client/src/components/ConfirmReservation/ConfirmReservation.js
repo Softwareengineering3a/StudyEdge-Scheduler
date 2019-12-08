@@ -190,7 +190,7 @@ class ConfirmReservation extends Component {
                                     variant = "outlined"
                                     id="standard-required"
                                     type="text"
-                                    name="phonenumber"
+                                    name="notes"
                                     style = {style.text}
                                     onChange={this.handleInputChange}
                                     value={this.state.notes}
