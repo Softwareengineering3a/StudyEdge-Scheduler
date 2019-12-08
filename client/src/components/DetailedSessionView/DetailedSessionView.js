@@ -60,24 +60,24 @@ class DetailedSessionView extends Component {
         });
     }
     handleNotify = () => {
-        axios.post(`/students`, {
-            email: this.state.email,
-        })
-            .then(function (response) {
-                console.log(response)
-            })
-            .catch(function (error) {
-                console.log(error)
-            });
+        this.state.session.students.map(element => {
+            axios.post(`/students`, {
+                email: element[3],
+                session: this.state.session,
+            }).then(function (response) {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                });
+        });
     }
 
     render() {
-        console.log(this.state.session.students);
         let mySessions = this.props.session;
 
         //ADMIN CHECK
         if (this.state.checkOnce) {
-
             try {
                 var token = localStorage.getItem('jwtToken');
                 var decoded = jwt_decode(token);
