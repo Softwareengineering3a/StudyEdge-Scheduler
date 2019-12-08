@@ -8,6 +8,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
 import ConfirmReservation from '../ConfirmReservation/ConfirmReservation';
 import EditSesh from './EditSessionForm';
+import ViewStudents from '../ViewStudents/ViewStudents';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
@@ -22,6 +23,7 @@ class DetailedSessionView extends Component {
             checkOnce: true,
             showEditSession: false,
             setOpen: false,
+            viewstudents: false,
             title: this.props.session.title,
             course: this.props.session.course,
             location: this.props.session.location,
@@ -34,6 +36,8 @@ class DetailedSessionView extends Component {
         this.disableReservation = this.disableReservation.bind(this);
         this.displayEditSesh = this.displayEditSesh.bind(this);
         this.disableEditSesh = this.disableEditSesh.bind(this);
+        this.enableStudents = this.enableStudents.bind(this);
+        this.disableStudents = this.disableStudents.bind(this);
     }
 
     displayReservation = () => {
@@ -54,6 +58,16 @@ class DetailedSessionView extends Component {
     disableEditSesh = () => {
         this.setState({
             showEditSession: false,
+        });
+    }
+    enableStudents = () => {
+        this.setState({
+            viewstudents: true,
+        });
+    }
+    disableStudents = () => {
+        this.setState({
+            viewstudents: false,
         });
     }
     handleNotify = () => {
@@ -88,6 +102,15 @@ class DetailedSessionView extends Component {
                     checkOnce: false,
                 });
             }
+        }
+
+        if(this.state.viewstudents){
+            return(
+                <ViewStudents
+                    disableStudents={this.disableStudents}
+                    session={this.state.session}
+                />
+            );
         }
 
         return (
@@ -202,6 +225,12 @@ class DetailedSessionView extends Component {
                                             Notify
                                         </Button>
                                     </Grid>
+                                    
+                                    <Grid item>
+                                        <Button variant="contained" size = "large" color="secondary" onClick ={this.enableStudents}>
+                                            View Students
+                                        </Button>
+                                    </Grid>                               
                                 </Grid>
                             </Grid> :
                             <Grid item>

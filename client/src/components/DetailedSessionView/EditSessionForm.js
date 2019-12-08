@@ -140,7 +140,7 @@ class EditSessionForm extends Component {
                                 <Grid item>
                                     <Typography variant="h4">
                                         Edit Session
-                                </Typography>
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
