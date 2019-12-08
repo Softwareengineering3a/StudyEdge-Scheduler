@@ -29,7 +29,6 @@ class DetailedSessionView extends Component {
             slots: this.props.session.slots,
             notes: this.props.session.notes,
             tutor: this.props.session.tutor,
-            email: "duharter@yahoo.com"
         };
         this.displayReservation = this.displayReservation.bind(this);
         this.disableReservation = this.disableReservation.bind(this);
@@ -47,13 +46,11 @@ class DetailedSessionView extends Component {
             showRes: false,
         });
     }
-
     displayEditSesh = (session) => {
         this.setState({
             showEditSession: true,
         });
     }
-
     disableEditSesh = () => {
         this.setState({
             showEditSession: false,
@@ -177,8 +174,8 @@ class DetailedSessionView extends Component {
                                                         <Typography variant="button">{mySessions.notes}</Typography>
                                                     </Grid>
                                                 </Grid>
-                                                <Grid container justify="flex-end">
-                                                    <Typography variant="body1">{mySessions.students.length}/{mySessions.slots}</Typography>
+                                                <Grid container justify="center">
+                                                    <Typography variant="button">Slots Booked: {mySessions.students.length}/{mySessions.slots}</Typography>
                                                 </Grid>
                                             </Grid>
                                         </Grid>

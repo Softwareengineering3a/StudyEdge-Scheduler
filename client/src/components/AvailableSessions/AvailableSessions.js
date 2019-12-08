@@ -25,16 +25,17 @@ class AvailableSessions extends Component {
     }
     
     displayDetailedSession = (session) => () => {
-        this.setState({
-            showDetailedSession: true,
-            sessionId: session
-        });
+        if(session.slots != session.students.length){
+            this.setState({
+                showDetailedSession: true,
+                sessionId: session
+            });
+        }
     }
 
     disableDetailedSession = () => {
         this.setState({
             showDetailedSession: false
-        
         });
     }
 
@@ -73,8 +74,8 @@ class AvailableSessions extends Component {
                         <Grid>Study Expert: {session.tutor}</Grid>
                         <Grid>{DateTime.fromISO(session.date).toFormat('ff')}</Grid>
                     </Grid>
-                    <Grid container justify = "flex-end"  style={{width: '100%'}}>
-                        <Grid>{session.students.length}/{session.slots}</Grid>
+                    <Grid style={{width: '100%'}}>
+                        <Grid>Slots Booked: {session.students.length}/{session.slots}</Grid>
                     </Grid>
                 </Grid>
             </Button>
