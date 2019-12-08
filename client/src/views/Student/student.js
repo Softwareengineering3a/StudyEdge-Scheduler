@@ -108,7 +108,10 @@ class Home extends Component {
                 }}
                 />
             )
-        }        
+        }
+        else {
+            localStorage.removeItem('jwtToken');
+        }
         return (
             <main>
                 <ThemeProvider theme={theme}>
