@@ -206,6 +206,7 @@ class CreateASession extends Component {
                                         variant="outlined"
                                         id="standard-required"
                                         type="number"
+                                        inputProps={{ min: "0", step: "1" }}
                                         name="slots"
                                         onChange={this.handleInputChange}
                                         value={this.state.slots}

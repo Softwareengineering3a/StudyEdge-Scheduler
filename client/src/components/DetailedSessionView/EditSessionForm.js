@@ -53,7 +53,8 @@ class EditSessionForm extends Component {
             date: this.props.session.date,
             slots: this.props.session.slots,
             notes: this.props.session.notes,
-            tutor: this.props.session.tutor
+            tutor: this.props.session.tutor,
+            students: this.props.session.students
         }
     }
 
@@ -219,6 +220,7 @@ class EditSessionForm extends Component {
                                                 required
                                                 variant="outlined"
                                                 id="standard-required"
+                                                inputProps={{ min: this.state.students.length, step: "1" }}
                                                 type="number"
                                                 name="slots"
                                                 onChange={this.handleInputChange}
@@ -249,6 +251,7 @@ class EditSessionForm extends Component {
                                                     variant="outlined"
                                                     type="text"
                                                     name="notes"
+                                                    id="standard-required"
                                                     onChange={this.handleInputChange}
                                                     value={this.state.notes}
                                                 />
@@ -258,14 +261,14 @@ class EditSessionForm extends Component {
                                             <Grid container
                                                 alignItems="center"
                                                 justify="center"
-                                                direction = "row"
-                                                spacing = {5}
+                                                direction="row"
+                                                spacing={5}
                                             >
                                                 <Grid item>
                                                     <Button type="submit" variant="contained" color="secondary" size="large" onClick={this.handleSubmit}>Confirm</Button>
                                                 </Grid>
                                                 <Grid item>
-                                                    <Button variant="contained" size = "large" color = "primary" onClick={this.handleClickOpen}>
+                                                    <Button variant="contained" size="large" color="primary" onClick={this.handleClickOpen}>
                                                         Delete
                                                     </Button>
                                                 </Grid>
@@ -275,21 +278,21 @@ class EditSessionForm extends Component {
                                 </Grid>
                             </form>
                         </Grid>
-                <Dialog
-                    open={this.state.setOpen}
-                    onClose={this.handleClickClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">{"Are you sure you would like to delete this session?"}</DialogTitle>
-                    <DialogContent>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClickClose} color="primary">Go back</Button>
-                        <Button onClick={this.handleRemove} color="primary" autoFocus>Delete Session</Button>
-                    </DialogActions>
-                </Dialog>
-                </Grid>
+                        <Dialog
+                            open={this.state.setOpen}
+                            onClose={this.handleClickClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                            <DialogTitle id="alert-dialog-title">{"Are you sure you would like to delete this session?"}</DialogTitle>
+                            <DialogContent>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={this.handleClickClose} color="primary">Go back</Button>
+                                <Button onClick={this.handleRemove} color="primary" autoFocus>Delete Session</Button>
+                            </DialogActions>
+                        </Dialog>
+                    </Grid>
                 </MuiPickersUtilsProvider>
             </main>
         )
