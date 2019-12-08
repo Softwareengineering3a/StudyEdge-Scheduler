@@ -6,7 +6,6 @@ import { Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios';
-import {Route, Redirect} from 'react-router-dom';
 
 const style = {
     text: {
@@ -73,11 +72,27 @@ class ConfirmReservation extends Component {
     render() {
         
         if(this.state.redirectbool){
-            var redirecturl = '/login/' + this.state.user;
             return(
-                <Route>
-                    <Redirect to={redirecturl} />
-                </Route>
+                <main>
+                    <Grid
+                        direction="column"
+                        alignItems="center"
+                        justify = "center"
+                        spacing={5}
+                        style={{
+                        margin: 0,
+                        width: '100%',
+                        }}
+                    >
+                        <Grid item
+                            style={{height: 450, width: 400, backgroundColor: '#747373', color: 'white'}}
+                        >
+                            <Typography variant="subtitle1">Reservation is booked</Typography>
+                        </Grid>
+                        <Button type="submit" variant="contained" color="secondary" onClick={event =>window.location.href=`login/${this.state.user}`}>Click to continue</Button>
+                    </Grid>
+                </main>
+
             );
         }
         return (
