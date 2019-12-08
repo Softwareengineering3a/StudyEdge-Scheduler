@@ -132,6 +132,7 @@ class DetailedSessionView extends Component {
                         alignItems="center"
                         justify="center"
                         spacing={4}
+                        style = {{width: 470}}
                     >
                         <Grid item
                         >

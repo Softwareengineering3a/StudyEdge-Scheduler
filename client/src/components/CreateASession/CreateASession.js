@@ -110,6 +110,7 @@ class CreateASession extends Component {
                     direction="column"
                     alignItems="center"
                     spacing={8}
+                    style = {{width: 505}}
               
                 >
                     <Grid item>

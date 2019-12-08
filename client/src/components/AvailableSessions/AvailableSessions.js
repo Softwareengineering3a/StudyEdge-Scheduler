@@ -128,7 +128,7 @@ class AvailableSessions extends Component {
         )
         if(this.props.first){
             return(
-                <Grid>
+                <Grid style = {{width: 425}}>
                     <Grid
                         container
                         direction="column"
@@ -137,7 +137,7 @@ class AvailableSessions extends Component {
                         spacing={4}>
                         <Grid item>
                         <Typography variant="h4" className = "center">
-                        Please Select Date
+                        Select A Date
                         </Typography>
                         </Grid>
                     </Grid> 
