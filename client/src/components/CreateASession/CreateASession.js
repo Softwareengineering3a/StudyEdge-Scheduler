@@ -88,10 +88,34 @@ class CreateASession extends Component {
         this.setState({
             redirectbool: true,
         });
-        //e.preventDefault();
+        e.preventDefault();
     }
  
     render() {   
+        if(this.state.redirectbool){
+            return(
+                <main>
+                    <Grid
+                        direction="column"
+                        alignItems="center"
+                        justify = "center"
+                        spacing={5}
+                        style={{
+                        margin: 0,
+                        width: '100%',
+                        }}
+                    >
+                        <Grid item
+                            style={{height: 450, width: 400, backgroundColor: '#747373', color: 'white'}}
+                        >
+                            <Typography variant="subtitle1">Session was created</Typography>
+                        </Grid>
+                        <Button type="submit" variant="contained" color="secondary" onClick={event =>window.location.href=`admin`}>Click to continue</Button>
+                    </Grid>
+                </main>
+
+            );
+        }
         return (
             <main>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
