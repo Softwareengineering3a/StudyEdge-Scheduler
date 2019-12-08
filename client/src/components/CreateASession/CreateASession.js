@@ -28,13 +28,11 @@ export function DatePicker(props) {
     );
 }
 
-
 const style = {
     text: {
       width: 435,
     },
   };
-
 
 class CreateASession extends Component {
     
@@ -53,10 +51,7 @@ class CreateASession extends Component {
             tutor: '',
             redirectbool: false,
         }
-
-
     }
-
 
     handleInputChange(event) {
         const target = event.target;
@@ -75,7 +70,7 @@ class CreateASession extends Component {
     }
 
     handleSubmit(e) {
-        axios.post('http://localhost:5000/sessions', {
+        axios.post('/sessions', {
             "title": this.state.title,
             "class": this.state.course.toUpperCase(),
             "location": this.state.location,
@@ -96,9 +91,7 @@ class CreateASession extends Component {
         //e.preventDefault();
     }
  
-    render() {
-
-      
+    render() {   
         return (
             <main>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>

@@ -76,7 +76,7 @@ class Home extends Component {
     }
     handleLoad = () => {
         
-        axios.get('http://localhost:5000/sessions')
+        axios.get('/sessions')
         .then((response) => {
             this.updateSessions(response.data)
         })

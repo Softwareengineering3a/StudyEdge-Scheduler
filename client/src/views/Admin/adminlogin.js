@@ -22,7 +22,7 @@ class adminlogin extends Component {
     handleSubmit(e){
         const { username, password } = this.state;
 
-        axios.post('http://localhost:5000/auth/login', { username, password })
+        axios.post('/auth/login', { username, password })
         .then((result) => {
           localStorage.setItem('jwtToken', result.data.token);
           this.props.history.push('/admin')

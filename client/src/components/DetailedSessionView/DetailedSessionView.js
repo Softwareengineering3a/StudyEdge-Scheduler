@@ -11,8 +11,6 @@ import EditSesh from './EditSessionForm';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
-
-
 class DetailedSessionView extends Component {
     constructor(props) {
         super(props);
@@ -37,9 +35,6 @@ class DetailedSessionView extends Component {
         this.disableReservation = this.disableReservation.bind(this);
         this.displayEditSesh = this.displayEditSesh.bind(this);
         this.disableEditSesh = this.disableEditSesh.bind(this);
-      
-        // Returns undefined 
-        // this.checkAdmin = this.checkAdmin.bind(this);
     }
 
     displayReservation = () => {
@@ -65,7 +60,7 @@ class DetailedSessionView extends Component {
         });
     }
     handleNotify = () => {
-        axios.post(`http://localhost:5000/students`, {
+        axios.post(`/students`, {
             email: this.state.email,
         })
             .then(function (response) {
@@ -77,7 +72,7 @@ class DetailedSessionView extends Component {
     }
 
     render() {
-
+        console.log(this.state.session.students);
         let mySessions = this.props.session;
 
         //ADMIN CHECK

@@ -28,9 +28,11 @@ eRoute.post('/', (req, res, next) => {
 
   transport.sendMail(message, function (err, info) {
     if (err) {
-      console.log(err)
+      console.log(err);
+      res.status(400).send(err);
     } else {
       console.log('Email sent' + info);
+      res.status(200);
     }
   });
 

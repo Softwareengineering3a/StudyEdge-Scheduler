@@ -32,14 +32,11 @@ export function DatePicker(props) {
     );
 }
 
-
-
 const style = {
     text: {
         width: 435,
     },
 };
-
 
 class EditSessionForm extends Component {
     constructor(props) {
@@ -58,8 +55,6 @@ class EditSessionForm extends Component {
             notes: this.props.session.notes,
             tutor: this.props.session.tutor
         }
-
-
     }
 
     handleInputChange(event) {
@@ -79,7 +74,7 @@ class EditSessionForm extends Component {
     }
 
     handleSubmit(e) {
-        axios.put(`http://localhost:5000/sessions/${this.props.session._id}`, {
+        axios.put(`/sessions/${this.props.session._id}`, {
             "title": this.state.title,
             "class": this.state.course,
             "location": this.state.location,
@@ -97,7 +92,7 @@ class EditSessionForm extends Component {
     }
 
     handleRemove = e => {
-        axios.delete(`http://localhost:5000/sessions/${this.props.session._id}`)
+        axios.delete(`/sessions/${this.props.session._id}`)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -107,7 +102,6 @@ class EditSessionForm extends Component {
             });
         window.location.reload();
     };
-
 
     handleClickOpen = () => {
         this.setState({
