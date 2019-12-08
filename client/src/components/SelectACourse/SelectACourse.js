@@ -29,6 +29,7 @@ export default function SplitButton(props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(null);
+  var buttonValue = "Select ongeing Course"
 
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
@@ -39,6 +40,8 @@ export default function SplitButton(props) {
     setOpen(false);
     console.info(`You clicked ${options[index]}`);
     props.classUpdate(options[index])
+    buttonValue = options[index]
+    console.log(buttonValue)
   };
 
   const handleToggle = () => {
@@ -57,7 +60,7 @@ export default function SplitButton(props) {
     <Grid container direction="column">
       <Grid item xs={12}>
         <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
-          <Button size = "large" onClick={handleClick}>Select a Course </Button>
+        <Button size = "large" onClick={handleClick}>{buttonValue}</Button>
           <Button
             color="primary"
             size="large"
