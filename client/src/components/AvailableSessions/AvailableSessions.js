@@ -19,6 +19,8 @@ class AvailableSessions extends Component {
             showDetailedSession: false,
             showRes: false,
             user: this.props.user,
+            redirectbool: false,
+            userExist: false,
         };
         this.displayDetailedSession = this.displayDetailedSession.bind(this);
         this.disableDetailedSession = this.disableDetailedSession.bind(this);
@@ -31,6 +33,13 @@ class AvailableSessions extends Component {
                 sessionId: session
             });
         }
+        session.students.map(element => {
+            if(element[0] === this.state.user){
+                this.setState({
+                    userExist: true,
+                });
+            }
+        });
     }
 
     disableDetailedSession = () => {
@@ -40,6 +49,29 @@ class AvailableSessions extends Component {
     }
 
     render(){
+        if(this.state.userExist){
+            return(
+                <main>
+                    <Grid
+                        direction="column"
+                        alignItems="center"
+                        justify = "center"
+                        spacing={5}
+                        style={{
+                        margin: 0,
+                        width: '100%',
+                        }}
+                    >
+                        <Grid item
+                            style={{height: 450, width: 400, backgroundColor: '#747373', color: 'white'}}
+                        >
+                            <Typography variant="subtitle1">You have already signed up for this session!</Typography>
+                        </Grid>
+                        <Button type="submit" variant="contained" color="secondary" onClick={event =>window.location.href=`login/${this.state.user}`}>Click to go back</Button>
+                    </Grid>
+                </main>
+            );
+        }
         const tempReservations = this.props.sessions
         .filter(reservation=>{
             var temp = "\"" + reservation.date + "\""

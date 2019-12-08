@@ -92,7 +92,6 @@ class ConfirmReservation extends Component {
                         <Button type="submit" variant="contained" color="secondary" onClick={event =>window.location.href=`login/${this.state.user}`}>Click to continue</Button>
                     </Grid>
                 </main>
-
             );
         }
         return (
