@@ -165,6 +165,7 @@ class Home extends Component {
                                             <StaticDatePicker
                                                 date = {this.state.date}
                                                 sessions = {this.state.sessions}
+                                                class = {this.state.class}
                                                 dateUpdate= {this.dateUpdate.bind(this)}
                                                 updateSessions = {this.updateSessions.bind(this)}
                                                 updateFirst = {this.updateFirst.bind(this)}
