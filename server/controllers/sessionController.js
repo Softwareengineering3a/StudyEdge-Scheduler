@@ -46,7 +46,8 @@ exports.update = (req, res) => {
             session.time = req.body.time; 
             session.class = req.body.class;
             session.location = req.body.location;
-            session.tutor = req.body.tutor; 
+            session.tutor = req.body.tutor;
+            session.notes = req.body.notes;
             session.save(function(err) {
                 if(err) {
                 console.log(err);
