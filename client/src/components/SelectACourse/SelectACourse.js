@@ -56,7 +56,6 @@ export default function SplitButton(props) {
     <Grid container direction="column">
       <Grid item>
         <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
-          <Button size = "large" onClick={handleClick}>{selectedIndex == null ? 'Select A Course' : options[selectedIndex]} </Button>
           <Button
             color="primary"
             size="large"
@@ -65,7 +64,7 @@ export default function SplitButton(props) {
             aria-label="select merge strategy"
             aria-haspopup="menu"
             onClick={handleToggle}
-          >
+          >{selectedIndex == null ? 'Select A Course' : options[selectedIndex]}
             <ArrowDropDownIcon />
           </Button>
         </ButtonGroup>
