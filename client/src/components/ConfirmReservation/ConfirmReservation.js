@@ -49,27 +49,28 @@ class ConfirmReservation extends Component {
     handleSubmit = e => {
         var url = '/sessions/' + this.props.sessionRes._id;
 
-        axios.put(url, {
-            "title": this.props.sessionRes.title,
-            "class": this.props.sessionRes.class,
-            "location": this.props.sessionRes.location,
-            "date": this.props.sessionRes.date,
-            "slots": this.props.sessionRes.slots,
-            "notes": this.props.sessionRes.notes,
-            "tutor": this.props.sessionRes.tutor,
-            "students": [this.state.user, this.state.firstname, this.state.lastname, this.state.email, this.state.phonenumber, this.state.notes],
-        })
-            .then(function (response) {
-                console.log(response)
-            })
-            .catch(function (error) {
-                console.log(error)
-            });
-
-
-        // this.setState({
-        //     setOpen: true,
-        // });
+        if(this.state.user != '' && this.state.firstname != '' && this.state.lastname != ''
+            && this.state.email != '' && this.state.phonenumber != ''){
+                axios.put(url, {
+                    "title": this.props.sessionRes.title,
+                    "class": this.props.sessionRes.class,
+                    "location": this.props.sessionRes.location,
+                    "date": this.props.sessionRes.date,
+                    "slots": this.props.sessionRes.slots,
+                    "notes": this.props.sessionRes.notes,
+                    "tutor": this.props.sessionRes.tutor,
+                    "students": [this.state.user, this.state.firstname, this.state.lastname, this.state.email, this.state.phonenumber, this.state.notes],
+                })
+                    .then(function (response) {
+                        console.log(response)
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    });
+                this.setState({
+                    setOpen: true,
+                });
+            }
         e.preventDefault();
     }
     handleClickClose = () => {

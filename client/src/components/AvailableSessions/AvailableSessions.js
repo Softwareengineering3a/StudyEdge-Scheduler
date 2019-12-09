@@ -34,7 +34,7 @@ class AvailableSessions extends Component {
     }
     
     displayDetailedSession = (session) => () => {
-        if(session.slots !== session.students.length){
+        if(session.slots > session.students.length){
             this.setState({
                 showDetailedSession: true,
                 sessionId: session

@@ -4,7 +4,7 @@ nodemailer = require('nodemailer'),
 mongoose = require('mongoose'),
 config = require('../config/config.js');
 
-mongoose.connect(config.db.uri, { useNewUrlParser: true });
+mongoose.connect(config.db.uri, { useNewUrlParser: true, useUnifiedTopology: true});
 
 var express = require('express');
 var eRoute = express.Router();
