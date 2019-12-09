@@ -115,7 +115,7 @@ class AvailableSessions extends Component {
            <Grid item
            style = {{width: '100%',height:"100%"}}>
             {/* Creates buttons for each session */}
-                <Button variant="outlined" color="primary" onClick = {this.displayDetailedSession(session)} style={{maxHeight: 600, width: 400, maxWidth: 400}}>
+                <Button variant="outlined" color="primary" onClick = {this.displayDetailedSession(session)} style={{maxHeight: 600, width: 425, maxWidth: 400}}>
                     <Grid item>
                         <Grid item>
                             <Grid>{session.class}</Grid>

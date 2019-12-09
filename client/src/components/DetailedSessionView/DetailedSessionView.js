@@ -272,25 +272,31 @@ class DetailedSessionView extends Component {
                                         direction="row"
                                         spacing={4}
                                         alignItems="center"
+                                        justify = "center"
                                     >
-                                        <Grid item>
-                                            <Button variant="contained" size="large" color="secondary" onClick={this.displayEditSesh}>
-                                                Edit
-                                        </Button>
-                                        </Grid>
-
-                                        <Grid item>
-                                            <Button variant="contained" size="large" color="primary" endIcon={<Icon>send</Icon>} onClick={this.handleNote}>
-                                                Notify
-                                        </Button>
-                                        </Grid>
-
                                         <Grid item>
                                             <Button variant="contained" size="large" color="secondary" onClick={this.enableStudents}>
                                                 View Students
                                         </Button>
                                         </Grid>
                                     </Grid>
+                                    <Grid container
+                                    container
+                                    direction="row"
+                                    spacing={4}
+                                    alignItems="center"
+                                    justify = "center">
+                                         <Grid item>
+                                            <Button variant="contained" size="large" color="primary" onClick={this.displayEditSesh}>
+                                                Edit
+                                        </Button>
+                                        </Grid>
+                                        <Grid item>
+                                            <Button variant="contained" size="large" color="primary" endIcon={<Icon>send</Icon>} onClick={this.handleNote}>
+                                                Notify
+                                            </Button>
+                                        </Grid>
+                                        </Grid>
                                 </Grid> :
                                 <Grid item>
                                     <Grid container

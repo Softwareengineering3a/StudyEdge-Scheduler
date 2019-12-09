@@ -118,7 +118,7 @@ class ViewStudents extends Component {
         )
 
         return (
-            <Grid style={{ height: "100%", width: 425 }}>
+            <Grid style={{ height: "100%", width: 425, maxHeight: 600    }}>
                 <Grid item>
                     <Grid container
                         direction="row"
