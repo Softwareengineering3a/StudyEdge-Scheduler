@@ -38,13 +38,17 @@ exports.update = (req, res) => {
             });
         }
         else{
-            session.students.push(req.body.students);
+            if(req.body.students!=null){
+                session.students.push(req.body.students);
+            }
+            session.slots = req.body.slots;
             session.title = req.body.title;
             session.date =req.body.date; 
             session.time = req.body.time; 
             session.class = req.body.class;
             session.location = req.body.location;
-            session.tutor = req.body.tutor; 
+            session.tutor = req.body.tutor;
+            session.notes = req.body.notes;
             session.save(function(err) {
                 if(err) {
                 console.log(err);

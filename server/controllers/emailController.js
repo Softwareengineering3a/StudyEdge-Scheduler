@@ -1,8 +1,10 @@
-nodemailer = require('nodemailer'),
-  mongoose = require('mongoose'),
-  config = require('../config/config.js');
+var { DateTime } = require('luxon')
 
-mongoose.connect(config.db.uri, { useNewUrlParser: true });
+nodemailer = require('nodemailer'),
+mongoose = require('mongoose'),
+config = require('../config/config.js');
+
+mongoose.connect(config.db.uri, { useNewUrlParser: true, useUnifiedTopology: true});
 
 var express = require('express');
 var eRoute = express.Router();
@@ -17,20 +19,26 @@ let transport = nodemailer.createTransport({
 
 
 eRoute.post('/', (req, res, next) => {
-  var email = req.body.email
+  var email = req.body.email;
+  var session = req.body.session;
+  var note = req.body.note
+  var txt = `Hello Study Edge member!\n\nYour Study Expert sent you a notification about your Study Edge reservation that is coming up on ${DateTime.fromISO(session.date).toFormat('ff')} for ${session.class}.\n\nNotification: ${note}`
 
   const message = {
     from: 'studyedgescheduler@gmail.com',
     to: email,
-    subject: 'You have an upcoming study session!', // Subject line
-    text: 'Your Study expert sent your a reminder about your Studyedge reservation that is coming up soon' // Plain text body
+    subject: 'Upcoming Study Session Notification', // Subject line
+    //text: 'Your Study expert sent your a reminder about your Study Edge reservation that is coming up' // Plain text body
+    text: txt
   };
 
   transport.sendMail(message, function (err, info) {
     if (err) {
-      console.log(err)
+      console.log(err);
+      res.status(400).send(err);
     } else {
       console.log('Email sent' + info);
+      res.status(200);
     }
   });
 

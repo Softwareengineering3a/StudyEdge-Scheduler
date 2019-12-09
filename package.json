@@ -42,10 +42,10 @@
     "jwt-decode": "^2.2.0",
     "luxon": "^1.21.3",
     "mocha": "^6.2.1",
-    "mongoose": "^5.7.13",
+    "mongodb": "^3.3.5",
+    "mongoose": "^5.7.14",
     "morgan": "^1.9.1",
-    "nexmo": "^2.5.1",
-    "nodemailer": "^6.3.1",
+    "nodemailer": "^6.4.1",
     "nodemon": "^1.18.10",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
@@ -53,8 +53,6 @@
     "react-custom-scrollbars": "^4.2.1",
     "should": "^13.2.3",
     "supertest": "^4.0.2",
-    "text-mask": "0.0.2",
-    "text-mask-addons": "^3.8.0",
     "validator": "^12.1.0"
   },
   "homepage": "https://github.com/UFWebApps/React_Template_Repo#readme"
