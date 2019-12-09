@@ -240,7 +240,7 @@ class DetailedSessionView extends Component {
                                                             <Typography color="primary" variant="button"> Study Expert: {mySessions.tutor}</Typography>
                                                         </Grid>
                                                         <Grid>
-                                                            <Typography color="primary" variant="button">{mySessions.location}</Typography>
+                                                            <Typography color="primary" variant="button">Location: {mySessions.location}</Typography>
                                                         </Grid>
                                                         <Grid>
                                                             <Typography color="primary" variant="button">{DateTime.fromISO(mySessions.date).toFormat('ff')}</Typography>
@@ -262,7 +262,7 @@ class DetailedSessionView extends Component {
                                                         </Grid>
                                                     </Grid>
                                                     <Grid container justify="flex-end">
-                                                        <Typography color="primary" variant="button">Slots: {mySessions.students.length}/{mySessions.slots}</Typography>
+                                                        <Typography color="primary" variant="button">Available Slots: {mySessions.slots-mySessions.students.length}/{mySessions.slots}</Typography>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
