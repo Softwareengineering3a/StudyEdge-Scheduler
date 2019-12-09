@@ -100,6 +100,7 @@ class DetailedSessionView extends Component {
         });
     }
 
+    //Opens type notification message popup
     handleNote = () => {
         this.setState({
             setOpen2: true,
@@ -107,6 +108,8 @@ class DetailedSessionView extends Component {
         console.log(this.state.setOpen2)
     }
 
+    //Handles email sending, uses axios post to request the back end server to send an email by using HTTP request POST
+    //and sends the session, emails, and note to be sent to students
     handleNotify = () => {
         this.state.session.students.map(element => {
             axios.post(`/students`, {
@@ -128,6 +131,7 @@ class DetailedSessionView extends Component {
         })
     }
 
+    //Handles popup message open and close
     handleClickClose = () => {
         this.setState({
             setOpen: false,
@@ -135,15 +139,14 @@ class DetailedSessionView extends Component {
         });
     }
 
-    
-
-    
     render() {
         let mySessions = this.props.session;
 
-        //ADMIN CHECK
+        //Allows for admin to click on overbooked session even when students are prevented
+        //Checks if admin web token is saved to local storage (is admin logged in?)
         if (this.state.checkOnce) {
             try {
+                //JSON Web Token (Jwt)
                 var token = localStorage.getItem('jwtToken');
                 var decoded = jwt_decode(token);
                 if (decoded.username === "admin") {
@@ -158,6 +161,7 @@ class DetailedSessionView extends Component {
             }
         }
 
+        //Shows View Students component
         if (this.state.viewstudents) {
             return (
                 <ViewStudents
@@ -167,6 +171,7 @@ class DetailedSessionView extends Component {
             );
         }
 
+        //Component Structure
         return (
             <Grid>
                 {this.state.showRes ?
@@ -265,6 +270,7 @@ class DetailedSessionView extends Component {
                                     </Grid>
                                 </Box>
                             </Grid>
+                            {/* If admin is present then present admin with appropriate buttons */}
                             {this.state.isAdmin ?
                                 <Grid item
                                     style={{ height: 350 }}>
@@ -281,7 +287,6 @@ class DetailedSessionView extends Component {
                                         </Grid>
                                     </Grid>
                                     <Grid container
-                                    container
                                     direction="row"
                                     spacing={4}
                                     alignItems="center"
@@ -298,6 +303,7 @@ class DetailedSessionView extends Component {
                                         </Grid>
                                         </Grid>
                                 </Grid> :
+                                /* Shows student reserve button if not admin */
                                 <Grid item>
                                     <Grid container
                                         direction="column"
@@ -353,10 +359,8 @@ class DetailedSessionView extends Component {
                                 Send
                             </Button>
                         </DialogActions>
-         
                     </form>
                 </Dialog>
-
             </Grid>
         );
     }

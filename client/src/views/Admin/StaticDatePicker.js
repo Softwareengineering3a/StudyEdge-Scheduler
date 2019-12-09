@@ -3,6 +3,7 @@ import { DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns"; 
 import axios from "axios"
 
+//Calendar component
 const StaticDatePicker = (props) => {
   const [date, changeDate] = useState(new Date());
   const [counter, changeCounter] = useState(0)
