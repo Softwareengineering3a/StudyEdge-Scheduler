@@ -24,9 +24,7 @@ const style = {
     },
 };
 
-
 class Home extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -37,51 +35,60 @@ class Home extends Component {
             class: "",
             first: true
         };
-        this.displayCreateSession = this.displayCreateSession.bind(this);  
+        this.displayCreateSession = this.displayCreateSession.bind(this);  //Shows Create Session component
     }
 
+    //Calendar date filter update
     dateUpdate = (ndate) => {
         this.setState({
             date: ndate
         })
     }  
 
+    //Course filter update
     classUpdate = (nclass) => {
         this.setState({
             class: nclass
         })
     } 
     
+    //Saves session as a state
     updateSessions = (sess) => {
         this.setState({
             sessions: sess
         })
     }
 
+    //Updates calendar
     updateFirst = () => {
         this.setState({
             first: false
         })
     }
 
+    //Shows Create Session component
     displayCreateSession = () => {
         this.setState({
             showCreateSession: true
         });
     }
+
+    //Hides Create Sesssion component
     disableCreateSession = () => {
         this.setState({
             showCreateSession: false
         });
     }
 
+    //Hides Detailed Session component
     disableDetailedSession = () => {
         this.setState({
             showDetailedSession: false
         });
     }
+
+    //Loads session using HTTP GET request using axios
     handleLoad = () => {
-        
         axios.get('/sessions')
         .then((response) => {
             this.updateSessions(response.data)
@@ -104,6 +111,8 @@ class Home extends Component {
             },
         });
 
+        //Allows for admin to click on overbooked session even when students are prevented
+        //Checks if admin web token is saved to local storage (is admin logged in?)
         try {
             var token = localStorage.getItem('jwtToken');
             var decoded = jwt_decode(token);
@@ -115,6 +124,7 @@ class Home extends Component {
                 />
             );
         }
+        //Prevents students from accessing admin page
         if(decoded.username !== "admin"){
             return(
                 <Redirect to={{
@@ -148,12 +158,15 @@ class Home extends Component {
                                         >
                                             <Grid item style={{ position: 'relative', zIndex: 1}}>
                                                 <Grid item container justify = "flex-start">
+                                                    {/* drop down component */}
                                                     <SelectACourse
-                                                        sessions = {this.state.sessions}                                                            classUpdate = {this.classUpdate.bind(this)}
+                                                        sessions = {this.state.sessions}
+                                                        classUpdate = {this.classUpdate.bind(this)}
                                                     />
                                                 </Grid>
                                             </Grid>
                                             <Grid item>
+                                                {/* Add button to create sessions, only available to admin */}
                                                 <Fab size="small" color="secondary" aria-label="add" onClick={this.displayCreateSession} >
                                                     <AddIcon/>
                                                 </Fab>
@@ -171,6 +184,7 @@ class Home extends Component {
                                         <Grid item
                                             style={{height:200}}
                                             >
+                                            {/* calendar component */}
                                             <StaticDatePicker
                                                 date = {this.state.date}
                                                 sessions = {this.state.sessions}
@@ -184,9 +198,11 @@ class Home extends Component {
                                             style={{height:600}} >             
                                                 <CardContent>
                                                     {this.state.showCreateSession ?
+                                                        /* create session component */
                                                         <CreateASession
                                                         disableCreateSession = {this.disableCreateSession} 
                                                         /> :
+                                                        /* available session component */
                                                         <AvailableSessions
                                                         date = {this.state.date}
                                                         sessions = {this.state.sessions}

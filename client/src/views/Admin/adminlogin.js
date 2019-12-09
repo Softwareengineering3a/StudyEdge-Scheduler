@@ -15,10 +15,9 @@ class adminlogin extends Component {
             username: 'admin',
             password: '',
         }
-
-
     }
 
+    //Sends username and password to back end HTTP POST request
     handleSubmit(e){
         const { username, password } = this.state;
 
@@ -34,6 +33,7 @@ class adminlogin extends Component {
         });
     }    
 
+    //Handle password box input change
     handleChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;

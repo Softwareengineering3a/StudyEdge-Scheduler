@@ -14,6 +14,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+//Calendar component in Create Session component
 export function DatePicker(props) {
     const [selectedDate, handleDateChange] = useState(new Date());
 
@@ -41,11 +42,11 @@ const style = {
 class EditSessionForm extends Component {
     constructor(props) {
         super(props);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleDate = this.handleDate.bind(this);
-        this.handleClickClose = this.handleClickClose.bind(this);
-        this.handleClickOpen = this.handleClickOpen.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this); //Handle User Input Entry and save inputs to states
+        this.handleSubmit = this.handleSubmit.bind(this); //Handle User Submit Button
+        this.handleDate = this.handleDate.bind(this); //Handles calendar input entry and saves input to state
+        this.handleClickClose = this.handleClickClose.bind(this); //Create Session confirmation message -> refreshes admin page
+        this.handleClickOpen = this.handleClickOpen.bind(this); //Handles popup message confirming edit session
         this.state = {
             title: this.props.session.title,
             course: this.props.session.class,
@@ -58,6 +59,7 @@ class EditSessionForm extends Component {
         }
     }
 
+    //Handle User Input Entry and save inputs to states
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -69,13 +71,15 @@ class EditSessionForm extends Component {
         console.log(name, value);
     }
 
+    //Handles calendar input entry and saves input to state
     handleDate(ndate) {
         console.log(ndate)
         this.setState({ date: ndate })
     }
 
+    //Handle User Submit Button
     handleSubmit(e) {
-        axios.put(`/sessions/${this.props.session._id}`, {
+        axios.put(`/sessions/${this.props.session._id}`, { //axios, performs HTTP PUT request to edit database
             "title": this.state.title,
             "class": this.state.course,
             "location": this.state.location,
@@ -92,6 +96,7 @@ class EditSessionForm extends Component {
             });
     }
 
+    //Handle deleting a session
     handleRemove = e => {
         axios.delete(`/sessions/${this.props.session._id}`)
             .then(res => {
@@ -104,12 +109,14 @@ class EditSessionForm extends Component {
         window.location.reload();
     };
 
+    //Handle popup open message
     handleClickOpen = () => {
         this.setState({
             setOpen: true,
         });
     }
 
+    //Handle popup close message
     handleClickClose = () => {
         this.setState({
             setOpen: false,
@@ -146,6 +153,7 @@ class EditSessionForm extends Component {
                             </Grid>
                         </Grid>
                         <Grid>
+                            {/* Edit session form */}
                             <form autoComplete="off">
                                 <Grid item>
                                     <Grid
@@ -278,6 +286,7 @@ class EditSessionForm extends Component {
                                 </Grid>
                             </form>
                         </Grid>
+                        {/* Popup messages */}
                         <Dialog
                             open={this.state.setOpen}
                             onClose={this.handleClickClose}
