@@ -5,6 +5,7 @@ const path = require('path'),
     bodyParser = require('body-parser'),
     sessionRouter = require('../routes/sessionRouter'),
     eRoute = require('../controllers/emailController');
+    studentdelete = require('../controllers/studentdeleteController');
 
 var cors = require('cors');
 var auth = require('../routes/auth');
@@ -36,6 +37,7 @@ module.exports.init = () => {
     // add a router
     app.use('/sessions', sessionRouter);
     app.use('/students', eRoute);
+    app.use('/studentdelete', studentdelete);
 
     //Passport
     app.use('/auth', auth);

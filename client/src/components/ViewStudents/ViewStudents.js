@@ -15,10 +15,15 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
+import axios from 'axios';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -31,6 +36,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+
 class ViewStudents extends Component {
     constructor(props) {
         super(props);
@@ -39,6 +45,33 @@ class ViewStudents extends Component {
             session: this.props.session,
             setOpen: false
         }
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleClickClose = this.handleClickClose.bind(this);
+
+    }
+
+    handleDelete(student, event){
+        axios.post('/studentdelete', {
+            "session": this.state.session,
+            "studentdelete": student,
+        })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+        this.setState({
+            setOpen: true,
+        });
+        //event.preventDefault();
+    }
+
+    handleClickClose = () => {
+        window.location.reload(false);
+        this.setState({
+            setOpen: false,
+        });
     }
 
     handleOpen = () => {
@@ -58,6 +91,11 @@ class ViewStudents extends Component {
                 <ListItem button onClick={this.setOpen = true}>
                     <ListItemText primary={element[1]} />
                     {this.setOpen ? <ExpandLess /> : <ExpandMore />}
+                    <ListItemSecondaryAction>
+                    <IconButton edge="end" aria-label="delete"  onClick={e=>this.handleDelete(element[0])}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
                 </ListItem>
 
 
@@ -118,6 +156,17 @@ class ViewStudents extends Component {
                         {students}
                     </Grid>
                 </Grid>
+                <Dialog
+                    open={this.state.setOpen}
+                    onClose={this.handleClickClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Student Deleted"}</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={this.handleClickClose} color="primary">Ok</Button>
+                    </DialogActions>
+                </Dialog>
             </Grid>
         );
     }
