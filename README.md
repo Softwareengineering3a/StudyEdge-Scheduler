@@ -64,16 +64,18 @@ If deploying to heroku this does not need to be run since it is handled by the h
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn how to setup a local MongoDB instance for testing, check out how to [Connect to MongoDB](https://docs.mongodb.com/guides/server/drivers/).
-
-To learn how to deploy a full-stack web app to heroku, check out [this great guide](https://daveceddia.com/deploy-react-express-app-heroku/).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
 
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### Deployed page
+https://studyedge-scheduler.herokuapp.com/
+
+### Running locally or on Heroku
+Locally - From the root file, run 'npm run-script dev'
+Heroku - Should work from the link. /Admin takes you to the admin page. /login/<UFemail> takes you to the student page with your UF email.
+
+### Features implemented
+
+### How to update database and server connections
