@@ -120,7 +120,7 @@ class AvailableSessions extends Component {
                         <Grid item>
                             <Grid>{session.class}</Grid>
                             <Grid>{session.title}</Grid>
-                            <Grid>{session.location}</Grid>
+                            <Grid>Location: {session.location}</Grid>
                             <Grid>Study Expert: {session.tutor}</Grid>
                             <Grid>{DateTime.fromISO(session.date).toFormat('ff')}</Grid>
                         </Grid>
