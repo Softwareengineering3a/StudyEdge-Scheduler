@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
-import FormControl from '@material-ui/core/FormControl'
 import axios from 'axios';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -49,8 +48,8 @@ class ConfirmReservation extends Component {
     handleSubmit = e => {
         var url = '/sessions/' + this.props.sessionRes._id;
 
-        if(this.state.user != '' && this.state.firstname != '' && this.state.lastname != ''
-            && this.state.email != '' && this.state.phonenumber != ''){
+        if(this.state.user !== '' && this.state.firstname !== '' && this.state.lastname !== ''
+            && this.state.email !== '' && this.state.phonenumber !== ''){
                 axios.put(url, {
                     "title": this.props.sessionRes.title,
                     "class": this.props.sessionRes.class,

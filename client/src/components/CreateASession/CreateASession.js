@@ -89,9 +89,10 @@ class CreateASession extends Component {
             .catch(function (error) {
                 console.log(error)
             });
-        // this.setState({
-        //     setOpen:true,
-        // });
+         this.setState({
+             setOpen:true,
+         });
+         e.preventDefault();
     }
     handleClickClose = () => {
         window.location.reload(false);
