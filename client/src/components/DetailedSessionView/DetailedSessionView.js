@@ -121,6 +121,7 @@ class DetailedSessionView extends Component {
     handleClickClose = () => {
         this.setState({
             setOpen: false,
+            setOpen2: false
         });
     }
 
@@ -331,6 +332,7 @@ class DetailedSessionView extends Component {
                                 />
                         </Grid>
                         <DialogActions>
+                            <Button onClick={this.handleClickClose} color="primary">Back</Button>
                             <Button  color="primary" onClick={this.handleNotify}>
                                 Send
                             </Button>

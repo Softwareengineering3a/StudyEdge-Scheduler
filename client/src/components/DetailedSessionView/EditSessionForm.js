@@ -283,12 +283,13 @@ class EditSessionForm extends Component {
                             onClose={this.handleClickClose}
                             aria-labelledby="alert-dialog-title"
                             aria-describedby="alert-dialog-description"
+                            unmountOnExit
                         >
                             <DialogTitle id="alert-dialog-title">{"Are you sure you would like to delete this session?"}</DialogTitle>
                             <DialogContent>
                             </DialogContent>
                             <DialogActions>
-                                <Button onClick={this.handleClickClose} color="primary">Go back</Button>
+                                <Button onClick={this.handleClickClose} color="primary">Back</Button>
                                 <Button onClick={this.handleRemove} color="primary" autoFocus>Delete Session</Button>
                             </DialogActions>
                         </Dialog>

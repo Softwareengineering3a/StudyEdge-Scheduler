@@ -5,21 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Avatar from '@material-ui/core/Avatar';
 import axios from 'axios';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -40,12 +33,13 @@ const useStyles = makeStyles(theme => ({
 class ViewStudents extends Component {
     constructor(props) {
         super(props);
-        this.handleOpen = this.handleOpen.bind(this);
         this.state = {
             session: this.props.session,
-            setOpen: false
+            setOpen: false,
+            openDia: false,
         }
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleOpen = this.handleOpen.bind(this);
         this.handleClickClose = this.handleClickClose.bind(this);
 
     }
@@ -62,7 +56,7 @@ class ViewStudents extends Component {
                 console.log(error)
             });
         this.setState({
-            setOpen: true,
+            openDia: true,
         });
         //event.preventDefault();
     }
@@ -70,14 +64,14 @@ class ViewStudents extends Component {
     handleClickClose = () => {
         window.location.reload(false);
         this.setState({
-            setOpen: false,
+            setOpen: false
         });
     }
 
-    handleOpen = () => {
-        this.setState({
-            setOpen: true,
-        });
+    handleOpen = (e) => {
+        const open = this.state.setOpen;
+        this.setState({ setOpen: !open });
+    
     }
 
     render() {
@@ -88,29 +82,21 @@ class ViewStudents extends Component {
                 key={index}
             >
 
-                <ListItem button onClick={this.setOpen = true}>
-                    <ListItemText primary={element[1]} />
-                    {this.setOpen ? <ExpandLess /> : <ExpandMore />}
+                <ListItem button onClick = {this.handleOpen} >
+                  
+                    <ListItemText>{element[1]} {element[2]} </ListItemText>
+                    {!this.setOpen ? <ExpandLess /> : <ExpandMore />}
                     <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="delete"  onClick={e=>this.handleDelete(element[0])}>
                       <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>
-
-
-                <Collapse in={this.handleOpen} timeout="auto" unmountOnExit>
+                {console.log(this.setOpen)}
+                <Collapse in={!this.setOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         <ListItem>
-                            <ListItemText>First Name: {element[1]}</ListItemText>
-                        </ListItem>
-
-                        <ListItem>
-                            <ListItemText>Last Name: {element[2]}</ListItemText>
-                        </ListItem>
-
-                        <ListItem>
-                            <ListItemText>UF Email Address: {element[0]}</ListItemText>
+                            <ListItemText>UF Email: {element[0]}</ListItemText>
                         </ListItem>
 
                         <ListItem>
@@ -132,7 +118,7 @@ class ViewStudents extends Component {
         )
 
         return (
-            <Grid style={{ height: "100%" }}>
+            <Grid style={{ height: "100%", width: 425 }}>
                 <Grid item>
                     <Grid container
                         direction="row"
@@ -151,13 +137,12 @@ class ViewStudents extends Component {
                         </Grid>
                     </Grid>
                     <Grid item
-                        button
                     >
                         {students}
                     </Grid>
                 </Grid>
                 <Dialog
-                    open={this.state.setOpen}
+                    open={this.state.openDia}
                     onClose={this.handleClickClose}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
