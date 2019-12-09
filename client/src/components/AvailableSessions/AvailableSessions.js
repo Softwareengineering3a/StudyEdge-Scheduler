@@ -146,7 +146,7 @@ class AvailableSessions extends Component {
                         spacing={4}>
                         <Grid item>
                             <Typography variant="h4" className = "center">
-                                Select A Date
+                                Select a Date
                             </Typography>
                         </Grid>
                     </Grid> 
