@@ -2,12 +2,12 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var StudentSchema = new Schema({
-
-  UFID : {type : Number, required : true},
-  Name : {type : String, required : true},
-  Email : {type : String, required : true},
-  pNumber : {type : Number, required : true,
-  Notes : {type : String, required : false}
+  //Necessary fields for student
+  UFID : {type : Number, required : true}, //Unique UF ID number 
+  Name : {type : String, required : true}, //Name of the student
+  Email : {type : String, required : true}, //Email for the student
+  pNumber : {type : Number, required : true, //Phone number of the student
+  Notes : {type : String, required : false} //Notes student gives when reserving session for the session tutor
 
 });
 

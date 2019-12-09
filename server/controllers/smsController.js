@@ -9,6 +9,7 @@ const from = ''; //get client to pay for sms hosting, insert host number here
 const to = ''; //make call to student database to fetch number
 const text = 'Your Reservation for ___ class at ___ time and date have been confirmed. Congratulations!';
 
+//Function to send and SMS message with specified text
 nexmo.message.sendSms(from, to, text, (err, responseData) => {
     if (err) {
         console.log(err);
