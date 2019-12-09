@@ -20,5 +20,6 @@ StudentSchema.pre('save', function(next) {
   next();
 });
 
+//Create mongoose model for student in database
 var Student = mongoose.model('Student', StudentSchema);
 module.exports = Student;
