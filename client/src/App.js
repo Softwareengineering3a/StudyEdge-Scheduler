@@ -20,6 +20,7 @@ const App = () => {
   });
 
   return (
+  //Routings to different pages for React front end server
   <ThemeProvider theme={theme}>
     <div>
       <Header />

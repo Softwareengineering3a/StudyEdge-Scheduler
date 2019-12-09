@@ -41,6 +41,8 @@ export default function MenuAppBar() {
     window.location.reload();
   };
 
+  //Allows for admin to click on overbooked session even when students are prevented
+  //Checks if admin web token is saved to local storage (is admin logged in?)
   try {
       var token = localStorage.getItem('jwtToken');
       var decoded = jwt_decode(token);
@@ -72,6 +74,7 @@ export default function MenuAppBar() {
   }
 
 
+  //If admin, then header should feature a sign in button
   if(decoded.username !== "admin"){
     return (
       <div className={classes.root}>
@@ -99,6 +102,7 @@ export default function MenuAppBar() {
     );
   }
 
+  //If student, then sign out button should not exist
   return (
     <div className={classes.root}>
       <AppBar position="static">

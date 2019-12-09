@@ -10,9 +10,8 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
+//Dropdown menu containing all courses to filter by
 //Replace with Database containing course names
-
-
 export default function SplitButton(props) {
   const distinct = (value, index, self) => {
     return self.indexOf(value) === index;
@@ -25,11 +24,12 @@ export default function SplitButton(props) {
     var date2 = new Date()
     return date1 >= date2
   });
-  const options = classes.map(x => x.class).filter(distinct).sort()
+  const options = classes.map(x => x.class).filter(distinct).sort() //Shows courses only once and sorts alphabetically
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(null);
 
+  //Course selection
   const handleClick = () => {
     setSelectedIndex(null);
   };

@@ -17,21 +17,18 @@ import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 
-
-
-
 class DetailedSessionView extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showRes: false,
-            session: this.props.session,
-            studentUser: this.props.user,
-            isAdmin: false,
-            checkOnce: true,
-            showEditSession: false,
-            setOpen: false,
-            viewstudents: false,
+            showRes: false, //Show student booking page
+            session: this.props.session, //current session interaction
+            studentUser: this.props.user, //UFL email address
+            isAdmin: false, //Admin Checks
+            checkOnce: true, //Admin Check
+            showEditSession: false, //Show Edit Session component
+            setOpen: false, //Student notify button message for admin
+            viewstudents: false, //shows students in session
             title: this.props.session.title,
             course: this.props.session.course,
             location: this.props.session.location,
@@ -40,15 +37,16 @@ class DetailedSessionView extends Component {
             notes: this.props.session.notes,
             tutor: this.props.session.tutor,
             note: "",
-            setOpen2: false,
+            setOpen2: false, //Student notify popup textbox allowing admin to send custom message to students
         };
-        this.displayReservation = this.displayReservation.bind(this);
-        this.disableReservation = this.disableReservation.bind(this);
-        this.displayEditSesh = this.displayEditSesh.bind(this);
-        this.disableEditSesh = this.disableEditSesh.bind(this);
-        this.enableStudents = this.enableStudents.bind(this);
-        this.disableStudents = this.disableStudents.bind(this);
+        this.displayReservation = this.displayReservation.bind(this); //Show student booking reservation page
+        this.disableReservation = this.disableReservation.bind(this); //Hide student booking reservation page
+        this.displayEditSesh = this.displayEditSesh.bind(this); //Show Edit Session component
+        this.disableEditSesh = this.disableEditSesh.bind(this); //Hides Edit Session component
+        this.enableStudents = this.enableStudents.bind(this); //Shows View Student component
+        this.disableStudents = this.disableStudents.bind(this); //Hides View Student component
     }
+    //Handle User Input Entry and save inputs to states
     handleInputChange = (event) => {
         const target = event.target;
         const value = target.value;
@@ -59,37 +57,50 @@ class DetailedSessionView extends Component {
         });
         console.log(name, value);
     }
+
+    //Show student booking reservation page
     displayReservation = () => {
         this.setState({
             showRes: true,
         });
     }
+
+    //Hide student booking reservation page
     disableReservation = () => {
         this.setState({
             showRes: false,
         });
     }
+
+    //Show Edit Session component
     displayEditSesh = (session) => {
         this.setState({
             showEditSession: true,
         });
     }
+
+    //Hides Edit Session component
     disableEditSesh = () => {
         this.setState({
             showEditSession: false,
         });
     }
+
+    //Shows View Student component
     enableStudents = () => {
         this.setState({
             viewstudents: true,
         });
     }
+
+    //Hides View Student component
     disableStudents = () => {
         this.setState({
             viewstudents: false,
         });
     }
 
+    //Opens type notification message popup
     handleNote = () => {
         this.setState({
             setOpen2: true,
@@ -97,6 +108,8 @@ class DetailedSessionView extends Component {
         console.log(this.state.setOpen2)
     }
 
+    //Handles email sending, uses axios post to request the back end server to send an email by using HTTP request POST
+    //and sends the session, emails, and note to be sent to students
     handleNotify = () => {
         this.state.session.students.map(element => {
             axios.post(`/students`, {
@@ -118,21 +131,22 @@ class DetailedSessionView extends Component {
         })
     }
 
+    //Handles popup message open and close
     handleClickClose = () => {
         this.setState({
             setOpen: false,
+            setOpen2: false
         });
     }
 
-    
-
-    
     render() {
         let mySessions = this.props.session;
 
-        //ADMIN CHECK
+        //Allows for admin to click on overbooked session even when students are prevented
+        //Checks if admin web token is saved to local storage (is admin logged in?)
         if (this.state.checkOnce) {
             try {
+                //JSON Web Token (Jwt)
                 var token = localStorage.getItem('jwtToken');
                 var decoded = jwt_decode(token);
                 if (decoded.username === "admin") {
@@ -147,6 +161,7 @@ class DetailedSessionView extends Component {
             }
         }
 
+        //Shows View Students component
         if (this.state.viewstudents) {
             return (
                 <ViewStudents
@@ -156,6 +171,7 @@ class DetailedSessionView extends Component {
             );
         }
 
+        //Component Structure
         return (
             <Grid>
                 {this.state.showRes ?
@@ -254,6 +270,7 @@ class DetailedSessionView extends Component {
                                     </Grid>
                                 </Box>
                             </Grid>
+                            {/* If admin is present then present admin with appropriate buttons */}
                             {this.state.isAdmin ?
                                 <Grid item
                                     style={{ height: 350 }}>
@@ -261,26 +278,32 @@ class DetailedSessionView extends Component {
                                         direction="row"
                                         spacing={4}
                                         alignItems="center"
+                                        justify = "center"
                                     >
-                                        <Grid item>
-                                            <Button variant="contained" size="large" color="secondary" onClick={this.displayEditSesh}>
-                                                Edit
-                                        </Button>
-                                        </Grid>
-
-                                        <Grid item>
-                                            <Button variant="contained" size="large" color="primary" endIcon={<Icon>send</Icon>} onClick={this.handleNote}>
-                                                Notify
-                                        </Button>
-                                        </Grid>
-
                                         <Grid item>
                                             <Button variant="contained" size="large" color="secondary" onClick={this.enableStudents}>
                                                 View Students
                                         </Button>
                                         </Grid>
                                     </Grid>
+                                    <Grid container
+                                    direction="row"
+                                    spacing={4}
+                                    alignItems="center"
+                                    justify = "center">
+                                         <Grid item>
+                                            <Button variant="contained" size="large" color="primary" onClick={this.displayEditSesh}>
+                                                Edit
+                                        </Button>
+                                        </Grid>
+                                        <Grid item>
+                                            <Button variant="contained" size="large" color="primary" endIcon={<Icon>send</Icon>} onClick={this.handleNote}>
+                                                Notify
+                                            </Button>
+                                        </Grid>
+                                        </Grid>
                                 </Grid> :
+                                /* Shows student reserve button if not admin */
                                 <Grid item>
                                     <Grid container
                                         direction="column"
@@ -331,14 +354,13 @@ class DetailedSessionView extends Component {
                                 />
                         </Grid>
                         <DialogActions>
+                            <Button onClick={this.handleClickClose} color="primary">Back</Button>
                             <Button  color="primary" onClick={this.handleNotify}>
                                 Send
                             </Button>
                         </DialogActions>
-         
                     </form>
                 </Dialog>
-
             </Grid>
         );
     }

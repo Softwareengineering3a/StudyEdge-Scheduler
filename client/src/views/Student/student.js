@@ -44,46 +44,56 @@ class Home extends Component {
         this.displayCreateSession = this.displayCreateSession.bind(this);  
     }
 
+    //Calendar date filter update    
     dateUpdate = (ndate) => {
         this.setState({
             date: ndate
         })
     }  
 
+    //Course filter update
     classUpdate = (nclass) => {
         this.setState({
             class: nclass
         })
     } 
-    
+
+    //Saves session as a state
     updateSessions = (sess) => {
         this.setState({
             sessions: sess
         })
     }
 
+    //Updates calendar
     updateFirst = () => {
         this.setState({
             first: false
         })
     }
 
+    //Shows Create Session component
     displayCreateSession = () => {
         this.setState({
             showCreateSession: true
         });
     }
+
+    //Hides Create Sesssion component
     disableCreateSession = () => {
         this.setState({
             showCreateSession: false
         });
     }
 
+    //Hides Detailed Session component
     disableDetailedSession = () => {
         this.setState({
             showDetailedSession: false
         });
     }
+
+    //Loads session using HTTP GET request using axios
     handleLoad = () => {
         
         axios.get('/sessions')
@@ -107,6 +117,7 @@ class Home extends Component {
             },
         });
 
+        //Student must be logged in with some sort of string
         if(this.state.user === ""){
             return(
                 <Redirect to={{
@@ -116,6 +127,7 @@ class Home extends Component {
             )
         }
         else {
+            //If student is detected, then remove admin token if admin was signed in
             localStorage.removeItem('jwtToken');
         }
         return (
@@ -142,6 +154,7 @@ class Home extends Component {
                                         >
                                             <Grid item style={{ position: 'relative', zIndex: 1}}>
                                                 <Grid item container justify = "flex-start">
+                                                    {/* drop down component */}
                                                     <SelectACourse
                                                         sessions = {this.state.sessions} classUpdate = {this.classUpdate.bind(this)}
                                                     />
@@ -161,6 +174,7 @@ class Home extends Component {
                                             style={{height:200}}
                                             justify = "center"
                                             alignItems = "center">
+                                            {/* calendar component */}
                                             <StaticDatePicker
                                                 date = {this.state.date}
                                                 sessions = {this.state.sessions}
@@ -177,6 +191,7 @@ class Home extends Component {
                                                         <CreateASession
                                                         disableCreateSession = {this.disableCreateSession} 
                                                         /> :
+                                                        /* available session component */
                                                         <AvailableSessions
                                                         date = {this.state.date}
                                                         sessions = {this.state.sessions}
