@@ -4,48 +4,97 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Avatar from '@material-ui/core/Avatar';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        width: '100%',
+        maxWidth: 360,
+        backgroundColor: theme.palette.background.paper,
+    },
+    nested: {
+        paddingLeft: theme.spacing(4),
+    },
+}));
 
 class ViewStudents extends Component {
     constructor(props) {
         super(props);
+        this.handleOpen = this.handleOpen.bind(this);
         this.state = {
             session: this.props.session,
+            setOpen: false
         }
     }
 
-    render() {
-        const students = this.state.session.students.map((element,index) =>
-        <Grid container
-        direction="column"
-        alignItems="center"
-        justify = "center"
-        spacing={5}
-        style={{
-        margin: 0,
-        width: '100%',
-        }}
-        key = {index}>
+    handleOpen = () => {
+        this.setState({
+            setOpen: true,
+        });
+    }
 
-       <Grid item
-       style = {{width: '100%',height:"100%"}}>
-        <Button variant="outlined" color="primary" style={{maxHeight: 600, width: 400}}>
-            <Grid item>
-                <Grid item>
-                    <Grid>First Name: {element[1]}</Grid>
-                    <Grid>Last Name: {element[2]}</Grid>
-                    <Grid>UF Email Address: {element[0]}</Grid>
-                    <Grid>Preferred Email: {element[3]}</Grid>
-                    <Grid>Phone Number: {element[4]}</Grid>
-                    <Grid>Notes: {element[5]}</Grid>
-                </Grid>
-            </Grid>
-        </Button>
-        </Grid>
-        </Grid>
-    )
-    
+    render() {
+        const students = this.state.session.students.map((element, index) =>
+            <List className={useStyles.root}
+                component="nav"
+                aria-labelledby="nested-list-subheader"
+                key={index}
+            >
+
+                <ListItem button onClick={this.setOpen = true}>
+                    <ListItemText primary={element[1]} />
+                    {this.setOpen ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+
+
+                <Collapse in={this.handleOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        <ListItem>
+                            <ListItemText>First Name: {element[1]}</ListItemText>
+                        </ListItem>
+
+                        <ListItem>
+                            <ListItemText>Last Name: {element[2]}</ListItemText>
+                        </ListItem>
+
+                        <ListItem>
+                            <ListItemText>UF Email Address: {element[0]}</ListItemText>
+                        </ListItem>
+
+                        <ListItem>
+                            <ListItemText>Preferred Email: {element[3]}</ListItemText>
+                        </ListItem>
+
+                        <ListItem>
+                            <ListItemText>Phone Number: {element[4]}</ListItemText>
+                        </ListItem>
+
+                        <ListItem>
+                            <ListItemText>Notes: {element[5]}</ListItemText>
+                        </ListItem>
+
+                    </List>
+                </Collapse>
+
+            </List>
+        )
+
         return (
-            <Grid style={{height:"100%"}}>
+            <Grid style={{ height: "100%" }}>
                 <Grid item>
                     <Grid container
                         direction="row"
@@ -64,8 +113,8 @@ class ViewStudents extends Component {
                         </Grid>
                     </Grid>
                     <Grid item
-                        style={{maxHeight: 615, overflow: 'auto'}}
-                    > 
+                        button
+                    >
                         {students}
                     </Grid>
                 </Grid>
