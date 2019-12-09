@@ -127,7 +127,7 @@ class AvailableSessions extends Component {
                         <Grid container
                         justify = "flex-end"
                         style={{width: 375}}>
-                            <Grid>Slots: {session.students.length}/{session.slots}</Grid>
+                            <Grid>Available Slots: {session.slots-session.students.length}/{session.slots}</Grid>
                         </Grid>
                     </Grid>
                 </Button>

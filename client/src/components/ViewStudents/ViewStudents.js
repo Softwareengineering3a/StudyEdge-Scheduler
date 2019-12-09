@@ -41,6 +41,7 @@ class ViewStudents extends Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClickClose = this.handleClickClose.bind(this);
+        this.handleClickOpen = this.handleClickOpen
 
     }
 
@@ -55,9 +56,10 @@ class ViewStudents extends Component {
             .catch(function (error) {
                 console.log(error)
             });
-        this.setState({
-            openDia: true,
-        });
+            this.setState({
+                openDia: false,
+            });
+            window.location.reload();
         //event.preventDefault();
     }
 
@@ -74,6 +76,12 @@ class ViewStudents extends Component {
     
     }
 
+    handleClickOpen = () => {
+         this.setState({
+            openDia: true,
+        });
+    }
+
     render() {
         const students = this.state.session.students.map((element, index) =>
             <List className={useStyles.root}
@@ -81,13 +89,25 @@ class ViewStudents extends Component {
                 aria-labelledby="nested-list-subheader"
                 key={index}
             >
+                 <Dialog
+                    open={this.state.openDia}
+                    onClose={this.handleClickClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete this student?"}</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={this.handleClickClose} color="primary">Back</Button>
+                        <Button onClick={e=>this.handleDelete(element[0])}>Delete</Button>
+                    </DialogActions>
+                </Dialog>
 
                 <ListItem button onClick = {this.handleOpen} >
                   
                     <ListItemText>{element[1]} {element[2]} </ListItemText>
                     {!this.setOpen ? <ExpandLess /> : <ExpandMore />}
                     <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete"  onClick={e=>this.handleDelete(element[0])}>
+                    <IconButton edge="end" aria-label="delete"  onClick={this.handleClickOpen}>
                       <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>
@@ -141,17 +161,7 @@ class ViewStudents extends Component {
                         {students}
                     </Grid>
                 </Grid>
-                <Dialog
-                    open={this.state.openDia}
-                    onClose={this.handleClickClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">{"Student Deleted"}</DialogTitle>
-                    <DialogActions>
-                        <Button onClick={this.handleClickClose} color="primary">Ok</Button>
-                    </DialogActions>
-                </Dialog>
+               
             </Grid>
         );
     }

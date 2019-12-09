@@ -257,7 +257,7 @@ class DetailedSessionView extends Component {
                                                         </Grid>
                                                     </Grid>
                                                     <Grid container justify="flex-end">
-                                                        <Typography color="primary" variant="button">Slots: {mySessions.students.length}/{mySessions.slots}</Typography>
+                                                        <Typography color="primary" variant="button">Available Slots: {mySessions.slots-mySessions.students.length}/{mySessions.slots}</Typography>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
