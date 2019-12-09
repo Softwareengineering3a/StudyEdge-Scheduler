@@ -14,7 +14,6 @@ module.exports.init = () => {
     /* 
         connect to database
         - reference README for db uri
-        -test
     */
     mongoose.connect(process.env.DB_URI || require('./config').db.uri, {
         useNewUrlParser: true,
@@ -46,7 +45,7 @@ module.exports.init = () => {
     //Used for Heroku Deployment
     if (process.env.NODE_ENV === 'production') {
         // Serve any static files
-        app.use(express.static(path.join('../../client/build')));
+        app.use(express.static(path.join(__dirname, '../../client/build')));
 
         // Handle React routing, return all requests to React app
         app.get('*', function (req, res) {
