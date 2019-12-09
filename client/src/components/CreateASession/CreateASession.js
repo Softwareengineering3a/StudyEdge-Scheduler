@@ -13,9 +13,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+//Calendar component in Create Session component
 export function DatePicker(props) {
     const [selectedDate, handleDateChange] = useState(new Date());
-
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDateTimePicker
@@ -38,13 +38,12 @@ const style = {
   };
 
 class CreateASession extends Component {
-    
     constructor() {
         super();
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleDate = this.handleDate.bind(this);
-        this.handleClickClose = this.handleClickClose.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this); //Handle User Input Entry and save inputs to states
+        this.handleSubmit = this.handleSubmit.bind(this); //Handle User Submit Button
+        this.handleDate = this.handleDate.bind(this); //Handles calendar input entry and saves input to state
+        this.handleClickClose = this.handleClickClose.bind(this); //Create Session confirmation message -> refreshes admin page
         this.state = {
             title: '',
             course: '',
@@ -57,6 +56,7 @@ class CreateASession extends Component {
         }
     }
 
+    //Handle User Input Entry and save inputs to states
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -68,13 +68,15 @@ class CreateASession extends Component {
         console.log(name, value);
     }
 
+    //Handles calendar input entry and saves input to state
     handleDate(ndate) {
         console.log(ndate)
         this.setState({date: ndate})
     }
 
+    //Handle User Submit Button
     handleSubmit(e) {
-        axios.post('/sessions', {
+        axios.post('/sessions', { //axios, performs HTTP post request to add new sessions to database
             "title": this.state.title,
             "class": this.state.course.toUpperCase(),
             "location": this.state.location,
@@ -90,10 +92,12 @@ class CreateASession extends Component {
                 console.log(error)
             });
          this.setState({
-             setOpen:true,
+             setOpen:true, //Opens create session confirmation
          });
-         e.preventDefault();
+         e.preventDefault(); //Prevents instant page refresh when clicking submit button
     }
+    
+    //Refresh to admin page
     handleClickClose = () => {
         window.location.reload(false);
         this.setState({
@@ -132,6 +136,7 @@ class CreateASession extends Component {
                         </Grid>
                     </Grid>
                     <Grid>
+                    {/* Create Session form */}
                     <form autoComplete="off">
                         <Grid item>
                             <Grid
@@ -152,7 +157,6 @@ class CreateASession extends Component {
                                         value={this.state.title}
                                     />
                                 </Grid>
-
                             </Grid>
                             <Grid
                                 container
@@ -254,6 +258,7 @@ class CreateASession extends Component {
                         </Grid>
                     </form>
                     </Grid>
+                    {/* Create session confirmation message */}
                     <Dialog
                         open={this.state.setOpen}
                         onClose={this.handleClickClose}

@@ -17,12 +17,11 @@ const style = {
 };
 
 class ConfirmReservation extends Component {
-
     constructor(props) {
         super(props);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleClickClose = this.handleClickClose.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this); //Handle User Input Entry and save inputs to states
+        this.handleSubmit = this.handleSubmit.bind(this); //Handle User Submit Button
+        this.handleClickClose = this.handleClickClose.bind(this); //Student message notification
         this.state = {
             firstname: '',
             lastname: '',
@@ -34,7 +33,8 @@ class ConfirmReservation extends Component {
             redirectbool: false
         }
     }
-
+    
+    //Handle User Input Entry and save inputs to states
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -45,12 +45,13 @@ class ConfirmReservation extends Component {
         });
     }
 
+    //Handle User Submit Button
     handleSubmit = e => {
         var url = '/sessions/' + this.props.sessionRes._id;
-
+        //Checks to make sure none of the TextFields are empty before placing session reservation
         if(this.state.user !== '' && this.state.firstname !== '' && this.state.lastname !== ''
             && this.state.email !== '' && this.state.phonenumber !== ''){
-                axios.put(url, {
+                axios.put(url, { //axios, performs HTTP requests to back end server, adds student to the database
                     "title": this.props.sessionRes.title,
                     "class": this.props.sessionRes.class,
                     "location": this.props.sessionRes.location,
@@ -67,11 +68,13 @@ class ConfirmReservation extends Component {
                         console.log(error)
                     });
                 this.setState({
-                    setOpen: true,
+                    setOpen: true, //Opens Confirmation message for students
                 });
             }
-        e.preventDefault();
+        e.preventDefault(); //Prevents instant page refresh when clicking submit button
     }
+
+    //Student message notification
     handleClickClose = () => {
         window.location.reload(false);
         this.setState({
@@ -81,7 +84,6 @@ class ConfirmReservation extends Component {
 
 
     render() {
-
         return (
             <main>
                 <Grid
@@ -108,6 +110,7 @@ class ConfirmReservation extends Component {
                         </Grid>
                     </Grid>
                     <Grid item>
+                        {/* Student Booking form */}
                         <form autoComplete="off">
                             <Grid item>
                                 <Grid
@@ -209,6 +212,7 @@ class ConfirmReservation extends Component {
                                 </Grid>
                             </Grid>
                         </form>
+                        {/* Student confirmation message */}
                         <Dialog
                             open={this.state.setOpen}
                             onClose={this.handleClickClose}
