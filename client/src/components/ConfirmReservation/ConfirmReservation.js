@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
+import FormControl from '@material-ui/core/FormControl'
 import axios from 'axios';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -45,9 +46,9 @@ class ConfirmReservation extends Component {
         });
     }
 
-    handleSubmit(e) {
+    handleSubmit = e => {
         var url = '/sessions/' + this.props.sessionRes._id;
-        console.log(url);
+
         axios.put(url, {
             "title": this.props.sessionRes.title,
             "class": this.props.sessionRes.class,
@@ -64,6 +65,7 @@ class ConfirmReservation extends Component {
             .catch(function (error) {
                 console.log(error)
             });
+
 
         // this.setState({
         //     setOpen: true,
@@ -117,7 +119,7 @@ class ConfirmReservation extends Component {
                                     <Grid item>
                                         <Typography variant="subtitle1">First Name *</Typography>
                                         <TextField
-                                            required
+                                            required={true}
                                             variant="outlined"
                                             id="standard-required"
                                             type="text"
@@ -129,7 +131,7 @@ class ConfirmReservation extends Component {
                                     <Grid item>
                                         <Typography variant="subtitle1">Last Name *</Typography>
                                         <TextField
-                                            required
+                                            required={true}
                                             variant="outlined"
                                             id="standard-required"
                                             type="text"
@@ -149,7 +151,7 @@ class ConfirmReservation extends Component {
                                     <Grid item>
                                         <Typography variant="subtitle1">Preferred Email *</Typography>
                                         <TextField
-                                            required
+                                            required={true}
                                             variant="outlined"
                                             id="standard-required"
                                             type="text"
@@ -168,7 +170,7 @@ class ConfirmReservation extends Component {
                                     <Grid item>
                                         <Typography variant="subtitle1">Phone Number *</Typography>
                                         <TextField
-                                            required
+                                            required={true}
                                             variant="outlined"
                                             id="standard-required"
                                             type="text"
