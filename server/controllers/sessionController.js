@@ -1,10 +1,12 @@
 var mongoose = require('mongoose'), 
     Session = require('../models/SessionSchema');
 
+//Function to create a new session in the database using the SessionSchema 
 exports.create = function(req, res) {
-    console.log(req.body);
+    //Uses information provided in http request body to create new session
     var session = new Session(req.body);
     session.save(function(err) {
+      //If error while saving to database print error message and send 400
       if(err) {
         console.log(err);
         res.status(400).send(err);
@@ -13,12 +15,14 @@ exports.create = function(req, res) {
         console.log(session)
       }
     });
-  };
+};
 
+//Function to read a session
 exports.read = function(req, res) {
     res.json(req.session);
 };
 
+//Function to list all of the available sessions in the database
 exports.list = function(req, res) {
     Session.find()
     .then(sessions => {
@@ -30,14 +34,18 @@ exports.list = function(req, res) {
     });
 };
 
+//Function to update a session in the database
 exports.update = (req, res) => {
+    //Finds session with unique ID
     Session.findById(req.params.sessionId).then(session => {
         if(!session) {
+            //Session with particular unique ID not found
             return res.status(404).send({
                 message: "Session not found with id " + req.params.sessionId
             });
         }
         else{
+            //update all values of particular session
             if(req.body.students!=null){
                 session.students.push(req.body.students);
             }
@@ -49,6 +57,7 @@ exports.update = (req, res) => {
             session.location = req.body.location;
             session.tutor = req.body.tutor;
             session.notes = req.body.notes;
+            //Save updated session back to database
             session.save(function(err) {
                 if(err) {
                 console.log(err);
@@ -70,7 +79,9 @@ exports.update = (req, res) => {
     });
 };
 
+//Function to delete a session from the database
 exports.delete = (req, res) => {
+    //Find session by unique ID and remove from database
     Session.findByIdAndRemove(req.params.sessionId)
     .then(session => {
         if(!session) {
@@ -89,8 +100,10 @@ exports.delete = (req, res) => {
             message: "Could not delete session with id " + req.params.sessionId
         });
     });
-  };
-  exports.sessionByID = function(req, res, next, id) {
+};
+
+//Find a session by ID
+exports.sessionByID = function(req, res, next, id) {
     Session.findById(id).exec(function(err, session) {
       if(err) {
         res.status(400).send(err);
@@ -99,5 +112,5 @@ exports.delete = (req, res) => {
         next();
       }
     });
-  };
+};
   

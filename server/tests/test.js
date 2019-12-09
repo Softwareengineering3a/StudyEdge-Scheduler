@@ -15,7 +15,7 @@ mySession =  {
     tutor : "Miranda Overstreet",
     location : "CSE352",
     slots : 420,
-    notes : "This class sucks",
+    notes : "Bring a laptop",
     title : "Testing",
     students : ["Jessy", "James", "Carly", "Carl"]
 }
