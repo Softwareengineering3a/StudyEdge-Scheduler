@@ -15,6 +15,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
+import TextField from '@material-ui/core/TextField';
+
+
+
 
 class DetailedSessionView extends Component {
     constructor(props) {
@@ -35,6 +39,8 @@ class DetailedSessionView extends Component {
             slots: this.props.session.slots,
             notes: this.props.session.notes,
             tutor: this.props.session.tutor,
+            note: "",
+            setOpen2: false,
         };
         this.displayReservation = this.displayReservation.bind(this);
         this.disableReservation = this.disableReservation.bind(this);
@@ -43,7 +49,16 @@ class DetailedSessionView extends Component {
         this.enableStudents = this.enableStudents.bind(this);
         this.disableStudents = this.disableStudents.bind(this);
     }
+    handleInputChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
 
+        this.setState({
+            [name]: value
+        });
+        console.log(name, value);
+    }
     displayReservation = () => {
         this.setState({
             showRes: true,
@@ -74,11 +89,20 @@ class DetailedSessionView extends Component {
             viewstudents: false,
         });
     }
+
+    handleNote = () => {
+        this.setState({
+            setOpen2: true,
+        })
+        console.log(this.state.setOpen2)
+    }
+
     handleNotify = () => {
         this.state.session.students.map(element => {
             axios.post(`/students`, {
                 email: element[3],
                 session: this.state.session,
+                note: this.state.note,
             }).then(function (response) {
                 console.log(response)
             })
@@ -89,6 +113,9 @@ class DetailedSessionView extends Component {
         this.setState({
             setOpen: true,
         });
+        this.setState({
+            setOpen2: false,
+        })
     }
 
     handleClickClose = () => {
@@ -97,6 +124,9 @@ class DetailedSessionView extends Component {
         });
     }
 
+    
+
+    
     render() {
         let mySessions = this.props.session;
 
@@ -239,7 +269,7 @@ class DetailedSessionView extends Component {
                                         </Grid>
 
                                         <Grid item>
-                                            <Button variant="contained" size="large" color="primary" endIcon={<Icon>send</Icon>} onClick={this.handleNotify}>
+                                            <Button variant="contained" size="large" color="primary" endIcon={<Icon>send</Icon>} onClick={this.handleNote}>
                                                 Notify
                                         </Button>
                                         </Grid>
@@ -280,6 +310,33 @@ class DetailedSessionView extends Component {
                     <DialogActions>
                         <Button onClick={this.handleClickClose} color="primary">Ok</Button>
                     </DialogActions>
+                </Dialog>
+                <Dialog
+                    open = {this.state.setOpen2}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <form 
+                        autoComplete="off"
+                    >
+                       <Grid item>
+                            <DialogTitle id="alert-dialog-title">{"Notification"}</DialogTitle>
+                                <TextField
+                                    variant="outlined"
+                                    id="standard-required"
+                                    type="text"
+                                    name="note"
+                                    value={this.state.note}
+                                    onChange={this.handleInputChange}               
+                                />
+                        </Grid>
+                        <DialogActions>
+                            <Button  color="primary" onClick={this.handleNotify}>
+                                Send
+                            </Button>
+                        </DialogActions>
+         
+                    </form>
                 </Dialog>
 
             </Grid>

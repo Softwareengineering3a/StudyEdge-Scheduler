@@ -21,12 +21,13 @@ let transport = nodemailer.createTransport({
 eRoute.post('/', (req, res, next) => {
   var email = req.body.email;
   var session = req.body.session;
-  var txt = `Your Study expert sent your a reminder about your Study Edge reservation that is coming up on ${DateTime.fromISO(session.date).toFormat('ff')} for ${session.class}.`
+  var note = req.body.note
+  var txt = `Hello Study Edge member!\n\nYour Study Expert sent you a notification about your Study Edge reservation that is coming up on ${DateTime.fromISO(session.date).toFormat('ff')} for ${session.class}.\n\nNotification: ${note}`
 
   const message = {
     from: 'studyedgescheduler@gmail.com',
     to: email,
-    subject: 'You have an upcoming study session!', // Subject line
+    subject: 'Upcoming Study Session Notification', // Subject line
     //text: 'Your Study expert sent your a reminder about your Study Edge reservation that is coming up' // Plain text body
     text: txt
   };
