@@ -17,6 +17,7 @@ import axios from 'axios';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -64,9 +65,9 @@ class ViewStudents extends Component {
     }
 
     handleClickClose = () => {
-        window.location.reload(false);
+       
         this.setState({
-            setOpen: false
+            openDia: false
         });
     }
 
@@ -88,6 +89,7 @@ class ViewStudents extends Component {
                 component="nav"
                 aria-labelledby="nested-list-subheader"
                 key={index}
+               
             >
                  <Dialog
                     open={this.state.openDia}
@@ -104,8 +106,8 @@ class ViewStudents extends Component {
 
                 <ListItem button onClick = {this.handleOpen} >
                   
-                    <ListItemText>{element[1]} {element[2]} </ListItemText>
-                    {!this.setOpen ? <ExpandLess /> : <ExpandMore />}
+                    <ListItemText ><Typography variant = "h6">{element[1]} {element[2]}</Typography> </ListItemText>
+                    {/* {!this.setOpen ? <ExpandLess /> : <ExpandMore />} */}
                     <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="delete"  onClick={this.handleClickOpen}>
                       <DeleteIcon />
@@ -114,31 +116,31 @@ class ViewStudents extends Component {
                 </ListItem>
                 {console.log(this.setOpen)}
                 <Collapse in={!this.setOpen} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
+                    <List component="div" >
                         <ListItem>
-                            <ListItemText>UF Email: {element[0]}</ListItemText>
+                            <ListItemText >UF Email: {element[0]}</ListItemText>
                         </ListItem>
-
+                        <Divider variant="inset" component="li" />
                         <ListItem>
                             <ListItemText>Preferred Email: {element[3]}</ListItemText>
                         </ListItem>
-
+                        <Divider variant="inset" component="li" />
                         <ListItem>
                             <ListItemText>Phone Number: {element[4]}</ListItemText>
                         </ListItem>
-
+                        <Divider variant="inset" component="li" />
                         <ListItem>
                             <ListItemText>Notes: {element[5]}</ListItemText>
                         </ListItem>
-
+                        <Divider variant="inset" component="li" />
                     </List>
                 </Collapse>
 
             </List>
-        )
+        ).sort()
 
         return (
-            <Grid style={{ height: "100%", width: 425, maxHeight: 600    }}>
+            <Grid style={{ height: "100%", width: 425,   }}>
                 <Grid item>
                     <Grid container
                         direction="row"
@@ -157,6 +159,7 @@ class ViewStudents extends Component {
                         </Grid>
                     </Grid>
                     <Grid item
+                        style = {{maxHeight: 615, overflow: 'auto'}}
                     >
                         {students}
                     </Grid>
