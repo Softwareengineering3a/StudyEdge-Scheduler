@@ -65,9 +65,9 @@ class ViewStudents extends Component {
     }
 
     handleClickClose = () => {
-        window.location.reload(false);
+       
         this.setState({
-            setOpen: false
+            openDia: false
         });
     }
 
@@ -106,7 +106,7 @@ class ViewStudents extends Component {
 
                 <ListItem button onClick = {this.handleOpen} >
                   
-                    <ListItemText>{element[1]} {element[2]} </ListItemText>
+                    <ListItemText ><Typography variant = "h6">{element[1]} {element[2]}</Typography> </ListItemText>
                     {/* {!this.setOpen ? <ExpandLess /> : <ExpandMore />} */}
                     <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="delete"  onClick={this.handleClickOpen}>
@@ -118,7 +118,7 @@ class ViewStudents extends Component {
                 <Collapse in={!this.setOpen} timeout="auto" unmountOnExit>
                     <List component="div" >
                         <ListItem>
-                            <ListItemText>UF Email: {element[0]}</ListItemText>
+                            <ListItemText >UF Email: {element[0]}</ListItemText>
                         </ListItem>
                         <Divider variant="inset" component="li" />
                         <ListItem>
@@ -137,10 +137,10 @@ class ViewStudents extends Component {
                 </Collapse>
 
             </List>
-        )
+        ).sort()
 
         return (
-            <Grid style={{ height: "100%", width: 425, maxHeight: 615, overflow: 'auto'   }}>
+            <Grid style={{ height: "100%", width: 425,   }}>
                 <Grid item>
                     <Grid container
                         direction="row"
@@ -159,7 +159,7 @@ class ViewStudents extends Component {
                         </Grid>
                     </Grid>
                     <Grid item
-                     
+                        style = {{maxHeight: 615, overflow: 'auto'}}
                     >
                         {students}
                     </Grid>
