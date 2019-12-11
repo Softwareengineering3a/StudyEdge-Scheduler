@@ -1,3 +1,24 @@
+### Deployed page
+https://studyedge-scheduler.herokuapp.com/
+
+### Running locally or on Heroku
+Locally - From the root file, run 'npm run-script dev'
+Heroku - Should work from the link. /Admin takes you to the admin page. /login/<UFemail> takes you to the student page with your UF email.
+
+### Features implemented
+Functional UI designed following Material Design principles
+Backend side CRUD module implemented
+Frontend connects to backend to perform HTTP requests such as get, post, put, and delete using Axios
+Admin can create, edit, or delete sessions
+Admin can remove students 
+Admins can notify students through email
+Students can reserve a session
+Admin authentication uses Passport
+Calendar becomes unclickable for days without sessions
+Students can filter the available sessions by filtering by course and date
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 This project contains an example project board meant to showcase how one can be used. The issues posted to it are not real issues.
 
@@ -69,13 +90,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
-### Deployed page
-https://studyedge-scheduler.herokuapp.com/
 
-### Running locally or on Heroku
-Locally - From the root file, run 'npm run-script dev'
-Heroku - Should work from the link. /Admin takes you to the admin page. /login/<UFemail> takes you to the student page with your UF email.
-
-### Features implemented
-
-### How to update database and server connections
