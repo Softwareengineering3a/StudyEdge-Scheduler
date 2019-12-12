@@ -17,6 +17,13 @@ Admin authentication uses Passport
 Calendar becomes unclickable for days without sessions
 Students can filter the available sessions by filtering by course and date
 
+### Known Issues
+Currently there are no masks for user input when entering email, and phone number.
+
+### Features to be implemented
+User "My sessions" panel
+
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
