@@ -50,7 +50,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "should": "^13.2.3",
     "supertest": "^4.0.2",
-    "validator": "^12.1.0"
+    "validator": "^13.7.0"
   },
   "homepage": "https://github.com/UFWebApps/React_Template_Repo#readme"
 }
