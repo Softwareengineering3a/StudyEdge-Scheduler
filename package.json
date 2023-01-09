@@ -37,7 +37,7 @@
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
-    "luxon": "^1.21.3",
+    "luxon": "^1.28.1",
     "mocha": "^6.2.1",
     "mongodb": "^3.3.5",
     "mongoose": "^5.7.14",
